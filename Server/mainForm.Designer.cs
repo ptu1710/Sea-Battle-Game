@@ -69,6 +69,7 @@
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "M";
+            this.Shown += new System.EventHandler(this.mainForm_Shown);
             this.ResumeLayout(false);
 
         }

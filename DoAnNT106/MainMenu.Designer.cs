@@ -35,7 +35,7 @@
             // 
             // playBtn
             // 
-            this.playBtn.BackgroundImage = global::Battleships.Properties.Resources.button1;
+            this.playBtn.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.playBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.playBtn.FlatAppearance.BorderSize = 0;
             this.playBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -50,7 +50,7 @@
             // 
             // howtoBtn
             // 
-            this.howtoBtn.BackgroundImage = global::Battleships.Properties.Resources.button1;
+            this.howtoBtn.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.howtoBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.howtoBtn.FlatAppearance.BorderSize = 0;
             this.howtoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -65,7 +65,7 @@
             // 
             // quitBtn
             // 
-            this.quitBtn.BackgroundImage = global::Battleships.Properties.Resources.button1;
+            this.quitBtn.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.quitBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.quitBtn.FlatAppearance.BorderSize = 0;
             this.quitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;

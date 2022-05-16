@@ -4,15 +4,26 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Server
+namespace Battleships
 {
     public partial class mainForm : Form
     {
         ModifyDB modify = new ModifyDB();
+
+        readonly Network network = new Network();
+
+        private bool isRunning = false;
+        
+        private bool isManualSetting = false;
+
+        private Thread listenThread;
 
         public mainForm()
         {
@@ -21,33 +32,50 @@ namespace Server
 
         private void exitBtn_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            _iPAddress = IPAddress.Parse(ipTBox.Text);
-            if (isRunning)
+            if (network._iPAddress == null)
             {
-                isRunning = false;
-
-                logListView.Items.Add("Stop listening!");
-                startBtn.Text = "START";
-
-                tcpListener.Stop();
-
-                listenThread.Abort();
-                listenThread = null;
+                MessageBox.Show("You are not connected to the Internet!");
+                return;
             }
-            else
+
+            if (!isRunning)
             {
                 isRunning = true;
-                
-                listenThread = new Thread(Listen);
+
+                network.isListening = true;
+
+                listenThread = new Thread(network.Listen);
                 listenThread.Start();
 
-                logListView.Items.Add("Start listening...");
-                startBtn.Text = "STOP";
+                MessageBox.Show("Start Listening");
+                startBtn.Enabled = false;
+            }
+        }
+
+        private void mainForm_Shown(object sender, EventArgs e)
+        {
+            if (isManualSetting)
+            {
+                network._iPAddress = IPAddress.Parse("");
+                return;
+            }
+
+            string ip = Network.GetIPAddress(NetworkInterfaceType.Wireless80211);
+
+            if (!string.IsNullOrEmpty(ip))
+            {
+                // is Wifi
+                network._iPAddress = IPAddress.Parse(ip); 
+            }
+            else if (!string.IsNullOrEmpty(ip = Network.GetIPAddress(NetworkInterfaceType.Ethernet)))
+            {
+                // is Ethernet
+                network._iPAddress = IPAddress.Parse(ip);
             }
         }
     }

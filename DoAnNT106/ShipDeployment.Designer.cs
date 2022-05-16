@@ -153,7 +153,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::Battleships.Properties.Resources.button1;
+            this.button3.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button3.Location = new System.Drawing.Point(146, 32);
             this.button3.Name = "button3";

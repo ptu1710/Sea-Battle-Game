@@ -9,8 +9,8 @@ namespace Battleships
 {
     public static class GraphicContext
     {
-        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources._0);
-        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources._4);
+        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources.bg);
+        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.bg);
 
         public static readonly Image[] shipImg = new Image[5]
         {
