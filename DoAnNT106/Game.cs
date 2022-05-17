@@ -13,22 +13,19 @@ namespace Battleships
         // [true] player1's move / [false] player2's move.
         public static bool isMyTurn;
 
-        // Round count.
-        public static int roundCount;
-
         // Player information.
-        public static Player player1;
-        public static Player player2;
+        public static Player me;
 
-        public static int cellSize = 40;
+        public static Player player;
+
         public static int mapSize = 10;
 
+        public static Network _ME;
 
         // Inicalize the game.
         static public void Initialize()
         {
             isMyTurn = true;
-            roundCount = 1;
         }
 
         // Method returns whether a cell can contain a ship.
@@ -43,12 +40,12 @@ namespace Battleships
 
             if (isHorizontal)
             {
-                if (cellX + Game.shipLengths[currentShip] - 1 <= 9)
+                if (cellX + shipLengths[currentShip] - 1 < mapSize)
                 {
                     // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(9, cellX + Game.shipLengths[currentShip]); i++)
+                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize, cellX + shipLengths[currentShip]); i++)
                     {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(9, cellY + 1); j++)
+                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize, cellY + 1); j++)
                         {
                             if (shipSet[i, j] != -1)
                             {
@@ -70,114 +67,17 @@ namespace Battleships
             else
             {
                 // Vertical validation.
-                if (cellY + Game.shipLengths[currentShip] - 1 <= 9)
+                if (cellY + shipLengths[currentShip] - 1 < mapSize)
                 {
                     // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(9, cellX + 1); i++)
+                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize, cellX + 1); i++)
                     {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(9, cellY + Game.shipLengths[currentShip]); j++)
+                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize, cellY + shipLengths[currentShip]); j++)
                         {
                             if (shipSet[i, j] != -1)
                             {
                                 // Invalid layout found.
                                 return false;
-                            }
-                        }
-                    }
-
-                    // Invalid layout not found.
-                    return true;
-                }
-                else
-                {
-                    // Out of the bounds of the grid.
-                    return false;
-                }
-            }
-        }
-
-        // Method returns whether a cell can contain a ship.
-        // Second implementation is dedicated for AI logic.
-        static public bool CanThereBeShip(int currentShip, int cellX, int cellY, bool isHorizontal, Player player)
-        {
-            // Is the index of the most upper-left cell within the bounds.
-            if (cellX < 0 || cellY < 0)
-            {
-                return false;
-            }
-
-            if (isHorizontal)
-            {
-                if (cellX + Game.shipLengths[currentShip] - 1 <= 9)
-                {
-                    // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(9, cellX + Game.shipLengths[currentShip]); i++)
-                    {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(9, cellY + 1); j++)
-                        {
-                            // Ship position cells.
-                            if (i >= cellX && i < cellX + shipLengths[currentShip] && j == cellY)
-                            {
-                                // If the cell is revealed and there is water or a sunken ship.
-                                if ((player.RevealedCells[i, j] && player.ShipSet[i, j] == -1) ||
-                                    (player.ShipSet[i, j] != -1 && player.ShipLeftCells[player.ShipSet[i, j]] == 0))
-                                {
-                                    // Invalid layout found.
-                                    return false;
-                                }
-                            }
-                            // Neighbouring cells.
-                            else
-                            {
-                                // If there is a neighbouring revealed ship cell.
-                                if (player.RevealedCells[i, j] && player.ShipSet[i, j] != -1)
-                                {
-                                    // Invalid layout found.
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-
-                    // Invalid layout not found.
-                    return true;
-                }
-                else
-                {
-                    // Out of the bounds of the grid.
-                    return false;
-                }
-            }
-            else
-            {
-                // Vertical validation.
-                if (cellY + Game.shipLengths[currentShip] - 1 <= 9)
-                {
-                    // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(9, cellX + 1); i++)
-                    {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(9, cellY + Game.shipLengths[currentShip]); j++)
-                        {
-                            // Ship position cells.
-                            if (j >= cellY && j < cellY + shipLengths[currentShip] && i == cellX)
-                            {
-                                // If the cell is revealed and there is water or a sunken ship.
-                                if (player.RevealedCells[i, j] && (player.ShipSet[i, j] == -1) || (player.ShipSet[i, j] != -1 && player.ShipLeftCells[player.ShipSet[i, j]] == 0))
-                                {
-                                    // Invalid layout found.
-                                    return false;
-                                }
-
-                            }
-                            // Neighbouring cells.
-                            else
-                            {
-                                // If there is a neighbouring revealed ship cell.
-                                if (player.RevealedCells[i, j] && player.ShipSet[i, j] != -1)
-                                {
-                                    // Invalid layout found.
-                                    return false;
-                                }
                             }
                         }
                     }
@@ -208,21 +108,6 @@ namespace Battleships
                 for (int i = 0; i < shipLengths[currentShip]; i++)
                 {
                     shipSet[cellX, cellY + i] = currentShip;
-                }
-            }
-        }
-
-        // Delete a ship from a ship set, dedicated for the deployment for delete ship functionality.
-        static public void DeleteShip(int currentShip, int[,] shipSet)
-        {
-            for (int x = 0; x < 10; x++)
-            {
-                for (int y = 0; y < 10; y++)
-                {
-                    if (shipSet[x, y] == currentShip)
-                    {
-                        shipSet[x, y] = -1;
-                    }
                 }
             }
         }
@@ -271,9 +156,9 @@ namespace Battleships
                     int extraRevealedCells = 0;
 
                     // Reveal neighbouring cells of the sunken ship.
-                    for (int x = 0; x < 10; x++)
+                    for (int x = 0; x < mapSize; x++)
                     {
-                        for (int y = 0; y < 10; y++)
+                        for (int y = 0; y < mapSize; y++)
                         {
                             if (attacked.ShipSet[x, y] == attacked.ShipSet[cellX, cellY])
                             {
@@ -360,8 +245,6 @@ namespace Battleships
                         }
                     }
 
-
-
                     // Is the game over?
                     if (attacked.ShipsLeft == 0)
                     {
@@ -376,7 +259,6 @@ namespace Battleships
                 else
                 {
                     //There are some ship cells left in this ship, so that Game dont end
-
                     return false;
                 }
             }

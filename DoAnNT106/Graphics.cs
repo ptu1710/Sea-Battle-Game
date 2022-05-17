@@ -83,6 +83,12 @@ namespace Battleships
             e.Graphics.DrawImage(hitImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1);
         }
 
+        static public void DrawScope(int cellX, int cellY, PictureBox deckPictureBox)
+        {
+            Graphics g = deckPictureBox.CreateGraphics();
+            g.DrawImage(hitImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1, 33, 33);
+        }
+
         // PictureBox paint event handler for drawing a splash cell.
         static public void DrawSplashCell(int cellX, int cellY, PaintEventArgs e)
         {

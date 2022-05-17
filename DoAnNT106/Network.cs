@@ -16,30 +16,23 @@ namespace Battleships
 {
     public class Network
     {
-        private IPAddress _ip;
+        private IPAddress host = null;
 
-        private int _port;
+        private int port = 2006;
 
-        TcpClient tcpClient;
+        public TcpClient tcpClient = null;
 
-        StreamWriter sw;
+        StreamWriter sw = null;
 
-        loginForm loginForm;
+        loginForm loginForm = null;
 
-        // ComboBox.ObjectCollection ipCollection;
+        public static PlayForm playForm = null;
 
-        public Network()
-        {
-
-        }
-
-        public Network(loginForm login, string ip, int port)
+        public Network(loginForm login, string ip, int _port)
         {
             this.loginForm = login;
-            this._ip = IPAddress.Parse(ip);
-            this._port = port;
-
-            Connect();
+            this.host = IPAddress.Parse(ip);
+            this.port = _port;
         }
 
         public bool Connect()
@@ -47,11 +40,11 @@ namespace Battleships
             try
             {
                 tcpClient = new TcpClient();
-                tcpClient.Connect(new IPEndPoint(_ip, _port));
+                tcpClient.Connect(new IPEndPoint(host, port));
                 sw = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
 
-                Thread listenThread = new Thread(listen);
-                listenThread.Start();
+                Thread listen = new Thread(Run);
+                listen.Start();
 
                 return true;
             }
@@ -61,30 +54,7 @@ namespace Battleships
             }
         }
 
-        public void CreateMsg()
-        {
-
-        }
-
-        public void SendMsg(int code, string user = "", string pass = "", string email = "")
-        {
-            string formatedMsg = $"{code}|{user}|{pass}";
-
-            if (sw != null)
-            {
-                sw.WriteLine(formatedMsg);
-            }
-        }
-
-        public void SendPlayerInfo(Player player)
-        {
-            SendMsg(1);
-
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(tcpClient.GetStream(), player.ShipSet);
-        }
-
-        private void listen()
+        private void Run()
         {
             StreamReader sr = new StreamReader(tcpClient.GetStream());
             try
@@ -93,7 +63,7 @@ namespace Battleships
                 {
                     string rawMsg = sr.ReadLine();
 
-                    getMsg(rawMsg);
+                    ReceiveMsg(rawMsg);
                 }
             }
             catch
@@ -103,7 +73,7 @@ namespace Battleships
             }
         }
 
-        private void getMsg(string rawMsg)
+        private void ReceiveMsg(string rawMsg)
         {
             try
             {
@@ -116,26 +86,62 @@ namespace Battleships
 
                 int code = int.Parse(msgPayload[0]);
 
+                string cName = msgPayload[1];
+
                 if (code == 0)
                 {
-                    // string msg = msgPayload[1];
-
-                    UpdateForm();
-
-                    /*MainMenu mainMenu = new MainMenu();
-                    mainMenu.Show();*/
-
-                    // Console.WriteLine(msg);
+                    loginForm.UpdateForm(cName);
                 }
                 else if (code == 1)
                 {
+                    
+                }
+                else if (code == 2)
+                {
+                    string user = msgPayload[1];
 
+                    var coor = msgPayload[2].Split(':');
+
+                    int x = int.Parse(coor[0]);
+                    int y = int.Parse(coor[1]);
+
+                    // int result = int.Parse(coor[2]);
+
+                    playForm.DrawAttacked(x, y);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("getMsg " + ex.Message);
             }
+        }
+
+        public void SendMsg(int code, string user = "", string pass = "", string email = "")
+        {
+            string formatedMsg = $"{code}|{user}|{pass}";
+
+            if (sw != null)
+            {
+                sw.WriteLine(formatedMsg);
+            }
+        }
+
+        public void SendMove(int code, string user, string coor)
+        {
+            string formatedMsg = $"{code}|{user}|{coor}";
+
+            if (sw != null)
+            {
+                sw.WriteLine(formatedMsg);
+            }
+        }
+
+        public void SendPlayerInfo(Player player)
+        {
+            SendMsg(1, Game.me.cName);
+
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(tcpClient.GetStream(), player.ShipSet);
         }
 
         // Get Local IPv4 with specify _type
@@ -158,25 +164,6 @@ namespace Battleships
             }
 
             return returnIP;
-        }
-
-
-        private delegate void SafeUpdateForm();
-
-        private void UpdateForm()
-        {
-            if (loginForm.InvokeRequired)
-            {
-                var d = new SafeUpdateForm(UpdateForm);
-                loginForm.Invoke(d, new object[] { });
-            }
-            else
-            {
-                loginForm.Hide();
-
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.Show();
-            }
         }
     }
 }

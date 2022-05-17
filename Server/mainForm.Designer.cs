@@ -30,6 +30,7 @@
         {
             this.startBtn = new System.Windows.Forms.Button();
             this.exitBtn = new System.Windows.Forms.Button();
+            this.logRTBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // startBtn
@@ -58,17 +59,31 @@
             this.exitBtn.UseVisualStyleBackColor = false;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
+            // logRTBox
+            // 
+            this.logRTBox.BackColor = System.Drawing.Color.MintCream;
+            this.logRTBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.logRTBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.logRTBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logRTBox.Location = new System.Drawing.Point(0, 76);
+            this.logRTBox.Name = "logRTBox";
+            this.logRTBox.ReadOnly = true;
+            this.logRTBox.Size = new System.Drawing.Size(250, 318);
+            this.logRTBox.TabIndex = 4;
+            this.logRTBox.Text = "";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(250, 90);
+            this.ClientSize = new System.Drawing.Size(250, 394);
+            this.Controls.Add(this.logRTBox);
             this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.startBtn);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "M";
+            this.Load += new System.EventHandler(this.mainForm_Load);
             this.Shown += new System.EventHandler(this.mainForm_Shown);
             this.ResumeLayout(false);
 
@@ -77,6 +92,7 @@
         #endregion
         private System.Windows.Forms.Button startBtn;
         private System.Windows.Forms.Button exitBtn;
+        private System.Windows.Forms.RichTextBox logRTBox;
     }
 }
 

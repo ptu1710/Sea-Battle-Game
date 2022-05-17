@@ -303,6 +303,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "loginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Shown += new System.EventHandler(this.loginForm_Shown);
             this.registerPanel.ResumeLayout(false);
             this.signinPanel.ResumeLayout(false);
             this.signinPanel.PerformLayout();

@@ -8,27 +8,22 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Battleships
 {
     public partial class loginForm : Form
     {
-        bool isRegister = false;
+        private Timer timer;
+        private ComboBox ipComboBox;
+        private TextBox portTextbox;
+        private Panel panel;
 
-        System.Windows.Forms.Timer timer;
+        private bool isRegister = false;
 
-        public static Network client/* = new Network("127.0.0.1", 2006)*/;
-
-        string ip = "10.0.31.184"  /*"127.0.0.1"*/;
+        string ip = "127.0.0.1";
 
         int port = 2006;
-
-        ComboBox ipComboBox;
-        TextBox portTextbox;
-        Panel panel;
 
         public loginForm()
         {
@@ -73,14 +68,14 @@ namespace Battleships
             signinPanel.Location = location;
         }
 
-        private System.Windows.Forms.Timer createTimer()
+        private Timer createTimer()
         {
             if (timer != null)
             {
                 disposeTimer();
             }
 
-            timer = new System.Windows.Forms.Timer();
+            timer = new Timer();
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = 1;
             return timer;
@@ -151,10 +146,14 @@ namespace Battleships
 
         private void signinBtn_Click(object sender, EventArgs e)
         {
-            // Send user and pass to Server
-
-            client = new Network(this, ip, port);
-            client.SendMsg(0, userTBox.Text, passTBox.Text);
+            // Do Sign In
+            if (Game._ME == null)
+            {
+                Game._ME = new Network(this, ip, port);
+                Game._ME.Connect();
+            }
+            
+            Game._ME.SendMsg(0, userTBox.Text, passTBox.Text);
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
@@ -228,68 +227,54 @@ namespace Battleships
                 Label label = new Label
                 {
                     AutoSize = true,
-                    Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                    Location = new System.Drawing.Point(50, 100),
+                    Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                    Location = new Point(50, 100),
                     Name = "label1",
-                    Size = new System.Drawing.Size(158, 23),
+                    Size = new Size(158, 23),
                     TabIndex = 0,
                     Text = "Server Address: "
                 };
 
                 ipComboBox = new ComboBox
                 {
-                    Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                    Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                     FormattingEnabled = true,
-                    Location = new System.Drawing.Point(50, 126),
+                    Location = new Point(50, 126),
                     Name = "comboBox1",
-                    Size = new System.Drawing.Size(300, 27),
+                    Size = new Size(300, 27),
                     TabIndex = 1
                 };
 
                 Label label1 = new Label
                 {
                     AutoSize = true,
-                    Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                    Location = new System.Drawing.Point(50, 163),
+                    Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                    Location = new Point(50, 163),
                     Name = "label2",
-                    Size = new System.Drawing.Size(59, 23),
+                    Size = new Size(59, 23),
                     TabIndex = 2,
                     Text = "Port: "
                 };
 
                 portTextbox = new TextBox
                 {
-                    Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                    Location = new System.Drawing.Point(50, 189),
+                    Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                    Location = new Point(50, 189),
                     Name = "textBox1",
                     Text = "2006",
-                    Size = new System.Drawing.Size(100, 27),
+                    Size = new Size(100, 27),
                     TabIndex = 3,
-                    TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+                    TextAlign = HorizontalAlignment.Center
                 };
 
                 Button button = new Button
                 {
-                    BackColor = System.Drawing.Color.Gray,
-                    FlatStyle = System.Windows.Forms.FlatStyle.Flat,
-                    Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                    Location = new System.Drawing.Point(250, 179),
-                    Name = "button2",
-                    Size = new System.Drawing.Size(100, 37),
-                    TabIndex = 4,
-                    Text = "Scan",
-                    UseVisualStyleBackColor = false
-                };
-                button.Click += new System.EventHandler(scanBtn_Click);
-
-                Button button1 = new Button
-                {
-                    BackColor = System.Drawing.Color.SpringGreen,
-                    FlatStyle = System.Windows.Forms.FlatStyle.Flat,
-                    Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                    Location = new System.Drawing.Point(150, 286),
+                    BackColor = Color.SpringGreen,
+                    FlatStyle = FlatStyle.Flat,
+                    Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                    Location = new Point(150, 286),
                     Name = "button3",
-                    Size = new System.Drawing.Size(100, 50),
+                    Size = new Size(100, 50),
                     TabIndex = 5,
                     Text = "SAVE",
                     UseVisualStyleBackColor = false
@@ -302,7 +287,6 @@ namespace Battleships
                 panel.Controls.Add(label1);
                 panel.Controls.Add(portTextbox);
                 panel.Controls.Add(button);
-                panel.Controls.Add(button1);
 
                 Controls.Add(panel);
                 panel.BringToFront();
@@ -329,74 +313,38 @@ namespace Battleships
             }
         }
 
-        private void scanBtn_Click(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            ipComboBox.Items.Clear();
-
-            string ipBase = string.IsNullOrEmpty(ipComboBox.Text) ? "172.17." : ipComboBox.Text;
-            Thread scanIP = new Thread(() => scanHost(ipBase));
-            scanIP.Start();
-        }
-
-        private void scanHost(string ipBase)
-        {
-            Stopwatch sw = new Stopwatch();
-
-            sw.Start();
-
-            for (int i = 1; i < 254; i++)
-            {
-                string ipBase1 = ipBase + i.ToString() + ".";
-
-                for (int j = 1; j < 254; j++)
-                {
-                    string ip = ipBase1 + j.ToString();
-
-                    Ping p = new Ping();
-
-                    p.PingCompleted += new PingCompletedEventHandler(p_PingCompleted);
-                    p.SendAsync(ip, 10, ip);
-                }
-            }
-
-            Console.WriteLine("Done");
-        }
-
-        private void p_PingCompleted(object sender, PingCompletedEventArgs e)
-        {
-            string ip = e.UserState.ToString();
-
-            if (e.Reply != null && e.Reply.Status == IPStatus.Success)
-            {
-
-                try
-                {
-                    string name = Dns.GetHostEntry(ip).HostName;
-
-                    if (name.Contains(".local"))
-                    {
-                        name = name.Replace(".local", "");
-                    }
-                    Console.WriteLine($"{name}: {ip}");
-                    UpdateComboBox($"{name}: {ip}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return;
-                }
-            }
-        }
-
         private void saveBtn_Click(object sender, EventArgs e)
         {
             panel.SendToBack();
             panel.Visible = false;
 
-            string hostName = ipComboBox.Text;
-            ip = hostName.Substring(hostName.LastIndexOf(": ") + 2);
-            int.TryParse(portTextbox.Text, out port);
+            ip = ipComboBox.Text;
+            port = int.Parse(portTextbox.Text);
+        }
+
+        private delegate void SafeUpdateForm(string cName);
+
+        public void UpdateForm(string cName)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new SafeUpdateForm(UpdateForm);
+                this.Invoke(d, new object[] { cName });
+            }
+            else
+            {
+                this.Hide();
+
+                MainMenu mainMenu = new MainMenu(cName);
+                mainMenu.Show();
+
+
+            }
+        }
+
+        private void loginForm_Shown(object sender, EventArgs e)
+        {
+            signinBtn_Click(sender, e);
         }
     }
 }

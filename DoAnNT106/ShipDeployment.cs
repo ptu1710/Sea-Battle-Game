@@ -12,37 +12,21 @@ namespace Battleships
 {
     public partial class ShipDeployment : Form
     {
-        int mouseCellX;
-        int mouseCellY;
-        int currentShip;
-        bool isHorizontal;
+        private int mouseCellX = -1;
+        private int mouseCellY = -1;
+        private int currentShip = -1;
+        private bool isHorizontal = true;
         public bool[] shipDeployed = new bool[5];
-
-        Player player;
 
         public ShipDeployment()
         {
             InitializeComponent();
             CenterToParent();
-
-            mouseCellX = -1;
-            mouseCellY = -1;
-            currentShip = -1;
-            isHorizontal = true;
-
-            if (Game.isMyTurn)
-            {
-                player = Game.player1;
-            }
-            else
-            {
-                player = Game.player2;
-            }
         }
 
         private void deckPictureBox_Paint(object sender, PaintEventArgs e)
         {
-            GraphicContext.DrawShipSet(player, e);
+            GraphicContext.DrawShipSet(Game.me, e);
         }
 
         private void deckPictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -108,7 +92,7 @@ namespace Battleships
         {
             if (currentShip != -1 && mouseCellX != -1 && mouseCellY != -1)
             {
-                if (Game.CanThereBeShip(currentShip, mouseCellX, mouseCellY, isHorizontal, player.ShipSet))
+                if (Game.CanThereBeShip(currentShip, mouseCellX, mouseCellY, isHorizontal, Game.me.ShipSet))
                 {
                     shipDeployed[currentShip] = true;
 
@@ -149,9 +133,9 @@ namespace Battleships
                     //
                     Ship ship = new Ship(mouseCellX, mouseCellY, currentShip, isHorizontal);
 
-                    player.ShipSetImg.Add(ship);
+                    Game.me.ShipSetImg.Add(ship);
 
-                    Game.DeployShip(currentShip, mouseCellX, mouseCellY, isHorizontal, player.ShipSet);
+                    Game.DeployShip(currentShip, mouseCellX, mouseCellY, isHorizontal, Game.me.ShipSet);
                     deckPictureBox.Refresh();
                     currentShip = -1;
 
@@ -173,7 +157,7 @@ namespace Battleships
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void rotateBtn_Click(object sender, EventArgs e)
         {
             isHorizontal = !isHorizontal;
         }
@@ -210,9 +194,9 @@ namespace Battleships
             myDeck.Text = "Me";
             myDeck.Show();
 
-            loginForm.client.SendPlayerInfo(player);
+            Game._ME.SendPlayerInfo(Game.me);
             
-            // this.Dispose();
+            this.Hide();
         }
     }
 }

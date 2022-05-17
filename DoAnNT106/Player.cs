@@ -8,6 +8,8 @@ namespace Battleships
     [Serializable]
     public class Player
     {
+        public string cName = string.Empty;
+
         // Locations of the players' ships.
         public int[,] ShipSet { get; set; }
 
@@ -25,7 +27,7 @@ namespace Battleships
         // Ships left count.
         public int ShipsLeft { get; set; }
 
-        public Player()
+        public Player(string cName)
         {
             ShipLeftCells = new int[] { 2, 3, 3, 4, 5 };
             ShipsLeft = 5;

@@ -16,32 +16,162 @@ namespace Battleships
     {
         ModifyDB modify = new ModifyDB();
 
-        TcpClient client;
+        private readonly int port = 2006;
 
-        private readonly int _port = 2006;
-
-        public IPAddress _iPAddress { get; set; }
+        public IPAddress IP { get; set; }
 
         private TcpListener tcpListener = null;
 
-        public bool isListening { get; set; }
+        public bool IsListening { get; set; }
+
+        mainForm mainForm = null;
 
         public Network()
         {
-            this._iPAddress = null;
+            this.IP = null;
         }
 
-        public Network(string ip)
+        public Network(mainForm form)
         {
-            this._iPAddress = IPAddress.Parse(ip);
+            this.mainForm = form;
         }
 
-        public Network(TcpClient tcpClient)
+        public void Run()
         {
-            this.client = tcpClient;
+            try
+            {
+                tcpListener = new TcpListener(new IPEndPoint(IP, port));
+                tcpListener.Start();
+
+                while (IsListening)
+                {
+                    TcpClient client = tcpListener.AcceptTcpClient();
+                    Thread clientThread = new Thread(() => Listen(client));
+                    clientThread.Start();
+                    mainForm.UpdateLog($"Accept from {client.Client.RemoteEndPoint}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Server - run(): {ex.Message}");
+            }
         }
 
-        // Get IPv4 in use
+        public void Listen(TcpClient client)
+        {
+            StreamReader sr = new StreamReader(client.GetStream());
+
+            //try
+            //{
+            while (IsListening && client.Connected)
+            {
+                string recvMsg = sr.ReadLine();
+
+                if (string.IsNullOrEmpty(recvMsg))
+                {
+                    continue;
+                }
+
+                string[] msgPayload = recvMsg.Split('|');
+
+                int code = int.Parse(msgPayload[0]);
+
+                if (code == 0)
+                {
+                    string user = msgPayload[1];
+                    string pass = msgPayload[2];
+
+                    string query = "SELECT * FROM Accounts WHERE TenTK='" + user + "' AND MK='" + pass + "'";
+
+                    if (modify.Accounts(query).Count > 0)
+                    {
+                        Game.currentUsers.Add(new Player(user), client);
+                        sendMsg(code, user, "success");
+                        mainForm.UpdateLog($"Signed in successfully: {user}/{pass}");
+                    }
+                    else
+                    {
+                        sendMsg(code, user, "failed");
+                        mainForm.UpdateLog($"Login failed: {user}/{pass} does not exist");
+                    }
+                }
+                else if (code == 1)
+                {
+                    string user = msgPayload[1];
+                    getPlayer(user);
+                    mainForm.UpdateLog($"Player {user} is ready");
+                }
+                else if (code == 2)
+                {
+                    string user = msgPayload[1];
+
+                    var coor = msgPayload[2].Split(':');
+
+                    int x = int.Parse(coor[0]);
+                    int y = int.Parse(coor[1]);
+
+                    if (mainForm.PerformAttack(x, y, user))
+                    {
+                        // Send Win/Lost
+                    }
+                    else
+                    {
+                        // Send acctack
+                        sendMsg(code, user, $"{x}:{y}:{0}");
+                        mainForm.UpdateLog($"Player {user} was attacked at {x}:{y}");
+                    }
+                }
+            }
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Error at: FromClient()");
+            //    client.Close();
+            //    sr.Close();
+            //}
+            sr.Close();
+        }
+
+        // Check 
+        private void sendMsg(int code, string user, string msg)
+        {
+            string formattedMsg = $"{code}|{user}|{msg}";
+
+            StreamWriter sw = null;
+
+            foreach (Player player in Game.currentUsers.Keys)
+            {
+                if (player.name == user)
+                {
+                    sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
+                }
+            }
+            
+            if (sw != null)
+            {
+                sw.WriteLine(formattedMsg);
+            }
+        }
+
+        private void getPlayer(string username)
+        {
+            foreach (Player player in Game.currentUsers.Keys)
+            {
+                if (player.name == username)
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    int[,] playerShipSet = (int[,])bf.Deserialize(Game.currentUsers[player].GetStream());
+
+                    player.setShipSet(playerShipSet);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get IPv4 in use
+        /// </summary>
+        /// <param name="_type"></param>
+        /// <returns></returns>
         public static string GetIPAddress(NetworkInterfaceType _type)
         {
             string returnIP = "";
@@ -63,102 +193,6 @@ namespace Battleships
             }
 
             return returnIP;
-        }
-
-        public void Listen()
-        {
-            try
-            {
-                tcpListener = new TcpListener(new IPEndPoint(_iPAddress, _port));
-                tcpListener.Start();
-
-                while (isListening)
-                {
-                    client = tcpListener.AcceptTcpClient();
-
-                    Thread clientThread = new Thread(() => FromClient());
-                    clientThread.Start();
-                }
-            }
-            catch (SocketException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public void FromClient()
-        {
-            StreamReader sr = new StreamReader(client.GetStream());
-            
-            /*try
-            {*/
-                while (isListening && client.Connected)
-                {
-                    string recvMsg = sr.ReadLine();
-
-                    if (string.IsNullOrEmpty(recvMsg))
-                    {
-                        continue;
-                    }
-
-                    string[] msgPayload = recvMsg.Split('|');
-
-                    int code = int.Parse(msgPayload[0]);
-
-                    if (code == 0)
-                    {
-                        string user = msgPayload[1];
-                        string pass = msgPayload[2];
-
-                        string query = "SELECT * FROM Accounts WHERE TenTK='" + user + "' AND MK='" + pass + "'";
-
-                        if (modify.Accounts(query).Count > 0)
-                        {
-                            mainForm.currentUsers.Add(new Player(user), client);
-                            sendMsg(code, "success");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Failed");
-                        }
-                    }
-                    else if (code == 1)
-                    {
-                        string user = msgPayload[1];
-                        getPlayer(user);
-                    }
-                }
-            //}
-            /*catch
-            {
-                Console.WriteLine("Error at: FromClient()");
-                client.Close();
-                sr.Close();
-            }*/
-            sr.Close();
-        }
-
-        private void sendMsg(int code, string msg)
-        {
-            string formattedMsg = $"{code}|{msg}";
-
-            StreamWriter sw = new StreamWriter(client.GetStream()) { AutoFlush = true };
-
-            sw.WriteLine(formattedMsg);
-        }
-
-        private void getPlayer(string username)
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            int[,] playerShipSet = (int[,])bf.Deserialize(client.GetStream());
-            
-            foreach (Player player in mainForm.currentUsers.Keys)
-            {
-                if (player.name == username)
-                {
-                    player.setShipSet(playerShipSet);
-                }
-            }
         }
     }
 }

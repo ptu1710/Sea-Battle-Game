@@ -18,11 +18,11 @@ namespace Battleships
             CenterToScreen();
         }
 
-        public MainMenu(string name)
+        public MainMenu(string cName)
         {
             InitializeComponent();
             CenterToScreen();
-            usernameLabel.Text = name;
+            usernameLabel.Text = cName;
         }
 
         private void howtoBtn_Click(object sender, EventArgs e)
@@ -33,9 +33,7 @@ namespace Battleships
         private void playBtn_Click(object sender, EventArgs e)
         {
             Game.Initialize();
-
-            Game.player1 = new Player();
-            Game.player2 = new Player();
+            Game.me = new Player(usernameLabel.Text);
 
             ShipDeployment DeployShip = new ShipDeployment();
             DeployShip.Location = this.Location;

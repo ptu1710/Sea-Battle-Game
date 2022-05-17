@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShipDeployment));
             this.deckPictureBox = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rotateBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -66,15 +66,15 @@
             this.deckPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.deckPictureBox_Paint);
             this.deckPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.deckPictureBox_MouseMove);
             // 
-            // button1
+            // rotateBtn
             // 
-            this.button1.Location = new System.Drawing.Point(40, 375);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 50);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Rotate";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.rotateBtn.Location = new System.Drawing.Point(40, 375);
+            this.rotateBtn.Name = "rotateBtn";
+            this.rotateBtn.Size = new System.Drawing.Size(100, 50);
+            this.rotateBtn.TabIndex = 3;
+            this.rotateBtn.Text = "Rotate";
+            this.rotateBtn.UseVisualStyleBackColor = true;
+            this.rotateBtn.Click += new System.EventHandler(this.rotateBtn_Click);
             // 
             // pictureBox1
             // 
@@ -173,7 +173,7 @@
             // button5
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button5.Location = new System.Drawing.Point(196, 159);
+            this.button5.Location = new System.Drawing.Point(196, 154);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(40, 40);
             this.button5.TabIndex = 13;
@@ -213,7 +213,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.rotateBtn);
             this.Controls.Add(this.deckPictureBox);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -232,7 +232,7 @@
 
         #endregion
         private System.Windows.Forms.PictureBox deckPictureBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button rotateBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
