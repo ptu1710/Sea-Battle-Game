@@ -20,11 +20,11 @@ namespace Battleships
 
         private bool isRunning = false;
         
-        private bool isManualSetting = true;
+        private bool isManualSetting = false;
 
         private Thread listenThread;
 
-        public static Dictionary<string, TcpClient> currentUsers = new Dictionary<string, TcpClient>();
+        public static Dictionary<Player, TcpClient> currentUsers = new Dictionary<Player, TcpClient>();
 
         public mainForm()
         {

@@ -20,9 +20,9 @@ namespace Battleships
 
         System.Windows.Forms.Timer timer;
 
-        Network client/* = new Network("127.0.0.1", 2006)*/;
+        public static Network client/* = new Network("127.0.0.1", 2006)*/;
 
-        string ip = /*"172.17.15.12"*/  "127.0.0.1";
+        string ip = "10.0.31.184"  /*"127.0.0.1"*/;
 
         int port = 2006;
 
@@ -397,11 +397,6 @@ namespace Battleships
             string hostName = ipComboBox.Text;
             ip = hostName.Substring(hostName.LastIndexOf(": ") + 2);
             int.TryParse(portTextbox.Text, out port);
-        }
-
-        private void loginForm_Paint(object sender, PaintEventArgs e)
-        {
-            //Console.WriteLine("Here");
         }
     }
 }

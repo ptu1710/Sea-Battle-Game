@@ -14,6 +14,11 @@ namespace Battleships
 
         public static readonly Image[] shipImg = new Image[5]
         {
+            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
+            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
+            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
+            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
+            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
             new Bitmap(Properties.Resources.Ship_3), // 
             new Bitmap(Properties.Resources.Ship_3),
             new Bitmap(Properties.Resources.Ship_3),
@@ -91,11 +96,11 @@ namespace Battleships
             g.DrawRectangle(framePen, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
         }
 
-        static public void DrawInnerFrameCell(Button btn, int i, int color, Graphics g)
+        static public void DrawInnerFrameCell(int cellX, int cellY, PictureBox deckPictureBox)
         {
-            Pen framePen = new Pen(colors[color], 3);
-            g.DrawRectangle(framePen, btn.Location.X + i * 40, btn.Location.Y, btn.Size.Width, btn.Size.Height);
-            g.FillRectangle(colors[color], btn.Location.X + i * 40, btn.Location.Y, btn.Size.Width, btn.Size.Height);
+            Graphics g = deckPictureBox.CreateGraphics();
+            Pen framePen = new Pen(Color.Red, 5);
+            g.DrawRectangle(framePen, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
         }
 
         static public void DrawOuterFrameCell(int cellX, int cellY, int color, Form form, PictureBox deckPictureBox)

@@ -31,6 +31,7 @@
             this.playBtn = new System.Windows.Forms.Button();
             this.howtoBtn = new System.Windows.Forms.Button();
             this.quitBtn = new System.Windows.Forms.Button();
+            this.usernameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // playBtn
@@ -77,19 +78,29 @@
             this.quitBtn.Text = "QUIT";
             this.quitBtn.UseVisualStyleBackColor = true;
             // 
-            // Login
+            // usernameLabel
+            // 
+            this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Location = new System.Drawing.Point(12, 422);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(0, 19);
+            this.usernameLabel.TabIndex = 3;
+            // 
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.quitBtn);
             this.Controls.Add(this.howtoBtn);
             this.Controls.Add(this.playBtn);
             this.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
-            this.Name = "Login";
+            this.Name = "MainMenu";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -98,6 +109,7 @@
         private System.Windows.Forms.Button playBtn;
         private System.Windows.Forms.Button howtoBtn;
         private System.Windows.Forms.Button quitBtn;
+        private System.Windows.Forms.Label usernameLabel;
     }
 }
 

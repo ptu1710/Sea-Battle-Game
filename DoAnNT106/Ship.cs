@@ -8,12 +8,13 @@ using System.Windows.Forms;
 
 namespace Battleships
 {
+    [Serializable]
     public class Ship
     {
         private int cellX;
         private int cellY;
 
-        private int Length;
+        public int Length;
 
         private bool isHorizontal;
 

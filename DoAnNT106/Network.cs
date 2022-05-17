@@ -22,8 +22,6 @@ namespace Battleships
 
         TcpClient tcpClient;
 
-        Socket socket;
-
         StreamWriter sw;
 
         loginForm loginForm;
@@ -68,7 +66,7 @@ namespace Battleships
 
         }
 
-        public void SendMsg(int code, string user, string pass = "", string email = "")
+        public void SendMsg(int code, string user = "", string pass = "", string email = "")
         {
             string formatedMsg = $"{code}|{user}|{pass}";
 
@@ -76,6 +74,14 @@ namespace Battleships
             {
                 sw.WriteLine(formatedMsg);
             }
+        }
+
+        public void SendPlayerInfo(Player player)
+        {
+            SendMsg(1);
+
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(tcpClient.GetStream(), player.ShipSet);
         }
 
         private void listen()
@@ -112,14 +118,18 @@ namespace Battleships
 
                 if (code == 0)
                 {
-                    string msg = msgPayload[1];
+                    // string msg = msgPayload[1];
 
                     UpdateForm();
 
                     /*MainMenu mainMenu = new MainMenu();
                     mainMenu.Show();*/
 
-                    Console.WriteLine(msg);
+                    // Console.WriteLine(msg);
+                }
+                else if (code == 1)
+                {
+
                 }
             }
             catch (Exception ex)

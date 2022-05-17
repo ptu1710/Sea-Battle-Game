@@ -205,10 +205,14 @@ namespace Battleships
 
         private void button2_Click(object sender, EventArgs e)
         {
-            PlayForm playGame = new PlayForm();
-            playGame.Location = this.Location;
-            playGame.Show();
-            this.Dispose();
+            PlayForm myDeck = new PlayForm(this.deckPictureBox);
+            myDeck.Location = this.Location;
+            myDeck.Text = "Me";
+            myDeck.Show();
+
+            loginForm.client.SendPlayerInfo(player);
+            
+            // this.Dispose();
         }
     }
 }

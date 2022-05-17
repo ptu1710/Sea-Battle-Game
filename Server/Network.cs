@@ -36,6 +36,11 @@ namespace Battleships
             this._iPAddress = IPAddress.Parse(ip);
         }
 
+        public Network(TcpClient tcpClient)
+        {
+            this.client = tcpClient;
+        }
+
         // Get IPv4 in use
         public static string GetIPAddress(NetworkInterfaceType _type)
         {
@@ -85,8 +90,8 @@ namespace Battleships
         {
             StreamReader sr = new StreamReader(client.GetStream());
             
-            try
-            {
+            /*try
+            {*/
                 while (isListening && client.Connected)
                 {
                     string recvMsg = sr.ReadLine();
@@ -109,8 +114,7 @@ namespace Battleships
 
                         if (modify.Accounts(query).Count > 0)
                         {
-                            Console.WriteLine("success");
-                            mainForm.currentUsers.Add(user, client);
+                            mainForm.currentUsers.Add(new Player(user), client);
                             sendMsg(code, "success");
                         }
                         else
@@ -118,13 +122,19 @@ namespace Battleships
                             Console.WriteLine("Failed");
                         }
                     }
+                    else if (code == 1)
+                    {
+                        string user = msgPayload[1];
+                        getPlayer(user);
+                    }
                 }
-            }
-            catch
+            //}
+            /*catch
             {
+                Console.WriteLine("Error at: FromClient()");
                 client.Close();
                 sr.Close();
-            }
+            }*/
             sr.Close();
         }
 
@@ -137,5 +147,18 @@ namespace Battleships
             sw.WriteLine(formattedMsg);
         }
 
+        private void getPlayer(string username)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            int[,] playerShipSet = (int[,])bf.Deserialize(client.GetStream());
+            
+            foreach (Player player in mainForm.currentUsers.Keys)
+            {
+                if (player.name == username)
+                {
+                    player.setShipSet(playerShipSet);
+                }
+            }
+        }
     }
 }
