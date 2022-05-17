@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,10 @@ namespace Battleships
 {
     public class Network
     {
+        ModifyDB modify = new ModifyDB();
+
+        TcpClient client;
+
         private readonly int _port = 2006;
 
         public IPAddress _iPAddress { get; set; }
@@ -26,6 +31,11 @@ namespace Battleships
             this._iPAddress = null;
         }
 
+        public Network(string ip)
+        {
+            this._iPAddress = IPAddress.Parse(ip);
+        }
+
         // Get IPv4 in use
         public static string GetIPAddress(NetworkInterfaceType _type)
         {
@@ -36,7 +46,6 @@ namespace Battleships
                 if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up
                     && (item.Name == "Ethernet" || item.Name == "Wi-Fi"))
                 {
-                    Console.WriteLine(item.Name);
                     foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
                     {
                         if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
@@ -60,9 +69,9 @@ namespace Battleships
 
                 while (isListening)
                 {
-                    TcpClient _client = tcpListener.AcceptTcpClient();
+                    client = tcpListener.AcceptTcpClient();
 
-                    Thread clientThread = new Thread(() => FromClient(_client));
+                    Thread clientThread = new Thread(() => FromClient());
                     clientThread.Start();
                 }
             }
@@ -72,13 +81,13 @@ namespace Battleships
             }
         }
 
-        public void FromClient(TcpClient tcpClient)
+        public void FromClient()
         {
-            StreamReader sr = new StreamReader(tcpClient.GetStream());
+            StreamReader sr = new StreamReader(client.GetStream());
             
             try
             {
-                while (isListening && tcpClient.Connected)
+                while (isListening && client.Connected)
                 {
                     string recvMsg = sr.ReadLine();
 
@@ -87,46 +96,46 @@ namespace Battleships
                         continue;
                     }
 
-                    Console.WriteLine(recvMsg);
+                    string[] msgPayload = recvMsg.Split('|');
 
-                    //string[] msgPayload = recvMsg.Split('|');
+                    int code = int.Parse(msgPayload[0]);
 
-                    //int code = int.Parse(msgPayload[0]);
-                    //string msg = msgPayload[1];
-                    //string username = msgPayload[2];
+                    if (code == 0)
+                    {
+                        string user = msgPayload[1];
+                        string pass = msgPayload[2];
 
-                    //if (code == 0 || code == 1)
-                    //{
-                    //    if (code != 1)
-                    //    {
-                    //        if (msg == "disconnect")
-                    //        {
-                    //            tcpClient.Close();
-                    //        }
-                    //        else
-                    //        {
-                               
-                    //        }
-                    //    }
-                    //}
-                    //else if (code == 2 || code == 3)
-                    //{
-                    //    string to = msgPayload[3];
+                        string query = "SELECT * FROM Accounts WHERE TenTK='" + user + "' AND MK='" + pass + "'";
 
-                    //    string log = code == 2 ? $"[{DateTime.Now:H:mm}] - {username} to {to}: {msg}" : $"[{DateTime.Now:H:mm}] - {username} send image {msg} to {to}";
-                    //}
-                    //else if (code == 4)
-                    //{
-
-                    //}
+                        if (modify.Accounts(query).Count > 0)
+                        {
+                            Console.WriteLine("success");
+                            mainForm.currentUsers.Add(user, client);
+                            sendMsg(code, "success");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed");
+                        }
+                    }
                 }
             }
             catch
             {
-                tcpClient.Close();
+                client.Close();
                 sr.Close();
             }
             sr.Close();
         }
+
+        private void sendMsg(int code, string msg)
+        {
+            string formattedMsg = $"{code}|{msg}";
+
+            StreamWriter sw = new StreamWriter(client.GetStream()) { AutoFlush = true };
+
+            sw.WriteLine(formattedMsg);
+        }
+
     }
 }

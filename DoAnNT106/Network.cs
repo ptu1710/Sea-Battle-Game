@@ -8,6 +8,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,28 +26,41 @@ namespace Battleships
 
         StreamWriter sw;
 
-        ComboBox.ObjectCollection ipCollection;
+        loginForm loginForm;
+
+        // ComboBox.ObjectCollection ipCollection;
 
         public Network()
         {
 
         }
 
-        public Network(string ip, int port)
+        public Network(loginForm login, string ip, int port)
         {
+            this.loginForm = login;
             this._ip = IPAddress.Parse(ip);
             this._port = port;
 
-            tcpClient = new TcpClient();
-            //tcpClient.Connect(new IPEndPoint(_ip, _port));
-            //sw = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            Connect();
         }
 
         public bool Connect()
         {
+            try
+            {
+                tcpClient = new TcpClient();
+                tcpClient.Connect(new IPEndPoint(_ip, _port));
+                sw = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
 
+                Thread listenThread = new Thread(listen);
+                listenThread.Start();
 
-            return true;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void CreateMsg()
@@ -54,9 +68,14 @@ namespace Battleships
 
         }
 
-        public void SendMsg(int code, string user, string pass, string email)
+        public void SendMsg(int code, string user, string pass = "", string email = "")
         {
+            string formatedMsg = $"{code}|{user}|{pass}";
 
+            if (sw != null)
+            {
+                sw.WriteLine(formatedMsg);
+            }
         }
 
         private void listen()
@@ -90,34 +109,17 @@ namespace Battleships
                 string[] msgPayload = rawMsg.Split('|');
 
                 int code = int.Parse(msgPayload[0]);
-                string msg = msgPayload[1];
-                string from = msgPayload[2];
 
                 if (code == 0)
                 {
-                    Console.WriteLine(rawMsg);
+                    string msg = msgPayload[1];
 
-                    if (msg == "existed")
-                    {
-                        tcpClient.Close();
-                        MessageBox.Show($"Username: has already existed, choose another one");
-                    }
-                    else if (msg == "disconnect")
-                    {
-                        // 
-                    }
-                }
-                else if (code == 1)
-                {
-                    
-                }
-                else if (code == 2 || code == 3)
-                {
-                    
-                }
-                else if (code == 4)
-                {
-                    
+                    UpdateForm();
+
+                    /*MainMenu mainMenu = new MainMenu();
+                    mainMenu.Show();*/
+
+                    Console.WriteLine(msg);
                 }
             }
             catch (Exception ex)
@@ -148,5 +150,23 @@ namespace Battleships
             return returnIP;
         }
 
+
+        private delegate void SafeUpdateForm();
+
+        private void UpdateForm()
+        {
+            if (loginForm.InvokeRequired)
+            {
+                var d = new SafeUpdateForm(UpdateForm);
+                loginForm.Invoke(d, new object[] { });
+            }
+            else
+            {
+                loginForm.Hide();
+
+                MainMenu mainMenu = new MainMenu();
+                mainMenu.Show();
+            }
+        }
     }
 }

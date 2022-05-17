@@ -20,10 +20,14 @@ namespace Battleships
 
         System.Windows.Forms.Timer timer;
 
-        Network client = new Network("127.0.0.1", 2006);
+        Network client/* = new Network("127.0.0.1", 2006)*/;
 
-        ComboBox comboBox;
+        string ip = /*"172.17.15.12"*/  "127.0.0.1";
 
+        int port = 2006;
+
+        ComboBox ipComboBox;
+        TextBox portTextbox;
         Panel panel;
 
         public loginForm()
@@ -149,7 +153,8 @@ namespace Battleships
         {
             // Send user and pass to Server
 
-            //client.SendMsg();
+            client = new Network(this, ip, port);
+            client.SendMsg(0, userTBox.Text, passTBox.Text);
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
@@ -231,7 +236,7 @@ namespace Battleships
                     Text = "Server Address: "
                 };
 
-                comboBox = new ComboBox
+                ipComboBox = new ComboBox
                 {
                     Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
                     FormattingEnabled = true,
@@ -252,11 +257,12 @@ namespace Battleships
                     Text = "Port: "
                 };
 
-                TextBox textBox = new TextBox
+                portTextbox = new TextBox
                 {
                     Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
                     Location = new System.Drawing.Point(50, 189),
                     Name = "textBox1",
+                    Text = "2006",
                     Size = new System.Drawing.Size(100, 27),
                     TabIndex = 3,
                     TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -292,9 +298,9 @@ namespace Battleships
 
                 panel.TabIndex = 12;
                 panel.Controls.Add(label);
-                panel.Controls.Add(comboBox);
+                panel.Controls.Add(ipComboBox);
                 panel.Controls.Add(label1);
-                panel.Controls.Add(textBox);
+                panel.Controls.Add(portTextbox);
                 panel.Controls.Add(button);
                 panel.Controls.Add(button1);
 
@@ -312,23 +318,23 @@ namespace Battleships
 
         private void UpdateComboBox(string ip)
         {
-            if (comboBox.InvokeRequired)
+            if (ipComboBox.InvokeRequired)
             {
                 var d = new SafeUpdateComboBox(UpdateComboBox);
-                comboBox.Invoke(d, new object[] { ip });
+                ipComboBox.Invoke(d, new object[] { ip });
             }
             else
             {
-                comboBox.Items.Add(ip);
+                ipComboBox.Items.Add(ip);
             }
         }
 
         private void scanBtn_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            comboBox.Items.Clear();
+            ipComboBox.Items.Clear();
 
-            string ipBase = string.IsNullOrEmpty(comboBox.Text) ? "172.17." : comboBox.Text;
+            string ipBase = string.IsNullOrEmpty(ipComboBox.Text) ? "172.17." : ipComboBox.Text;
             Thread scanIP = new Thread(() => scanHost(ipBase));
             scanIP.Start();
         }
@@ -388,7 +394,14 @@ namespace Battleships
             panel.SendToBack();
             panel.Visible = false;
 
+            string hostName = ipComboBox.Text;
+            ip = hostName.Substring(hostName.LastIndexOf(": ") + 2);
+            int.TryParse(portTextbox.Text, out port);
+        }
 
+        private void loginForm_Paint(object sender, PaintEventArgs e)
+        {
+            //Console.WriteLine("Here");
         }
     }
 }

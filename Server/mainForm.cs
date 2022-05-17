@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,15 +16,15 @@ namespace Battleships
 {
     public partial class mainForm : Form
     {
-        ModifyDB modify = new ModifyDB();
-
         readonly Network network = new Network();
 
         private bool isRunning = false;
         
-        private bool isManualSetting = false;
+        private bool isManualSetting = true;
 
         private Thread listenThread;
+
+        public static Dictionary<string, TcpClient> currentUsers = new Dictionary<string, TcpClient>();
 
         public mainForm()
         {
@@ -52,7 +53,8 @@ namespace Battleships
                 listenThread = new Thread(network.Listen);
                 listenThread.Start();
 
-                MessageBox.Show("Start Listening");
+                Console.WriteLine("OK");
+
                 startBtn.Enabled = false;
             }
         }
@@ -61,7 +63,7 @@ namespace Battleships
         {
             if (isManualSetting)
             {
-                network._iPAddress = IPAddress.Parse("");
+                network._iPAddress = IPAddress.Parse("127.0.0.1");
                 return;
             }
 
