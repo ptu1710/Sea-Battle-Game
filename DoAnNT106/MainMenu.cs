@@ -41,5 +41,10 @@ namespace Battleships
 
             Hide();
         }
+
+        private void MainMenu_Shown(object sender, EventArgs e)
+        {
+            playBtn_Click(sender, e);
+        }
     }
 }

@@ -13,8 +13,6 @@ namespace Battleships
 {
     public partial class PlayForm : Form
     {
-        static bool isMyTurn = true;
-
         int mouseCellX = -1;
         int mouseCellY = -1;
 
@@ -29,24 +27,27 @@ namespace Battleships
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!Game.isMyTurn)
+            {
+                
+                return;
+            }
+
             int CoorX = GraphicContext.GetCoor(e, 0);
             int CoorY = GraphicContext.GetCoor(e, 1);
 
-            if (isMyTurn)
+            if (CoorX != -1 && CoorY != -1)
             {
-                if (CoorX != -1 && CoorY != -1)
+                if (GraphicContext.GetCell(CoorX) != mouseCellX || GraphicContext.GetCell(CoorY) != mouseCellY)
                 {
-                    if (GraphicContext.GetCell(CoorX) != mouseCellX || GraphicContext.GetCell(CoorY) != mouseCellY)
+                    mouseCellX = GraphicContext.GetCell(CoorX);
+                    mouseCellY = GraphicContext.GetCell(CoorY);
+
+                    pictureBox1.Refresh();
+
+                    if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize)
                     {
-                        mouseCellX = GraphicContext.GetCell(CoorX);
-                        mouseCellY = GraphicContext.GetCell(CoorY);
-
-                        pictureBox1.Refresh();
-
-                        if (mouseCellX <= 9 && mouseCellY <= 9)
-                        {
-                            GraphicContext.DrawInnerFrameCell(mouseCellX, mouseCellY, pictureBox1);
-                        }
+                        GraphicContext.DrawInnerFrameCell(mouseCellX, mouseCellY, pictureBox1);
                     }
                 }
             }
@@ -54,21 +55,47 @@ namespace Battleships
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (mouseCellX <= 9 && mouseCellY <= 9)
+            pictureBox1.Refresh();
+
+            if (Game.isMyTurn)
             {
-                Game._ME.SendMove(2, Game.me.cName, $"{mouseCellX}:{mouseCellY}");
-                //Console.WriteLine($"{mouseCellX}, {mouseCellY}");
+                if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize)
+                {
+                    // Note
+                    Game.player = new Player("");
+
+                    // Random random = new Random();
+                    // int hit = random.Next(0, 1);
+                    // PerformAttacked(mouseCellX, mouseCellY, true);
+
+                    Game.isMyTurn = false;
+                    Game._ME.SendMsg(2, Game.me.cName, $"{mouseCellX}:{mouseCellY}");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Not your turn!", $"{Game.me.cName}", MessageBoxButtons.OK);
             }
         }
 
-        public void DrawAttacked(int x, int y)
+        public void PerformAttacked(int x, int y, bool hit)
         {
-            GraphicContext.DrawInnerFrameCell(x, y, this.pictureBox1);
+            Game.player.RevealedCells[x, y] = hit;
+
+            GraphicContext.DrawScope(x, y, this.pictureBox1);
         }
 
         private void PlayForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (Game.player != null)
+            {
+                GraphicContext.DrawDeckStatus(Game.player.RevealedCells, Game.player.ShipSet, e);
+            }
         }
     }
 }

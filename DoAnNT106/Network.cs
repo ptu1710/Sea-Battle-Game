@@ -105,9 +105,15 @@ namespace Battleships
                     int x = int.Parse(coor[0]);
                     int y = int.Parse(coor[1]);
 
-                    // int result = int.Parse(coor[2]);
+                    bool result = bool.Parse(coor[2]);
 
-                    playForm.DrawAttacked(x, y);
+                    playForm.PerformAttacked(x, y, result);
+                }
+                else if (code == 3)
+                {
+                    string user = msgPayload[1];
+
+                    MessageBox.Show("Nice!!!", $"{user} won!");
                 }
             }
             catch (Exception ex)
@@ -116,25 +122,25 @@ namespace Battleships
             }
         }
 
-        public void SendMsg(int code, string user = "", string pass = "", string email = "")
+        public void SendMsg(int code, string user = "", string pass_or_coor = "", string email = "")
         {
-            string formatedMsg = $"{code}|{user}|{pass}";
-
+            string formatedMsg = $"{code}|{user}|{pass_or_coor}";
+            
             if (sw != null)
             {
                 sw.WriteLine(formatedMsg);
             }
         }
 
-        public void SendMove(int code, string user, string coor)
-        {
-            string formatedMsg = $"{code}|{user}|{coor}";
+        //public void SendMove(int code, string user, string coor)
+        //{
+        //    string 
 
-            if (sw != null)
-            {
-                sw.WriteLine(formatedMsg);
-            }
-        }
+        //    if (sw != null)
+        //    {
+        //        sw.WriteLine(formatedMsg);
+        //    }
+        //}
 
         public void SendPlayerInfo(Player player)
         {

@@ -29,6 +29,7 @@ namespace Battleships
 
         public Player(string cName)
         {
+            this.cName = cName;
             ShipLeftCells = new int[] { 2, 3, 3, 4, 5 };
             ShipsLeft = 5;
             ShipSet = new int[10, 10];

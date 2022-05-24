@@ -110,15 +110,13 @@ namespace Battleships
                     int x = int.Parse(coor[0]);
                     int y = int.Parse(coor[1]);
 
-                    if (mainForm.PerformAttack(x, y, user))
+                    sendMsg(code, user, $"{x}:{y}:{mainForm.PerformAttack(x, y, user)}");
+                    mainForm.UpdateLog($"Player {user} was attacked at {x}:{y}:{mainForm.PerformAttack(x, y, user)}");
+
+                    if (mainForm.IsEndGame(user))
                     {
-                        // Send Win/Lost
-                    }
-                    else
-                    {
-                        // Send acctack
-                        sendMsg(code, user, $"{x}:{y}:{0}");
-                        mainForm.UpdateLog($"Player {user} was attacked at {x}:{y}");
+                        sendMsg(3, user, $"true");
+                        mainForm.UpdateLog($"Player {user} won!");
                     }
                 }
             }

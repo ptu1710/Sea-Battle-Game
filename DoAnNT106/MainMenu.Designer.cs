@@ -99,6 +99,7 @@
             this.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.Name = "MainMenu";
+            this.Shown += new System.EventHandler(this.MainMenu_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

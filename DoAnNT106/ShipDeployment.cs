@@ -27,6 +27,11 @@ namespace Battleships
         private void deckPictureBox_Paint(object sender, PaintEventArgs e)
         {
             GraphicContext.DrawShipSet(Game.me, e);
+
+            //if (Game.player != null)
+            //{
+            //    GraphicContext.DrawDeckStatus(Game.player.RevealedCells, Game.player.ShipSet, e);
+            //}
         }
 
         private void deckPictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -151,7 +156,7 @@ namespace Battleships
 
                     if (areAllShipsDeployed)
                     {
-                        // doneButton.Enabled = true;
+                        playBtn.Enabled = true;
                     }
                 }
             }
@@ -187,7 +192,7 @@ namespace Battleships
             currentShip = 4;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void playBtn_Click(object sender, EventArgs e)
         {
             PlayForm myDeck = new PlayForm(this.deckPictureBox);
             myDeck.Location = this.Location;

@@ -66,7 +66,7 @@ namespace Battleships
 
             foreach (Player player in Game.currentUsers.Keys)
             {
-                if (player.name == attackedName)
+                if (player.name != attackedName)
                 {
                     attackedPlayer = player;
                 }
@@ -90,22 +90,36 @@ namespace Battleships
                 {
                     // The ship was completely shot down.
                     attackedPlayer.ShipsLeft--;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-                    // Is the game over?
-                    if (attackedPlayer.ShipsLeft == 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
+        public static bool IsEndGame(string attackedName)
+        {
+            Player attackedPlayer = null;
+
+            foreach (Player player in Game.currentUsers.Keys)
+            {
+                if (player.name != attackedName)
                 {
-                    //There are some ship cells left in this ship, so that Game dont end
-                    return false;
+                    attackedPlayer = player;
                 }
+            }
+
+            if (attackedPlayer == null)
+            {
+                return true;
+            }
+
+            // Is the game over?
+            if (attackedPlayer.ShipsLeft == 0)
+            {
+                return true;
             }
             else
             {

@@ -344,7 +344,7 @@ namespace Battleships
 
         private void loginForm_Shown(object sender, EventArgs e)
         {
-            signinBtn_Click(sender, e);
+            //signinBtn_Click(sender, e);
         }
     }
 }

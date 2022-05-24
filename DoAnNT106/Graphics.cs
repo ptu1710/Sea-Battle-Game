@@ -138,9 +138,9 @@ namespace Battleships
         // PictureBox paint event handler for drawing a deck status of all the cells.
         static public void DrawDeckStatus(bool[,] deckStatus, int[,] shipSet, PaintEventArgs e)
         {
-            for (int x = 0; x < 10; x++)
+            for (int x = 0; x < Game.mapSize; x++)
             {
-                for (int y = 0; y < 10; y++)
+                for (int y = 0; y < Game.mapSize; y++)
                 {
                     if (deckStatus[x, y])
                     {
@@ -157,6 +157,18 @@ namespace Battleships
             }
         }
 
+        static public void ReDrawDeck(int[,] shipSet, PaintEventArgs e)
+        {
+            for (int x = 0; x < Game.mapSize; x++)
+            {
+                for (int y = 0; y < Game.mapSize; y++)
+                {
+                    
+                }
+            }
+        }
+
+
         // PictureBox paint event handler for drawing sunken ships.
         static public void DrawSunkenShips(int[,] shipSet, int[] ShipLeftCells, PaintEventArgs e)
         {
@@ -164,9 +176,9 @@ namespace Battleships
             {
                 if (ShipLeftCells[currentShip] == 0)
                 {
-                    for (int x = 0; x < 10; x++)
+                    for (int x = 0; x < Game.mapSize; x++)
                     {
-                        for (int y = 0; y < 10; y++)
+                        for (int y = 0; y < Game.mapSize; y++)
                         {
                             if (shipSet[x, y] == currentShip)
                             {

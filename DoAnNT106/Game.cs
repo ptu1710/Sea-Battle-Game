@@ -43,9 +43,9 @@ namespace Battleships
                 if (cellX + shipLengths[currentShip] - 1 < mapSize)
                 {
                     // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize, cellX + shipLengths[currentShip]); i++)
+                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize - 1, cellX + shipLengths[currentShip]); i++)
                     {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize, cellY + 1); j++)
+                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize - 1, cellY + 1); j++)
                         {
                             if (shipSet[i, j] != -1)
                             {
@@ -70,9 +70,9 @@ namespace Battleships
                 if (cellY + shipLengths[currentShip] - 1 < mapSize)
                 {
                     // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize, cellX + 1); i++)
+                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize - 1, cellX + 1); i++)
                     {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize, cellY + shipLengths[currentShip]); j++)
+                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize - 1, cellY + shipLengths[currentShip]); j++)
                         {
                             if (shipSet[i, j] != -1)
                             {
