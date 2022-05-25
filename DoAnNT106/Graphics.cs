@@ -19,11 +19,11 @@ namespace Battleships
             //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
             //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
             //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
-            new Bitmap(Properties.Resources.Ship_3), // 
-            new Bitmap(Properties.Resources.Ship_3),
-            new Bitmap(Properties.Resources.Ship_3),
-            new Bitmap(Properties.Resources.Ship_3),
-            new Bitmap(Properties.Resources.Ship_3),
+            new Bitmap(Properties.Resources.Ship_2), // 
+            new Bitmap(Properties.Resources.Ship_3_1_),
+            new Bitmap(Properties.Resources.Ship_3_2_),
+            new Bitmap(Properties.Resources.Ship_4),
+            new Bitmap(Properties.Resources.Ship_5),
         };
 
         // Opacity settings.
