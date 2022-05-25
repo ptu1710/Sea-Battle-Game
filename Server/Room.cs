@@ -13,7 +13,7 @@ namespace Battleships
 
         public List<Player> Users { get; set; }
 
-        public string whoTurn { get; set; }
+        public string isPlayer1Turn { get; set; }
 
         public bool isPlaying { get; set; }
 
@@ -22,7 +22,7 @@ namespace Battleships
             this._id = id;
             this.Users = user;
             isPlaying = false;
-            whoTurn = Users[0].cName;
+            isPlayer1Turn = Users[0].cName;
         }
     }
 }

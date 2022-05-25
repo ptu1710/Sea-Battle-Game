@@ -59,73 +59,80 @@ namespace Battleships
         private void Run()
         {
             StreamReader sr = new StreamReader(tcpClient.GetStream());
-            try
-            {
+            //try
+            //{
                 while (tcpClient.Connected)
                 {
                     string rawMsg = sr.ReadLine();
 
                     ReceiveMsg(rawMsg);
                 }
-            }
-            catch
-            {
-                tcpClient.Close();
-                sr.Close();
-            }
+            //}
+            //catch
+            //{
+            //    tcpClient.Close();
+            //    sr.Close();
+            //}
         }
 
         private void ReceiveMsg(string rawMsg)
         {
 /*            try
             {*/
-                if (string.IsNullOrEmpty(rawMsg))
+            if (string.IsNullOrEmpty(rawMsg))
+            {
+                return;
+            }
+
+            string[] msgPayload = rawMsg.Split('|');
+
+            int code = int.Parse(msgPayload[0]);
+
+            string cName = msgPayload[1];
+
+            if (code == 0)
+            {
+                loginForm.UpdateForm(cName);
+            }
+            else if (code == 1)
+            {
+                string roomID = msgPayload[2];
+
+                Game.me.roomID = roomID;
+
+                mainMenu.UpdateForm(roomID);
+            }
+            else if (code == 2)
+            {
+                string isPlayer1Turn = msgPayload[1];
+
+                if (isPlayer1Turn == Game.me.cName)
                 {
-                    return;
+                    Game.me.isMyTurn = true;
                 }
-
-                string[] msgPayload = rawMsg.Split('|');
-
-                int code = int.Parse(msgPayload[0]);
-
-                string cName = msgPayload[1];
-
-                if (code == 0)
+                    else
                 {
-                    loginForm.UpdateForm(cName);
+                    Game.me.isMyTurn = false;
                 }
-                else if (code == 1)
-                {
-                    string roomID = msgPayload[2];
+            }
+            else if (code == 3)
+            {
+                Console.WriteLine(rawMsg);
+                var coor = msgPayload[1].Split(':');
 
-                    Game.me.roomID = roomID;
+                int x = int.Parse(coor[0]);
+                int y = int.Parse(coor[1]);
 
-                    mainMenu.UpdateForm(roomID);
-                }
-                else if (code == 2)
-                {
-                    
-                }
-                else if (code == 3)
-                {
-                    string roomID = msgPayload[1].Split(':')[0];
-                    string user = msgPayload[1].Split(':')[1];
+                bool result = bool.Parse(coor[2]);
 
-                    var coor = msgPayload[2].Split(':');
+                playForm.PerformAttacked(x, y, result);
+            }
+            else if (code == 4)
+            {
+                string user = msgPayload[1];
 
-                    int x = int.Parse(coor[0]);
-                    int y = int.Parse(coor[1]);
-
-                    bool result = bool.Parse(coor[2]);
-
-                    playForm.PerformAttacked(user, x, y, result);
-                }
-                else if (code == 4)
-                {
-                    string user = msgPayload[1];
-
-                    MessageBox.Show("Nice!!!", $"{user} won!");
-                }
+                MessageBox.Show("Nice!!!", $"{user} won!");
+            }
 /*            }
             catch (Exception ex)
             {
@@ -143,9 +150,9 @@ namespace Battleships
             }
         }
 
-        public void SendMove(int code, string roomID, string user, int x, int y)
+        public void SendMove(int code, string roomID, string from, int x, int y)
         {
-            string formatedMsg = $"{code}|{roomID}:{user}|{x}:{y}";
+            string formatedMsg = $"{code}|{roomID}:{from}|{x}:{y}";
 
             if (sw != null)
             {

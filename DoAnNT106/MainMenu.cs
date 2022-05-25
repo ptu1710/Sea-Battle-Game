@@ -34,17 +34,9 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
-            Game.Initialize();
             Game.me = new Player(usernameLabel.Text);
 
-            if (string.IsNullOrEmpty(roomidTBox.Text))
-            {
-                Game._ME.SendMsg(1, Game.me.cName, "");
-            }
-            else
-            {
-                Game._ME.SendMsg(1, Game.me.cName, roomidTBox.Text);
-            }
+            Game._ME.SendMsg(1, Game.me.cName, roomidTBox.Text);
         }
 
         private void MainMenu_Shown(object sender, EventArgs e)

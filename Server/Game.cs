@@ -10,7 +10,7 @@ namespace Battleships
     {
         public static Dictionary<Player, TcpClient> currentUsers = new Dictionary<Player, TcpClient>();
 
-        public static List<Room> rooms = new List<Room>(); 
+        public static Dictionary<string, Room> rooms = new Dictionary<string, Room>(); 
 
         // Ship lengths.
         public static int[] shipLengths = new int[5] { 2, 3, 3, 4, 5 };
@@ -20,9 +20,9 @@ namespace Battleships
             Random random = new Random();
             int id = random.Next(100, 9999);
 
-            foreach (Room room in rooms)
+            foreach (string roomid in rooms.Keys)
             {
-                while (id.ToString() == room._id)
+                while (id.ToString() == roomid)
                 {
                     id = random.Next(100, 9999);
                 }

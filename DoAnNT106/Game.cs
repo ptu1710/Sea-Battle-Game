@@ -25,7 +25,7 @@ namespace Battleships
         // Inicalize the game.
         static public void Initialize()
         {
-            isMyTurn = true;
+            
         }
 
         // Method returns whether a cell can contain a ship.

@@ -12,6 +12,8 @@ namespace Battleships
 
         public string roomID = string.Empty;
 
+        public bool isMyTurn;
+
         // Locations of the players' ships.
         public int[,] ShipSet { get; set; }
 
@@ -32,6 +34,7 @@ namespace Battleships
         public Player(string cName)
         {
             this.cName = cName;
+            isMyTurn = false;
             ShipLeftCells = new int[] { 2, 3, 3, 4, 5 };
             ShipsLeft = 5;
             ShipSet = new int[10, 10];

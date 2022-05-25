@@ -155,6 +155,8 @@ namespace Battleships
                         }
                     }
 
+                    playBtn.Enabled = true;
+
                     if (areAllShipsDeployed)
                     {
                         playBtn.Enabled = true;
@@ -197,7 +199,7 @@ namespace Battleships
         {
             PlayForm myDeck = new PlayForm();
             myDeck.Location = this.Location;
-            myDeck.Text = "Me";
+            myDeck.Text = Game.me.cName;
             myDeck.Show();
 
             Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);

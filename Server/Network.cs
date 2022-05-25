@@ -97,39 +97,25 @@ namespace Battleships
                 }
                 else if (code == 1)
                 {
-                    // Game._ME.SendMsg(1, Game.me.cName, "");
                     string user = msgPayload[1];
                     string roomID = msgPayload[2];
-
-                    bool flag = false;
 
                     if (string.IsNullOrEmpty(roomID))
                     {
                         roomID = Game.RandomRoomID();
                         Room room = new Room(roomID, new List<Player> { new Player(user) });
-                        Game.rooms.Add(room);
-                        flag = true;
+                        Game.rooms.Add(roomID, room);
+
+                        mainForm.UpdateLog($"Create room {roomID} for player {user}");
                     }
                     else
                     {
-                        foreach (Room room in Game.rooms)
-                        {
-                            if (room._id == roomID)
-                            {
-                                flag = true;
-                                room.Users.Add(new Player(user));
-                            }
-                        }
+                        Game.rooms[roomID].Users.Add(new Player(user));
+                        mainForm.UpdateLog($"Player {user} joined {user}");
                     }
 
-                    if (flag)
-                    {
-                        sendMsg(code, user, roomID);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No Room");
-                    }
+                   
+                    sendMsg(code, user, roomID);
                 }
                 else if (code == 2)
                 {
@@ -138,25 +124,21 @@ namespace Battleships
 
                     getPlayer(user, roomID);
                     mainForm.UpdateLog($"Player {user} is ready");
+
+                    sendToRoom(code, roomID, Game.rooms[roomID].isPlayer1Turn);
                 }
                 else if (code == 3)
                 {
                     string roomID = msgPayload[1].Split(':')[0];
-                    string user = msgPayload[1].Split(':')[1];
+                    string from = msgPayload[1].Split(':')[1];
 
                     var coor = msgPayload[2].Split(':');
 
                     int x = int.Parse(coor[0]);
                     int y = int.Parse(coor[1]);
 
-                    sendMove(code, roomID, user, x, y, mainForm.PerformAttack(x, y, user));
-                    mainForm.UpdateLog($"Player {user} was attacked at {x}:{y}:{mainForm.PerformAttack(x, y, user)}");
-
-                    if (mainForm.IsEndGame(user))
-                    {
-                        sendMsg(4, user, $"true");
-                        mainForm.UpdateLog($"Player {user} won!");
-                    }
+                    sendMove(code, roomID, x, y, mainForm.PerformAttack(x, y, from));
+                    mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{mainForm.PerformAttack(x, y, from)}");
                 }
             }
             //}
@@ -190,26 +172,45 @@ namespace Battleships
             }
         }
 
-        private void sendMove(int code, string roomID, string user, int x, int y, bool hit)
+        private void sendMove(int code, string roomID, int x, int y, bool hit)
         {
-            string formattedMsg = $"{code}|{roomID}:{user}|{x}:{y}:{hit}";
+            string formattedMsg = $"{code}|{x}:{y}:{hit}";
 
             StreamWriter sw = null;
 
-            Room room = Game.rooms.Find(r => r._id == roomID);
-
-            foreach (Player player in room.Users)
+            foreach (Player player in Game.rooms[roomID].Users)
             {
-
                 sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
-            }
 
-            if (sw != null)
-            {
-                sw.WriteLine(formattedMsg);
+                if (sw != null)
+                {
+                    sw.WriteLine(formattedMsg);
+                }
             }
         }
 
+        private void sendToRoom(int code, string roomID, string msg)
+        {
+            string formattedMsg = $"{code}|{msg}";
+
+            StreamWriter sw = null;
+
+            foreach (Player player in Game.rooms[roomID].Users)
+            {
+                foreach (Player player1 in Game.currentUsers.Keys)
+                {
+                    if (player.cName == player1.cName)
+                    {
+                        sw = new StreamWriter(Game.currentUsers[player1].GetStream()) { AutoFlush = true };
+
+                        if (sw != null)
+                        {
+                            sw.WriteLine(formattedMsg);
+                        }
+                    }
+                }
+            }
+        }
 
         private void getPlayer(string username, string roomID)
         {
@@ -222,8 +223,7 @@ namespace Battleships
 
                     player.setShipSet(playerShipSet);
 
-                    Room room = Game.rooms.Find(r => r._id == roomID);
-
+                    Room room = Game.rooms[roomID];
 
                     for (int i = 0; i < room.Users.Count; i++)
                     {
