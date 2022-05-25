@@ -81,17 +81,19 @@ namespace Battleships
 
         public void PerformAttacked(string user, int x, int y, bool hit)
         {
-            Game.me.RevealedCells[x, y] = true;
+            /*Game.me.RevealedCells[x, y] = true;
+            Game.player.RevealedCells[x, y] = true;
 
             if (hit)
             {
                 Game.me.ShipSet[x, y] = 1;
-            }
+                Game.player.ShipSet[x, y] = 1;
+            }*/
 
             pictureBox1.Refresh();
             pictureBox2.Refresh();
 
-            Game.isMyTurn = true;
+            // Game.isMyTurn = true;
         }
 
         private void PlayForm_FormClosing(object sender, FormClosingEventArgs e)

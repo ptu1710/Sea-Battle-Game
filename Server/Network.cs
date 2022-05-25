@@ -200,6 +200,7 @@ namespace Battleships
 
             foreach (Player player in room.Users)
             {
+
                 sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
             }
 
