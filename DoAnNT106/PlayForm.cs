@@ -90,6 +90,8 @@ namespace Battleships
                 Game.player.ShipSet[x, y] = 1;
             }*/
 
+            MessageBox.Show(user);
+
             pictureBox1.Refresh();
             pictureBox2.Refresh();
 
