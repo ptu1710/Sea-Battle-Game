@@ -9,8 +9,8 @@ namespace Battleships
 {
     public static class GraphicContext
     {
-        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources.bg);
-        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.bg);
+        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources.button);
+        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.setting);
 
         public static readonly Image[] shipImg = new Image[5]
         {
@@ -74,19 +74,20 @@ namespace Battleships
         // PictureBox paint event handler for drawing a colored cell.
         static public void DrawColoredCell(int cellX, int cellY, int color, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(GraphicContext.colors[color], (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
+            e.Graphics.FillRectangle(colors[color], (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
         // PictureBox paint event handler for drawing a hit cell.
         static public void DrawHitCell(int cellX, int cellY, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(hitImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1);
+            e.Graphics.DrawImage(hitImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
-        static public void DrawScope(int cellX, int cellY, PictureBox deckPictureBox)
+        // Note
+        static public void DrawScope(int cellX, int cellY, PaintEventArgs e)
         {
-            Graphics g = deckPictureBox.CreateGraphics();
-            g.DrawImage(hitImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1, 33, 33);
+            // Graphics g = deckPictureBox.CreateGraphics();
+            e.Graphics.DrawImage(splashImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
         // PictureBox paint event handler for drawing a splash cell.
@@ -146,11 +147,11 @@ namespace Battleships
                     {
                         if (shipSet[x, y] != -1)
                         {
-                            DrawHitCell(x, y, e);
+                            DrawScope(x, y, e);
                         }
                         else
                         {
-                            DrawSplashCell(x, y, e);
+                            DrawHitCell(x, y, e);
                         }
                     }
                 }

@@ -55,14 +55,15 @@ namespace Battleships
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            pictureBox1.Refresh();
-
             if (Game.isMyTurn)
             {
                 if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize)
                 {
                     // Note
-                    Game.player = new Player("");
+                    if (Game.player == null)
+                    {
+                        Game.player = new Player("");
+                    }
 
                     // Random random = new Random();
                     // int hit = random.Next(0, 1);
@@ -70,19 +71,26 @@ namespace Battleships
 
                     Game.isMyTurn = false;
                     Game._ME.SendMsg(2, Game.me.cName, $"{mouseCellX}:{mouseCellY}");
+
+                    pictureBox1.Refresh();
                 }
             }
             else
             {
+                Game.isMyTurn = true;
                 MessageBox.Show($"Not your turn!", $"{Game.me.cName}", MessageBoxButtons.OK);
             }
         }
 
         public void PerformAttacked(int x, int y, bool hit)
         {
-            Game.player.RevealedCells[x, y] = hit;
+            Game.player.RevealedCells[x, y] = true;
 
-            GraphicContext.DrawScope(x, y, this.pictureBox1);
+            if (hit)
+            {
+                Game.player.ShipSet[x, y] = 1;
+            }
+            // GraphicContext.DrawScope(x, y, this.pictureBox1);
         }
 
         private void PlayForm_FormClosing(object sender, FormClosingEventArgs e)
