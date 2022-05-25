@@ -9,8 +9,8 @@ namespace Battleships
 {
     public static class GraphicContext
     {
-        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources.button);
-        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.setting);
+        static private readonly Image hitImage = Image.FromFile(@"C:\Users\ADMIN\Downloads\Scope.png");
+        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.bg);
 
         public static readonly Image[] shipImg = new Image[5]
         {
@@ -81,13 +81,6 @@ namespace Battleships
         static public void DrawHitCell(int cellX, int cellY, PaintEventArgs e)
         {
             e.Graphics.DrawImage(hitImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
-        }
-
-        // Note
-        static public void DrawScope(int cellX, int cellY, PaintEventArgs e)
-        {
-            // Graphics g = deckPictureBox.CreateGraphics();
-            e.Graphics.DrawImage(splashImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
         // PictureBox paint event handler for drawing a splash cell.
