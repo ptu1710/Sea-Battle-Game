@@ -195,7 +195,7 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
-            PlayForm myDeck = new PlayForm(this.deckPictureBox);
+            PlayForm myDeck = new PlayForm();
             myDeck.Location = this.Location;
             myDeck.Text = "Me";
             myDeck.Show();

@@ -198,12 +198,9 @@ namespace Battleships
 
             Room room = Game.rooms.Find(r => r._id == roomID);
 
-            foreach (Player player in Game.currentUsers.Keys)
+            foreach (Player player in room.Users)
             {
-                if (player.cName != user)
-                {
-                    sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
-                }
+                sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
             }
 
             if (sw != null)

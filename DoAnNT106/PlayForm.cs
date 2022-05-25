@@ -16,12 +16,10 @@ namespace Battleships
         int mouseCellX = -1;
         int mouseCellY = -1;
 
-        public PlayForm(PictureBox pic)
+        public PlayForm()
         {
             InitializeComponent();
             CenterToScreen();
-            panel2.Controls.Add(pic);
-            pic.Location = new Point(0,0);
             Network.playForm = this;
         }
 
@@ -29,7 +27,6 @@ namespace Battleships
         {
             if (!Game.isMyTurn)
             {
-                
                 return;
             }
 
@@ -82,7 +79,7 @@ namespace Battleships
             }
         }
 
-        public void PerformAttacked(int x, int y, bool hit)
+        public void PerformAttacked(string user, int x, int y, bool hit)
         {
             Game.me.RevealedCells[x, y] = true;
 
@@ -90,6 +87,9 @@ namespace Battleships
             {
                 Game.me.ShipSet[x, y] = 1;
             }
+
+            pictureBox1.Refresh();
+            pictureBox2.Refresh();
 
             Game.isMyTurn = true;
         }
@@ -105,6 +105,13 @@ namespace Battleships
             {
                 GraphicContext.DrawDeckStatus(Game.player.RevealedCells, Game.player.ShipSet, e);
             }
+        }
+
+        private void pictureBox2_Paint(object sender, PaintEventArgs e)
+        {
+            GraphicContext.DrawShipSet(Game.me, e);
+
+            GraphicContext.DrawDeckStatus(Game.me.RevealedCells, Game.me.ShipSet, e);
         }
     }
 }

@@ -118,7 +118,7 @@ namespace Battleships
 
                     bool result = bool.Parse(coor[2]);
 
-                    playForm.PerformAttacked(x, y, result);
+                    playForm.PerformAttacked(user, x, y, result);
                 }
                 else if (code == 4)
                 {
