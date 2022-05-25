@@ -37,11 +37,11 @@
             // 
             // playBtn
             // 
-            this.playBtn.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.playBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.playBtn.FlatAppearance.BorderSize = 0;
-            this.playBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.playBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playBtn.Image = global::Battleships.Properties.Resources.BackBtn;
+            this.playBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.playBtn.Location = new System.Drawing.Point(50, 113);
             this.playBtn.Name = "playBtn";
             this.playBtn.Size = new System.Drawing.Size(200, 60);
@@ -52,11 +52,11 @@
             // 
             // howtoBtn
             // 
-            this.howtoBtn.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.howtoBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.howtoBtn.FlatAppearance.BorderSize = 0;
-            this.howtoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.howtoBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.howtoBtn.Image = global::Battleships.Properties.Resources.BackBtn;
+            this.howtoBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.howtoBtn.Location = new System.Drawing.Point(50, 198);
             this.howtoBtn.Name = "howtoBtn";
             this.howtoBtn.Size = new System.Drawing.Size(200, 60);
@@ -67,11 +67,11 @@
             // 
             // quitBtn
             // 
-            this.quitBtn.BackgroundImage = global::Battleships.Properties.Resources.button;
             this.quitBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.quitBtn.FlatAppearance.BorderSize = 0;
-            this.quitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.quitBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quitBtn.Image = global::Battleships.Properties.Resources.BackBtn;
+            this.quitBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.quitBtn.Location = new System.Drawing.Point(50, 283);
             this.quitBtn.Name = "quitBtn";
             this.quitBtn.Size = new System.Drawing.Size(200, 60);
@@ -89,17 +89,20 @@
             // 
             // roomidTBox
             // 
-            this.roomidTBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roomidTBox.Location = new System.Drawing.Point(50, 50);
+            this.roomidTBox.BackColor = System.Drawing.Color.MidnightBlue;
+            this.roomidTBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.roomidTBox.ForeColor = System.Drawing.Color.Chocolate;
+            this.roomidTBox.Location = new System.Drawing.Point(50, 41);
+            this.roomidTBox.Multiline = true;
             this.roomidTBox.Name = "roomidTBox";
-            this.roomidTBox.Size = new System.Drawing.Size(200, 34);
-            this.roomidTBox.TabIndex = 4;
-            this.roomidTBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.roomidTBox.Size = new System.Drawing.Size(200, 46);
+            this.roomidTBox.TabIndex = 7;
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackgroundImage = global::Battleships.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.roomidTBox);
@@ -110,6 +113,7 @@
             this.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.Name = "MainMenu";
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.Shown += new System.EventHandler(this.MainMenu_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

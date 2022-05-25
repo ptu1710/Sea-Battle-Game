@@ -46,6 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircularBtn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TutorialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TutorialForm.Designer.cs">
+      <DependentUpon>TutorialForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="MainMenu.cs">
@@ -82,6 +91,9 @@
     <Compile Include="ShipDeployment.Designer.cs">
       <DependentUpon>ShipDeployment.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TutorialForm.resx">
+      <DependentUpon>TutorialForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +165,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Ship_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackBtn.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backgroundTuto.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fantastic-seascape-with-ripples-1140x684.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Scope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bgm_track1_loop.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bgm_track3_loop.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bgm_track4_loop.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\-1x-1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7f769a48-1539-11eb-aec5-8cdcd4b147d4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\download.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\png-transparent-computer-icons-rotate-miscellaneous-angle-text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\depositphotos_155823284-stock-photo-blue-rotation-arrows-icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\screenshot_1653467821.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

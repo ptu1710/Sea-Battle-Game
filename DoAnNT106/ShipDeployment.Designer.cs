@@ -44,6 +44,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.roomIDLabel = new System.Windows.Forms.Label();
+            this.circularBtn1 = new Battleships.CircularBtn();
             ((System.ComponentModel.ISupportInitialize)(this.deckPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -69,18 +70,21 @@
             // 
             // rotateBtn
             // 
-            this.rotateBtn.Location = new System.Drawing.Point(40, 360);
+            this.rotateBtn.BackgroundImage = global::Battleships.Properties.Resources.screenshot_1653467821;
+            this.rotateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.rotateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rotateBtn.Location = new System.Drawing.Point(286, 42);
             this.rotateBtn.Name = "rotateBtn";
-            this.rotateBtn.Size = new System.Drawing.Size(100, 50);
+            this.rotateBtn.Size = new System.Drawing.Size(107, 65);
             this.rotateBtn.TabIndex = 3;
-            this.rotateBtn.Text = "Rotate";
             this.rotateBtn.UseVisualStyleBackColor = true;
             this.rotateBtn.Click += new System.EventHandler(this.rotateBtn_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Yellow;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Image = global::Battleships.Properties.Resources.Ship_2;
             this.pictureBox1.Location = new System.Drawing.Point(40, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
@@ -90,8 +94,9 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Red;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Image = global::Battleships.Properties.Resources.Ship_3_1_;
             this.pictureBox2.Location = new System.Drawing.Point(40, 88);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(150, 50);
@@ -101,8 +106,9 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Lime;
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.Image = global::Battleships.Properties.Resources.Ship_3_2_;
             this.pictureBox3.Location = new System.Drawing.Point(40, 149);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(150, 50);
@@ -112,8 +118,9 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Blue;
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.Image = global::Battleships.Properties.Resources.Ship_4;
             this.pictureBox4.Location = new System.Drawing.Point(40, 210);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(200, 50);
@@ -123,8 +130,9 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox5.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox5.Image = global::Battleships.Properties.Resources.Ship_5;
             this.pictureBox5.Location = new System.Drawing.Point(40, 271);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(250, 50);
@@ -135,9 +143,10 @@
             // playBtn
             // 
             this.playBtn.Enabled = false;
-            this.playBtn.Location = new System.Drawing.Point(190, 360);
+            this.playBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playBtn.Location = new System.Drawing.Point(236, 353);
             this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(100, 50);
+            this.playBtn.Size = new System.Drawing.Size(100, 65);
             this.playBtn.TabIndex = 9;
             this.playBtn.Text = "Play";
             this.playBtn.UseVisualStyleBackColor = true;
@@ -145,7 +154,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(363, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -210,11 +219,23 @@
             this.roomIDLabel.TabIndex = 16;
             this.roomIDLabel.Text = "label1";
             // 
+            // circularBtn1
+            // 
+            this.circularBtn1.Location = new System.Drawing.Point(102, 353);
+            this.circularBtn1.Name = "circularBtn1";
+            this.circularBtn1.Size = new System.Drawing.Size(83, 71);
+            this.circularBtn1.TabIndex = 17;
+            this.circularBtn1.UseVisualStyleBackColor = true;
+            // 
             // ShipDeployment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Battleships.Properties.Resources.ShipDeployBack;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(826, 453);
+            this.Controls.Add(this.circularBtn1);
+            this.Controls.Add(this.rotateBtn);
             this.Controls.Add(this.roomIDLabel);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -227,7 +248,6 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.rotateBtn);
             this.Controls.Add(this.deckPictureBox);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -261,5 +281,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label roomIDLabel;
+        private CircularBtn circularBtn1;
     }
 }

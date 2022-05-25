@@ -99,8 +99,8 @@ namespace Battleships
         static public void DrawInnerFrameCell(int cellX, int cellY, PictureBox deckPictureBox)
         {
             Graphics g = deckPictureBox.CreateGraphics();
-            Pen framePen = new Pen(Color.Red, 5);
-            g.DrawRectangle(framePen, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
+            //Pen framePen = new Pen(Color.Red, 5);
+            g.DrawImage(Properties.Resources.Scope, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
         }
 
         static public void DrawOuterFrameCell(int cellX, int cellY, int color, Form form, PictureBox deckPictureBox)
