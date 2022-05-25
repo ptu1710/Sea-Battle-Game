@@ -16,6 +16,7 @@ namespace Battleships
         {
             InitializeComponent();
             CenterToScreen();
+            
         }
 
         public MainMenu(string cName)
@@ -23,6 +24,7 @@ namespace Battleships
             InitializeComponent();
             CenterToScreen();
             usernameLabel.Text = cName;
+            Network.mainMenu = this;
         }
 
         private void howtoBtn_Click(object sender, EventArgs e)
@@ -35,16 +37,38 @@ namespace Battleships
             Game.Initialize();
             Game.me = new Player(usernameLabel.Text);
 
-            ShipDeployment DeployShip = new ShipDeployment();
-            DeployShip.Location = this.Location;
-            DeployShip.Show();
-
-            Hide();
+            if (string.IsNullOrEmpty(roomidTBox.Text))
+            {
+                Game._ME.SendMsg(1, Game.me.cName, "");
+            }
+            else
+            {
+                Game._ME.SendMsg(1, Game.me.cName, roomidTBox.Text);
+            }
         }
 
         private void MainMenu_Shown(object sender, EventArgs e)
         {
             // playBtn_Click(sender, e);
+        }
+
+        private delegate void SafeUpdateForm(string roomID);
+
+        public void UpdateForm(string roomID)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new SafeUpdateForm(UpdateForm);
+                this.Invoke(d, new object[] { roomID });
+            }
+            else
+            {
+                ShipDeployment DeployShip = new ShipDeployment();
+                DeployShip.Location = this.Location;
+                DeployShip.Show();
+
+                Hide();
+            }
         }
     }
 }

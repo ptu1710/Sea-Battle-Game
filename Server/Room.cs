@@ -11,21 +11,18 @@ namespace Battleships
     {
         public string _id { get; set; }
 
-        public Room(string id, List<string> user)
+        public List<Player> Users { get; set; }
+
+        public string whoTurn { get; set; }
+
+        public bool isPlaying { get; set; }
+
+        public Room(string id, List<Player> user)
         {
             this._id = id;
-            this.users = user;
+            this.Users = user;
+            isPlaying = false;
+            whoTurn = Users[0].cName;
         }
-
-        public List<string> users { get; set; }
-        public string HanhDong { get; set; }
-        public string luotDanhCo { get; set; }
-        public string luotThaiXN { get; set; }
-        public int XiNgau { get; set; }
-        public List<string> DsUserSS { get; set; }
-        public bool status { get; set; }
-        public string[] QuanLyBanCo { get; set; }
-        public string[] QuanLyChuong { get; set; }
-        
     }
 }

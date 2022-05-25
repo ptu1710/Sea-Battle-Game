@@ -70,27 +70,28 @@ namespace Battleships
                     // PerformAttacked(mouseCellX, mouseCellY, true);
 
                     Game.isMyTurn = false;
-                    Game._ME.SendMsg(2, Game.me.cName, $"{mouseCellX}:{mouseCellY}");
+                    Game._ME.SendMove(3, Game.me.roomID, Game.me.cName, mouseCellX, mouseCellY);
 
                     pictureBox1.Refresh();
                 }
             }
             else
             {
-                Game.isMyTurn = true;
+                // Game.isMyTurn = true;
                 MessageBox.Show($"Not your turn!", $"{Game.me.cName}", MessageBoxButtons.OK);
             }
         }
 
         public void PerformAttacked(int x, int y, bool hit)
         {
-            Game.player.RevealedCells[x, y] = true;
+            Game.me.RevealedCells[x, y] = true;
 
             if (hit)
             {
-                Game.player.ShipSet[x, y] = 1;
+                Game.me.ShipSet[x, y] = 1;
             }
-            // GraphicContext.DrawScope(x, y, this.pictureBox1);
+
+            Game.isMyTurn = true;
         }
 
         private void PlayForm_FormClosing(object sender, FormClosingEventArgs e)

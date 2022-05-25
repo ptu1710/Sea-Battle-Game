@@ -22,6 +22,7 @@ namespace Battleships
         {
             InitializeComponent();
             CenterToParent();
+            roomIDLabel.Text = Game.me.roomID;
         }
 
         private void deckPictureBox_Paint(object sender, PaintEventArgs e)
@@ -199,7 +200,7 @@ namespace Battleships
             myDeck.Text = "Me";
             myDeck.Show();
 
-            Game._ME.SendPlayerInfo(Game.me);
+            Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
             
             this.Hide();
         }

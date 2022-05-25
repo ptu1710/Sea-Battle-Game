@@ -10,6 +10,8 @@ namespace Battleships
     {
         public string cName = string.Empty;
 
+        public string roomID = string.Empty;
+
         // Locations of the players' ships.
         public int[,] ShipSet { get; set; }
 

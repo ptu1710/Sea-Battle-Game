@@ -7,7 +7,7 @@ namespace Battleships
 {
     public class Player
     {
-        public string name;
+        public string cName;
 
         // Locations of the players' ships.
         public int[,] ShipSet { get; set; }
@@ -26,7 +26,7 @@ namespace Battleships
 
         public Player(string name)
         {
-            this.name = name;
+            this.cName = name;
 
             ShipLeftCells = new int[] { 2, 3, 3, 4, 5 };
             ShipsLeft = 5;

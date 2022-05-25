@@ -64,13 +64,6 @@ namespace Battleships
             return (coor - 33) / 33;
         }
 
-        // Draw Ships Images
-        static public void DrawShipImg(int cellX, int cellY, int length, PaintEventArgs e)
-        {
-            //e.Graphics.DrawImage(shipPaths, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1);
-        }
-
-
         // PictureBox paint event handler for drawing a colored cell.
         static public void DrawColoredCell(int cellX, int cellY, int color, PaintEventArgs e)
         {
@@ -93,7 +86,7 @@ namespace Battleships
         // PictureBox paint event handler for drawing a splash cell.
         static public void DrawSplashCell(int cellX, int cellY, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(splashImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1);
+            e.Graphics.DrawImage(hitImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1);
         }
 
         static public void DrawInnerFrameCell(int cellX, int cellY, int color, Form form, PictureBox deckPictureBox)

@@ -337,8 +337,6 @@ namespace Battleships
 
                 MainMenu mainMenu = new MainMenu(cName);
                 mainMenu.Show();
-
-
             }
         }
 

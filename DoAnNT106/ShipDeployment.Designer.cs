@@ -43,6 +43,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.roomIDLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.deckPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -68,7 +69,7 @@
             // 
             // rotateBtn
             // 
-            this.rotateBtn.Location = new System.Drawing.Point(40, 375);
+            this.rotateBtn.Location = new System.Drawing.Point(40, 360);
             this.rotateBtn.Name = "rotateBtn";
             this.rotateBtn.Size = new System.Drawing.Size(100, 50);
             this.rotateBtn.TabIndex = 3;
@@ -134,7 +135,7 @@
             // playBtn
             // 
             this.playBtn.Enabled = false;
-            this.playBtn.Location = new System.Drawing.Point(190, 375);
+            this.playBtn.Location = new System.Drawing.Point(190, 360);
             this.playBtn.Name = "playBtn";
             this.playBtn.Size = new System.Drawing.Size(100, 50);
             this.playBtn.TabIndex = 9;
@@ -198,11 +199,23 @@
             this.button7.TabIndex = 15;
             this.button7.UseVisualStyleBackColor = true;
             // 
+            // roomIDLabel
+            // 
+            this.roomIDLabel.AutoSize = true;
+            this.roomIDLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.roomIDLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomIDLabel.Location = new System.Drawing.Point(0, 436);
+            this.roomIDLabel.Name = "roomIDLabel";
+            this.roomIDLabel.Size = new System.Drawing.Size(46, 17);
+            this.roomIDLabel.TabIndex = 16;
+            this.roomIDLabel.Text = "label1";
+            // 
             // ShipDeployment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(826, 453);
+            this.Controls.Add(this.roomIDLabel);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -228,6 +241,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -246,5 +260,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label roomIDLabel;
     }
 }

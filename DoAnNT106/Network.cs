@@ -26,6 +26,8 @@ namespace Battleships
 
         loginForm loginForm = null;
 
+        public static MainMenu mainMenu = null;
+
         public static PlayForm playForm = null;
 
         public Network(loginForm login, string ip, int _port)
@@ -75,8 +77,8 @@ namespace Battleships
 
         private void ReceiveMsg(string rawMsg)
         {
-            try
-            {
+/*            try
+            {*/
                 if (string.IsNullOrEmpty(rawMsg))
                 {
                     return;
@@ -94,11 +96,20 @@ namespace Battleships
                 }
                 else if (code == 1)
                 {
-                    
+                    string roomID = msgPayload[2];
+
+                    Game.me.roomID = roomID;
+
+                    mainMenu.UpdateForm(roomID);
                 }
                 else if (code == 2)
                 {
-                    string user = msgPayload[1];
+                    
+                }
+                else if (code == 3)
+                {
+                    string roomID = msgPayload[1].Split(':')[0];
+                    string user = msgPayload[1].Split(':')[1];
 
                     var coor = msgPayload[2].Split(':');
 
@@ -109,17 +120,17 @@ namespace Battleships
 
                     playForm.PerformAttacked(x, y, result);
                 }
-                else if (code == 3)
+                else if (code == 4)
                 {
                     string user = msgPayload[1];
 
                     MessageBox.Show("Nice!!!", $"{user} won!");
                 }
-            }
+/*            }
             catch (Exception ex)
             {
                 MessageBox.Show("getMsg " + ex.Message);
-            }
+            }*/
         }
 
         public void SendMsg(int code, string user = "", string pass_or_coor = "", string email = "")
@@ -132,19 +143,19 @@ namespace Battleships
             }
         }
 
-        //public void SendMove(int code, string user, string coor)
-        //{
-        //    string 
-
-        //    if (sw != null)
-        //    {
-        //        sw.WriteLine(formatedMsg);
-        //    }
-        //}
-
-        public void SendPlayerInfo(Player player)
+        public void SendMove(int code, string roomID, string user, int x, int y)
         {
-            SendMsg(1, Game.me.cName);
+            string formatedMsg = $"{code}|{roomID}:{user}|{x}:{y}";
+
+            if (sw != null)
+            {
+                sw.WriteLine(formatedMsg);
+            }
+        }
+
+        public void SendPlayerInfo(Player player, string roomID)
+        {
+            SendMsg(2, Game.me.cName, roomID);
 
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(tcpClient.GetStream(), player.ShipSet);

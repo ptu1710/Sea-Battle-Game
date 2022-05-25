@@ -97,25 +97,64 @@ namespace Battleships
                 }
                 else if (code == 1)
                 {
+                    // Game._ME.SendMsg(1, Game.me.cName, "");
                     string user = msgPayload[1];
-                    getPlayer(user);
-                    mainForm.UpdateLog($"Player {user} is ready");
+                    string roomID = msgPayload[2];
+
+                    bool flag = false;
+
+                    if (string.IsNullOrEmpty(roomID))
+                    {
+                        roomID = Game.RandomRoomID();
+                        Room room = new Room(roomID, new List<Player> { new Player(user) });
+                        Game.rooms.Add(room);
+                        flag = true;
+                    }
+                    else
+                    {
+                        foreach (Room room in Game.rooms)
+                        {
+                            if (room._id == roomID)
+                            {
+                                flag = true;
+                                room.Users.Add(new Player(user));
+                            }
+                        }
+                    }
+
+                    if (flag)
+                    {
+                        sendMsg(code, user, roomID);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Room");
+                    }
                 }
                 else if (code == 2)
                 {
                     string user = msgPayload[1];
+                    string roomID = msgPayload[2];
+
+                    getPlayer(user, roomID);
+                    mainForm.UpdateLog($"Player {user} is ready");
+                }
+                else if (code == 3)
+                {
+                    string roomID = msgPayload[1].Split(':')[0];
+                    string user = msgPayload[1].Split(':')[1];
 
                     var coor = msgPayload[2].Split(':');
 
                     int x = int.Parse(coor[0]);
                     int y = int.Parse(coor[1]);
 
-                    sendMsg(code, user, $"{x}:{y}:{mainForm.PerformAttack(x, y, user)}");
+                    sendMove(code, roomID, user, x, y, mainForm.PerformAttack(x, y, user));
                     mainForm.UpdateLog($"Player {user} was attacked at {x}:{y}:{mainForm.PerformAttack(x, y, user)}");
 
                     if (mainForm.IsEndGame(user))
                     {
-                        sendMsg(3, user, $"true");
+                        sendMsg(4, user, $"true");
                         mainForm.UpdateLog($"Player {user} won!");
                     }
                 }
@@ -127,7 +166,7 @@ namespace Battleships
             //    client.Close();
             //    sr.Close();
             //}
-            sr.Close();
+            // sr.Close();
         }
 
         // Check 
@@ -139,7 +178,7 @@ namespace Battleships
 
             foreach (Player player in Game.currentUsers.Keys)
             {
-                if (player.name == user)
+                if (player.cName == user)
                 {
                     sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
                 }
@@ -151,16 +190,50 @@ namespace Battleships
             }
         }
 
-        private void getPlayer(string username)
+        private void sendMove(int code, string roomID, string user, int x, int y, bool hit)
+        {
+            string formattedMsg = $"{code}|{roomID}:{user}|{x}:{y}:{hit}";
+
+            StreamWriter sw = null;
+
+            Room room = Game.rooms.Find(r => r._id == roomID);
+
+            foreach (Player player in Game.currentUsers.Keys)
+            {
+                if (player.cName != user)
+                {
+                    sw = new StreamWriter(Game.currentUsers[player].GetStream()) { AutoFlush = true };
+                }
+            }
+
+            if (sw != null)
+            {
+                sw.WriteLine(formattedMsg);
+            }
+        }
+
+
+        private void getPlayer(string username, string roomID)
         {
             foreach (Player player in Game.currentUsers.Keys)
             {
-                if (player.name == username)
+                if (player.cName == username)
                 {
                     BinaryFormatter bf = new BinaryFormatter();
                     int[,] playerShipSet = (int[,])bf.Deserialize(Game.currentUsers[player].GetStream());
 
                     player.setShipSet(playerShipSet);
+
+                    Room room = Game.rooms.Find(r => r._id == roomID);
+
+
+                    for (int i = 0; i < room.Users.Count; i++)
+                    {
+                        if (room.Users[i].cName == player.cName)
+                        {
+                            room.Users[i] = player;
+                        }
+                    }
                 }
             }
         }

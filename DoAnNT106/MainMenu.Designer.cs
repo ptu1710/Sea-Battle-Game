@@ -94,6 +94,7 @@
             this.roomidTBox.Name = "roomidTBox";
             this.roomidTBox.Size = new System.Drawing.Size(200, 34);
             this.roomidTBox.TabIndex = 4;
+            this.roomidTBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MainMenu
             // 

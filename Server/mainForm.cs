@@ -66,7 +66,7 @@ namespace Battleships
 
             foreach (Player player in Game.currentUsers.Keys)
             {
-                if (player.name != attackedName)
+                if (player.cName != attackedName)
                 {
                     attackedPlayer = player;
                 }
@@ -105,7 +105,7 @@ namespace Battleships
 
             foreach (Player player in Game.currentUsers.Keys)
             {
-                if (player.name != attackedName)
+                if (player.cName != attackedName)
                 {
                     attackedPlayer = player;
                 }
