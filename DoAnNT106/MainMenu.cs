@@ -14,12 +14,6 @@ namespace Battleships
     public partial class MainMenu : Form
     {
         SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.bgm_track1_loop);
-        public MainMenu()
-        {
-            InitializeComponent();
-            CenterToScreen();
-            
-        }
 
         public MainMenu(string cName)
         {
@@ -47,22 +41,37 @@ namespace Battleships
             // playBtn_Click(sender, e);
         }
 
-        private delegate void SafeUpdateForm(string roomID);
+        private delegate void SafeUpdateForm(string roomID, string otherUser);
 
-        public void UpdateForm(string roomID)
+        public void UpdateForm(string roomID, string otherUser)
         {
             if (this.InvokeRequired)
             {
                 var d = new SafeUpdateForm(UpdateForm);
-                this.Invoke(d, new object[] { roomID });
+                this.Invoke(d, new object[] { roomID, otherUser });
             }
             else
             {
-                ShipDeployment DeployShip = new ShipDeployment();
-                DeployShip.Location = this.Location;
-                DeployShip.Show();
-                simpleSound.Stop();
+                if (usernameLabel.Text.Contains(Game.me.cName))
+                {
+                    usernameLabel.Text = $"{roomID} - {otherUser}";
+                }
+                else if (usernameLabel.Text.Contains(" - "))
+                {
+                    usernameLabel.Text += $"{otherUser}";
+                }
 
+                if (Network.DeployShip != null)
+                {
+                    Network.DeployShip.UpdateRoomLabel(usernameLabel.Text);
+                }
+                else
+                {
+                    Network.DeployShip = new ShipDeployment(usernameLabel.Text);  
+                    Network.DeployShip.Show();
+                }
+
+                simpleSound.Stop();
                 Hide();
             }
         }

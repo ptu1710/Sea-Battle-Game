@@ -21,7 +21,6 @@ namespace Battleships
             InitializeComponent();
             CenterToScreen();
             Network.playForm = this;
-            Game.player = new Player("");
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -65,22 +64,42 @@ namespace Battleships
             if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize)
             {
                 // Note
-                Game._ME.SendMove(3, Game.me.roomID, Game.me.cName, mouseCellX, mouseCellY);
-                Game.me.isMyTurn =!Game.me.isMyTurn;
+                
+                if (Game.CanAttackAt(mouseCellX, mouseCellY))
+                {
+                    Game._ME.SendMove(3, Game.me.roomID, Game.me.cName, mouseCellX, mouseCellY);
+                    Game.me.isMyTurn = false;
+                }
+
                 pictureBox1.Refresh();
             }
         }
 
-        public void PerformAttacked(int x, int y, bool hit)
+        public void PerformAttacked(string attackedFrom, int x, int y, bool hit)
         {
-            Game.player.RevealedCells[x, y] = true;
+            // Console.WriteLine($"{}:{attackedFrom}");
 
-            if (hit)
+            if (attackedFrom == Game.me.cName)
             {
-                Game.player.ShipSet[x, y] = 1;
+                Game.player.RevealedCells[x, y] = true;
+
+                if (hit)
+                {
+                    Game.player.ShipSet[x, y] = 1;
+                }
+            }
+            else
+            {
+                Game.me.RevealedCells[x, y] = true;
+
+                if (hit)
+                {
+                    Game.me.ShipSet[x, y] = 1;
+                }
             }
 
             UpdateDesk(pictureBox1);
+            UpdateDesk(pictureBox2);
         }
 
         private void PlayForm_FormClosing(object sender, FormClosingEventArgs e)

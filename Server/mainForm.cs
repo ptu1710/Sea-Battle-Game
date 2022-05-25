@@ -60,15 +60,15 @@ namespace Battleships
             startBtn_Click(sender, e);
         }
 
-        public static bool PerformAttack(int cellX, int cellY, string attackedName)
+        public static bool PerformAttack(int cellX, int cellY, string roomID, string attackedName)
         {
-            Player attackedPlayer = null;
+            Player attackedPlayer = null ;
 
-            foreach (Player player in Game.currentUsers.Keys)
+            foreach (string playerName in Game.rooms[roomID].Users.Keys)
             {
-                if (player.cName != attackedName)
+                if (playerName  != attackedName)
                 {
-                    attackedPlayer = player;
+                    attackedPlayer = Game.rooms[roomID].Users[playerName];
                 }
             }
 
@@ -101,15 +101,7 @@ namespace Battleships
 
         public static bool IsEndGame(string attackedName)
         {
-            Player attackedPlayer = null;
-
-            foreach (Player player in Game.currentUsers.Keys)
-            {
-                if (player.cName != attackedName)
-                {
-                    attackedPlayer = player;
-                }
-            }
+            Player attackedPlayer = Game.currentUsers[attackedName];
 
             if (attackedPlayer == null)
             {

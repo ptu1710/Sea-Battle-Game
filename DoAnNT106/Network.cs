@@ -28,6 +28,8 @@ namespace Battleships
 
         public static MainMenu mainMenu = null;
 
+        public static ShipDeployment DeployShip = null;
+
         public static PlayForm playForm = null;
 
         public Network(loginForm login, string ip, int _port)
@@ -92,25 +94,45 @@ namespace Battleships
 
             if (code == 0)
             {
-                loginForm.UpdateForm(cName);
+                string msg = msgPayload[2];
+
+                if (msg == "success")
+                {
+                    loginForm.UpdateForm(cName);
+                }
+                else
+                {
+                    Console.WriteLine("Client: Login Failed!");
+                }
             }
             else if (code == 1)
             {
-                string roomID = msgPayload[2];
+                string roomID = msgPayload[1];
+                string otherUser = msgPayload[2];
 
                 Game.me.roomID = roomID;
 
-                mainMenu.UpdateForm(roomID);
+                if (otherUser != Game.me.cName)
+                {
+                    Game.player = new Player(otherUser);
+                    Game.player.roomID = roomID;
+
+                    mainMenu.UpdateForm(roomID, otherUser);
+                }
+                else
+                {
+                    mainMenu.UpdateForm(roomID, "");
+                }
             }
             else if (code == 2)
             {
-                string isPlayer1Turn = msgPayload[1];
+                string playerTurn = msgPayload[2];
 
-                if (isPlayer1Turn == Game.me.cName)
+                if (playerTurn == Game.me.cName)
                 {
                     Game.me.isMyTurn = true;
                 }
-                    else
+                else
                 {
                     Game.me.isMyTurn = false;
                 }
@@ -118,14 +140,17 @@ namespace Battleships
             else if (code == 3)
             {
                 Console.WriteLine(rawMsg);
-                var coor = msgPayload[1].Split(':');
+
+                string from = msgPayload[1].Split(':')[1];
+
+                var coor = msgPayload[2].Split(':');
 
                 int x = int.Parse(coor[0]);
                 int y = int.Parse(coor[1]);
 
                 bool result = bool.Parse(coor[2]);
 
-                playForm.PerformAttacked(x, y, result);
+                playForm.PerformAttacked(from, x, y, result);
             }
             else if (code == 4)
             {
@@ -140,9 +165,9 @@ namespace Battleships
             }*/
         }
 
-        public void SendMsg(int code, string user = "", string pass_or_coor = "", string email = "")
+        public void SendMsg(int code, string msg = "", string msg1 = "", string msg2 = "")
         {
-            string formatedMsg = $"{code}|{user}|{pass_or_coor}";
+            string formatedMsg = $"{code}|{msg}|{msg1}";
             
             if (sw != null)
             {

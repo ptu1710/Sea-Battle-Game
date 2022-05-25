@@ -18,11 +18,16 @@ namespace Battleships
         private bool isHorizontal = true;
         public bool[] shipDeployed = new bool[5];
 
-        public ShipDeployment()
+        public ShipDeployment(string ID)
         {
             InitializeComponent();
             CenterToParent();
-            roomIDLabel.Text = Game.me.roomID;
+            roomIDLabel.Text = ID;
+        }
+
+        public void UpdateRoomLabel(string text)
+        {
+            roomIDLabel.Text = text;
         }
 
         private void deckPictureBox_Paint(object sender, PaintEventArgs e)
@@ -197,13 +202,12 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
+            Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
+
             PlayForm myDeck = new PlayForm();
-            myDeck.Location = this.Location;
             myDeck.Text = Game.me.cName;
             myDeck.Show();
 
-            Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
-            
             this.Hide();
         }
     }

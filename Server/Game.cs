@@ -8,7 +8,9 @@ namespace Battleships
 {
     public static class Game
     {
-        public static Dictionary<Player, TcpClient> currentUsers = new Dictionary<Player, TcpClient>();
+        public static Dictionary<string, TcpClient> currentTCPs = new Dictionary<string, TcpClient>();
+        
+        public static Dictionary<string, Player> currentUsers = new Dictionary<string, Player>();
 
         public static Dictionary<string, Room> rooms = new Dictionary<string, Room>(); 
 

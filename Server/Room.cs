@@ -11,18 +11,44 @@ namespace Battleships
     {
         public string _id { get; set; }
 
-        public List<Player> Users { get; set; }
+        public Dictionary<string, Player> Users { get; }
 
-        public string isPlayer1Turn { get; set; }
+        public string playerTurn { get; set; }
 
         public bool isPlaying { get; set; }
 
-        public Room(string id, List<Player> user)
+        public Room(string id, string user)
         {
             this._id = id;
-            this.Users = user;
+
+            this.Users = new Dictionary<string, Player>();
+            Users.Add(user, new Player(user));
+
             isPlaying = false;
-            isPlayer1Turn = Users[0].cName;
+            playerTurn = user;
+        }
+
+        public void AddPlayer(string playerName, Player player)
+        {
+            if (Users.ContainsKey(playerName))
+            {
+                Users[playerName] = player;
+            }
+            else
+            {
+                Users.Add(playerName, new Player(playerName));
+            }
+        }
+
+        public void ChangePlayerTurn(string lastTurn)
+        {
+            foreach (string name in Users.Keys)
+            {
+                if (name != lastTurn)
+                {
+                    playerTurn = name;
+                }
+            }
         }
     }
 }
