@@ -158,8 +158,6 @@ namespace Battleships
                     if (areAllShipsDeployed)
                     {
                         playBtn.Enabled = true;
-
-                        
                     }
                 }
             }
@@ -197,17 +195,19 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
-            if (roomIDLabel.Text.Substring(roomIDLabel.Text.LastIndexOf('-') + 1).Trim() == "")
-            {
-                MessageBox.Show("Your opponent is not ready.");
-                return;
-            }
+            //if (roomIDLabel.Text.Substring(roomIDLabel.Text.LastIndexOf('-') + 1).Trim() == "")
+            //{
+            //    MessageBox.Show("Your opponent is not ready.");
+            //    return;
+            //}
 
-            Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
 
             PlayForm myDeck = new PlayForm();
             myDeck.Text = Game.me.cName;
             myDeck.Show();
+
+            Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
+
 
             this.Hide();
         }

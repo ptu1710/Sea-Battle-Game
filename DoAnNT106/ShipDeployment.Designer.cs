@@ -135,7 +135,6 @@
             // 
             // playBtn
             // 
-            this.playBtn.Enabled = false;
             this.playBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playBtn.Location = new System.Drawing.Point(196, 353);
             this.playBtn.Name = "playBtn";

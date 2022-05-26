@@ -66,8 +66,6 @@ namespace Battleships
 
             if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize)
             {
-                // Note
-                
                 if (Game.CanAttackAt(mouseCellX, mouseCellY))
                 {
                     Game._ME.SendMove(3, Game.me.roomID, Game.me.cName, mouseCellX, mouseCellY);
@@ -80,8 +78,6 @@ namespace Battleships
 
         public void PerformAttacked(string attackedFrom, int x, int y, bool hit)
         {
-            // Console.WriteLine($"{}:{attackedFrom}");
-
             if (attackedFrom == Game.me.cName)
             {
                 Game.player.RevealedCells[x, y] = true;
@@ -103,6 +99,8 @@ namespace Battleships
 
             UpdateDesk(pictureBox1);
             UpdateDesk(pictureBox2);
+            UpdateProgress(meProgress);
+            UpdateProgress(playerProgress);
         }
 
         private void PlayForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -137,6 +135,56 @@ namespace Battleships
             else
             {
                 picture.Refresh();
+            }
+        }
+
+        private delegate void SafeUpdateProgress(ProgressBar pg);
+        private void UpdateProgress(ProgressBar pg)
+        {
+            if (pg.InvokeRequired)
+            {
+                var d = new SafeUpdateProgress(UpdateProgress);
+                pg.Invoke(d, new object[] { pg });
+            }
+            else
+            {
+                pg.Value = 0;
+            }
+        }
+
+        private void PlayForm_Load(object sender, EventArgs e)
+        {
+            meLabel.Location = new Point(mePBox.Location.X + mePBox.Width + 6, mePBox.Location.Y + 12);
+            playerLabel.Location = new Point(playerPBox.Location.X - playerLabel.Width - 6, mePBox.Location.Y + 12);
+
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Game.me.isMyTurn)
+            {
+                meProgress.Value++;
+
+                if (meProgress.Value >= 30)
+                {
+                    int x = Game.RandomAttack();
+                    int y = Game.RandomAttack();
+
+                    while (!Game.CanAttackAt(x, y))
+                    {
+                        x = Game.RandomAttack();
+                        y = Game.RandomAttack();
+                    }
+
+                    Game._ME.SendMove(3, Game.me.roomID, Game.me.cName, x, y);
+
+                    meProgress.Value = 0;
+                }
+            }
+            else
+            {
+                playerProgress.Value++;
             }
         }
     }

@@ -132,5 +132,11 @@ namespace Battleships
         {
             return !(player.RevealedCells[x, y]);
         }
+
+        public static int RandomAttack()
+        {
+            Random random = new Random();
+            return random.Next(0, 9);
+        }
     }
 }
