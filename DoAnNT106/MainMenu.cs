@@ -100,6 +100,7 @@ namespace Battleships
             else
             {
                 bgSound.PlayLooping();
+                button1.BackgroundImage= Properties.Resources.SpeakerPlay;
             }
 
             isPlaySound = !isPlaySound;

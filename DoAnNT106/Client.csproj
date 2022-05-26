@@ -215,10 +215,10 @@
     <None Include="Resources\screenshot_1653541900.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SpeakerMute.png" />
+    <None Include="Resources\SpeakerPlay.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SpeakerPlay.png" />
+    <None Include="Resources\SpeakerMute.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
