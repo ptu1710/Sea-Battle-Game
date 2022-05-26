@@ -42,12 +42,12 @@
             this.quitBtn = new System.Windows.Forms.Button();
             this.registerPanel = new System.Windows.Forms.Panel();
             this.signinPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.settingBtn = new System.Windows.Forms.Button();
             this.loginPBox = new System.Windows.Forms.PictureBox();
             this.mailPBox = new System.Windows.Forms.PictureBox();
             this.passPBox = new System.Windows.Forms.PictureBox();
             this.userPBox = new System.Windows.Forms.PictureBox();
+            this.loginLabel = new System.Windows.Forms.Label();
             this.registerPanel.SuspendLayout();
             this.signinPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.loginPBox)).BeginInit();
@@ -62,7 +62,7 @@
             this.userTBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.userTBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userTBox.ForeColor = System.Drawing.Color.Black;
-            this.userTBox.Location = new System.Drawing.Point(78, 189);
+            this.userTBox.Location = new System.Drawing.Point(78, 209);
             this.userTBox.Name = "userTBox";
             this.userTBox.Size = new System.Drawing.Size(282, 23);
             this.userTBox.TabIndex = 1;
@@ -73,7 +73,7 @@
             // userPanel
             // 
             this.userPanel.BackColor = System.Drawing.Color.White;
-            this.userPanel.Location = new System.Drawing.Point(40, 218);
+            this.userPanel.Location = new System.Drawing.Point(40, 238);
             this.userPanel.Name = "userPanel";
             this.userPanel.Size = new System.Drawing.Size(320, 1);
             this.userPanel.TabIndex = 6;
@@ -81,7 +81,7 @@
             // passPanel
             // 
             this.passPanel.BackColor = System.Drawing.Color.White;
-            this.passPanel.Location = new System.Drawing.Point(40, 272);
+            this.passPanel.Location = new System.Drawing.Point(40, 292);
             this.passPanel.Name = "passPanel";
             this.passPanel.Size = new System.Drawing.Size(320, 1);
             this.passPanel.TabIndex = 7;
@@ -92,7 +92,7 @@
             this.passTBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.passTBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passTBox.ForeColor = System.Drawing.Color.Black;
-            this.passTBox.Location = new System.Drawing.Point(78, 243);
+            this.passTBox.Location = new System.Drawing.Point(78, 263);
             this.passTBox.Name = "passTBox";
             this.passTBox.Size = new System.Drawing.Size(282, 23);
             this.passTBox.TabIndex = 2;
@@ -103,7 +103,7 @@
             // mailPanel
             // 
             this.mailPanel.BackColor = System.Drawing.Color.White;
-            this.mailPanel.Location = new System.Drawing.Point(40, 326);
+            this.mailPanel.Location = new System.Drawing.Point(40, 346);
             this.mailPanel.Name = "mailPanel";
             this.mailPanel.Size = new System.Drawing.Size(320, 1);
             this.mailPanel.TabIndex = 8;
@@ -115,7 +115,7 @@
             this.mailTBox.Enabled = false;
             this.mailTBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mailTBox.ForeColor = System.Drawing.Color.Black;
-            this.mailTBox.Location = new System.Drawing.Point(78, 297);
+            this.mailTBox.Location = new System.Drawing.Point(78, 317);
             this.mailTBox.Name = "mailTBox";
             this.mailTBox.Size = new System.Drawing.Size(282, 23);
             this.mailTBox.TabIndex = 3;
@@ -196,7 +196,7 @@
             this.registerPanel.Controls.Add(this.quitBtn);
             this.registerPanel.Controls.Add(this.backBtn);
             this.registerPanel.Controls.Add(this.registerBtn);
-            this.registerPanel.Location = new System.Drawing.Point(40, 393);
+            this.registerPanel.Location = new System.Drawing.Point(40, 413);
             this.registerPanel.Name = "registerPanel";
             this.registerPanel.Size = new System.Drawing.Size(320, 90);
             this.registerPanel.TabIndex = 5;
@@ -205,22 +205,10 @@
             // 
             this.signinPanel.Controls.Add(this.signinBtn);
             this.signinPanel.Controls.Add(this.orLabel);
-            this.signinPanel.Location = new System.Drawing.Point(40, 292);
+            this.signinPanel.Location = new System.Drawing.Point(40, 312);
             this.signinPanel.Name = "signinPanel";
             this.signinPanel.Size = new System.Drawing.Size(320, 109);
             this.signinPanel.TabIndex = 4;
-            // 
-            // button1
-            // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 32);
-            this.button1.TabIndex = 2;
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // settingBtn
             // 
@@ -251,7 +239,7 @@
             // 
             this.mailPBox.Enabled = false;
             this.mailPBox.Image = global::Battleships.Properties.Resources.email;
-            this.mailPBox.Location = new System.Drawing.Point(40, 292);
+            this.mailPBox.Location = new System.Drawing.Point(40, 312);
             this.mailPBox.Name = "mailPBox";
             this.mailPBox.Size = new System.Drawing.Size(32, 32);
             this.mailPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -262,7 +250,7 @@
             // 
             this.passPBox.Enabled = false;
             this.passPBox.Image = ((System.Drawing.Image)(resources.GetObject("passPBox.Image")));
-            this.passPBox.Location = new System.Drawing.Point(40, 238);
+            this.passPBox.Location = new System.Drawing.Point(40, 258);
             this.passPBox.Name = "passPBox";
             this.passPBox.Size = new System.Drawing.Size(32, 32);
             this.passPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -273,22 +261,32 @@
             // 
             this.userPBox.Enabled = false;
             this.userPBox.Image = ((System.Drawing.Image)(resources.GetObject("userPBox.Image")));
-            this.userPBox.Location = new System.Drawing.Point(40, 184);
+            this.userPBox.Location = new System.Drawing.Point(40, 204);
             this.userPBox.Name = "userPBox";
             this.userPBox.Size = new System.Drawing.Size(32, 32);
             this.userPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.userPBox.TabIndex = 3;
             this.userPBox.TabStop = false;
             // 
+            // loginLabel
+            // 
+            this.loginLabel.AutoSize = true;
+            this.loginLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loginLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.loginLabel.Location = new System.Drawing.Point(37, 174);
+            this.loginLabel.Name = "loginLabel";
+            this.loginLabel.Size = new System.Drawing.Size(0, 20);
+            this.loginLabel.TabIndex = 10;
+            // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Teal;
-            this.ClientSize = new System.Drawing.Size(400, 500);
+            this.ClientSize = new System.Drawing.Size(400, 520);
+            this.Controls.Add(this.loginLabel);
             this.Controls.Add(this.settingBtn);
             this.Controls.Add(this.loginPBox);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.registerPanel);
             this.Controls.Add(this.signinPanel);
             this.Controls.Add(this.mailPBox);
@@ -335,7 +333,7 @@
         private System.Windows.Forms.Button quitBtn;
         private System.Windows.Forms.Panel registerPanel;
         private System.Windows.Forms.Panel signinPanel;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button settingBtn;
+        private System.Windows.Forms.Label loginLabel;
     }
 }

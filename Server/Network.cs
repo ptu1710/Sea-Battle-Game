@@ -85,15 +85,24 @@ namespace Battleships
 
                     if (modify.Accounts(query).Count > 0)
                     {
-                        Game.currentTCPs.Add(user, client);
-                        Game.currentUsers.Add(user, new Player(user));
+                        if (Game.currentTCPs.ContainsKey(user))
+                        {
+                            sendFailedLogin(0, user, client, "existed");
+                            mainForm.UpdateLog($"Login failed: {user} is currently logged in");
+                            continue;
+                        }
+                        else
+                        {
+                            Game.currentTCPs.Add(user, client);
+                            Game.currentUsers.Add(user, new Player(user));
 
-                        sendMsg(code, user, "success");
-                        mainForm.UpdateLog($"Signed in successfully: {user}/{pass}");
+                            sendMsg(0, user, "success");
+                            mainForm.UpdateLog($"Signed in successfully: {user}/{pass}");
+                        }
                     }
                     else
                     {
-                        sendMsg(code, user, "failed");
+                        sendFailedLogin(0, user, client, "failed");
                         mainForm.UpdateLog($"Login failed: {user}/{pass} does not exist");
                     }
                 }
@@ -144,11 +153,18 @@ namespace Battleships
                     int x = int.Parse(coor[0]);
                     int y = int.Parse(coor[1]);
 
-                    sendMove(3, from, roomID, x, y, mainForm.PerformAttack(x, y, roomID, from));
+                    bool isCorrectShoot = Game.PerformAttack(x, y, roomID, from);
+
+                    sendMove(3, from, roomID, x, y, isCorrectShoot);
                     Game.rooms[roomID].ChangePlayerTurn(from);
                     sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
 
-                    mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{mainForm.PerformAttack(x, y, roomID, from)}");
+                    mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{isCorrectShoot}");
+
+                    if (Game.IsEndGame(roomID, from))
+                    {
+                        sendToRoom(4, roomID, from);
+                    }
                 }
             }
             //}
@@ -167,6 +183,18 @@ namespace Battleships
             string formattedMsg = $"{code}|{user}|{msg}";
 
             StreamWriter sw = new StreamWriter(Game.currentTCPs[user].GetStream()) { AutoFlush = true };
+
+            if (sw != null)
+            {
+                sw.WriteLine(formattedMsg);
+            }
+        }
+
+        private void sendFailedLogin(int code, string user, TcpClient client, string msg)
+        {
+            string formattedMsg = $"{code}|{user}|{msg}";
+
+            StreamWriter sw = new StreamWriter(client.GetStream()) { AutoFlush = true };
 
             if (sw != null)
             {

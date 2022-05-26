@@ -33,11 +33,6 @@ namespace Battleships
         private void deckPictureBox_Paint(object sender, PaintEventArgs e)
         {
             GraphicContext.DrawShipSet(Game.me, e);
-
-            //if (Game.player != null)
-            //{
-            //    GraphicContext.DrawDeckStatus(Game.player.RevealedCells, Game.player.ShipSet, e);
-            //}
         }
 
         private void deckPictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -62,7 +57,7 @@ namespace Battleships
                             {
                                 if (mouseCellX + i <= 9 && mouseCellY <= 9)
                                 {
-                                    GraphicContext.DrawInnerFrameCell(mouseCellX + i, mouseCellY, currentShip, this, deckPictureBox);
+                                    GraphicContext.DrawInnerFrameCell(mouseCellX + i, mouseCellY, currentShip, deckPictureBox);
                                 }
                                 else
                                 {
@@ -76,7 +71,7 @@ namespace Battleships
                             {
                                 if (mouseCellY + i <= 9 && mouseCellX <= 9)
                                 {
-                                    GraphicContext.DrawInnerFrameCell(mouseCellX, mouseCellY + i, currentShip, this, deckPictureBox);
+                                    GraphicContext.DrawInnerFrameCell(mouseCellX, mouseCellY + i, currentShip, deckPictureBox);
                                 }
                                 else
                                 {
@@ -160,11 +155,11 @@ namespace Battleships
                         }
                     }
 
-                    playBtn.Enabled = true;
-
                     if (areAllShipsDeployed)
                     {
                         playBtn.Enabled = true;
+
+                        
                     }
                 }
             }
@@ -202,6 +197,12 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
+            if (roomIDLabel.Text.Substring(roomIDLabel.Text.LastIndexOf('-') + 1).Trim() == "")
+            {
+                MessageBox.Show("Your opponent is not ready.");
+                return;
+            }
+
             Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
 
             PlayForm myDeck = new PlayForm();

@@ -96,14 +96,7 @@ namespace Battleships
             {
                 string msg = msgPayload[2];
 
-                if (msg == "success")
-                {
-                    loginForm.UpdateForm(cName);
-                }
-                else
-                {
-                    Console.WriteLine("Client: Login Failed!");
-                }
+                loginForm.UpdateForm(msg, cName);
             }
             else if (code == 1)
             {
@@ -154,9 +147,9 @@ namespace Battleships
             }
             else if (code == 4)
             {
-                string user = msgPayload[1];
+                string userWin = msgPayload[2];
 
-                MessageBox.Show("Nice!!!", $"{user} won!");
+                MessageBox.Show($"{userWin} won!", "Nice!!!");
             }
 /*            }
             catch (Exception ex)

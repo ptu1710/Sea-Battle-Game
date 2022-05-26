@@ -44,26 +44,26 @@ namespace Battleships
 
         private void moveUp()
         {
-            this.Height -= 2;
+            this.Height -= 3;
 
-            int y = registerPanel.Location.Y - 2;
+            int y = registerPanel.Location.Y - 3;
             Point location = new Point(registerPanel.Location.X, y);
             registerPanel.Location = location;
 
-            y = signinPanel.Location.Y + 2;
+            y = signinPanel.Location.Y + 3;
             location = new Point(signinPanel.Location.X, y);
             signinPanel.Location = location;
         }
 
         private void moveDown()
         {
-            this.Height += 2;
+            this.Height += 3;
 
-            int y = registerPanel.Location.Y + 2;
+            int y = registerPanel.Location.Y + 3;
             Point location = new Point(registerPanel.Location.X, y);
             registerPanel.Location = location;
 
-            y = signinPanel.Location.Y - 2;
+            y = signinPanel.Location.Y - 3;
             location = new Point(signinPanel.Location.X, y);
             signinPanel.Location = location;
         }
@@ -188,6 +188,7 @@ namespace Battleships
                 if (registerPanel.Location.Y > 350)
                 {
                     moveUp();
+                    orLabel.Visible = false;
                     backBtn.BringToFront();
                 }
                 else
@@ -198,7 +199,7 @@ namespace Battleships
             }
             else
             {
-                if (this.Height < 500)
+                if (this.Height < 520)
                 {
                     moveDown();
                     quitBtn.BringToFront();
@@ -206,6 +207,7 @@ namespace Battleships
                 }
                 else
                 {
+                    orLabel.Visible = true;
                     isRegister = false;
                     disposeTimer();
                 }
@@ -263,6 +265,7 @@ namespace Battleships
                     Name = "textBox1",
                     Text = "2006",
                     Size = new Size(100, 27),
+                    ReadOnly = true,
                     TabIndex = 3,
                     TextAlign = HorizontalAlignment.Center
                 };
@@ -279,7 +282,8 @@ namespace Battleships
                     Text = "SAVE",
                     UseVisualStyleBackColor = false
                 };
-                button1.Click += new System.EventHandler(saveBtn_Click);
+
+                button.Click += new EventHandler(saveBtn_Click);
 
                 panel.TabIndex = 12;
                 panel.Controls.Add(label);
@@ -322,21 +326,32 @@ namespace Battleships
             port = int.Parse(portTextbox.Text);
         }
 
-        private delegate void SafeUpdateForm(string cName);
+        private delegate void SafeUpdateForm(string msg, string cName);
 
-        public void UpdateForm(string cName)
+        public void UpdateForm(string msg, string cName)
         {
             if (this.InvokeRequired)
             {
                 var d = new SafeUpdateForm(UpdateForm);
-                this.Invoke(d, new object[] { cName });
+                this.Invoke(d, new object[] { msg, cName });
             }
             else
             {
-                this.Hide();
+                if (msg == "success")
+                {
+                    this.Hide();
 
-                MainMenu mainMenu = new MainMenu(cName);
-                mainMenu.Show();
+                    MainMenu mainMenu = new MainMenu(cName);
+                    mainMenu.Show();
+                }
+                else if (msg == "failed")
+                {
+                    loginLabel.Text = "* Username or Password is incorrect.";
+                }
+                else
+                {
+                    loginLabel.Text = "* You Are Already Logged in Elsewhere.";
+                }
             }
         }
 

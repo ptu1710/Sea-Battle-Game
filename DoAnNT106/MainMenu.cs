@@ -13,7 +13,9 @@ namespace Battleships
 {
     public partial class MainMenu : Form
     {
-        SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.bgm_track1_loop);
+        bool isPlaySound = false;
+
+        SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track1_loop);
 
         public MainMenu(string cName)
         {
@@ -71,14 +73,35 @@ namespace Battleships
                     Network.DeployShip.Show();
                 }
 
-                simpleSound.Stop();
+                isPlaySound = true;
+                bgSound.Stop();
                 Hide();
             }
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            simpleSound.PlayLooping();
+            isPlaySound = true;
+            bgSound.PlayLooping();
+        }
+
+        private void quitBtn_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (isPlaySound)
+            {
+                bgSound.Stop();
+            }
+            else
+            {
+                bgSound.PlayLooping();
+            }
+
+            isPlaySound = !isPlaySound;
         }
     }
 }

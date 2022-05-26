@@ -21,6 +21,9 @@ namespace Battleships
             InitializeComponent();
             CenterToScreen();
             Network.playForm = this;
+
+            meLabel.Text = Game.me.cName;
+            playerLabel.Text = Game.player.cName;
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -42,9 +45,9 @@ namespace Battleships
 
                     pictureBox1.Refresh();
 
-                    if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize)
+                    if (mouseCellX < Game.mapSize && mouseCellY < Game.mapSize && Game.CanAttackAt(mouseCellX, mouseCellY))
                     {
-                        GraphicContext.DrawInnerFrameCell(mouseCellX, mouseCellY, pictureBox1);
+                        GraphicContext.DrawScope(mouseCellX, mouseCellY, pictureBox1);
                     }
                 }
             }

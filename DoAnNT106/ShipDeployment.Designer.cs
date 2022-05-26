@@ -65,7 +65,7 @@
             // rotateBtn
             // 
             this.rotateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.rotateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rotateBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rotateBtn.Location = new System.Drawing.Point(40, 353);
             this.rotateBtn.Name = "rotateBtn";
             this.rotateBtn.Size = new System.Drawing.Size(146, 65);
@@ -77,7 +77,6 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Image = global::Battleships.Properties.Resources.Ship_2;
             this.pictureBox1.Location = new System.Drawing.Point(40, 27);
             this.pictureBox1.Name = "pictureBox1";
@@ -137,12 +136,12 @@
             // playBtn
             // 
             this.playBtn.Enabled = false;
-            this.playBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playBtn.Location = new System.Drawing.Point(196, 353);
             this.playBtn.Name = "playBtn";
             this.playBtn.Size = new System.Drawing.Size(140, 65);
             this.playBtn.TabIndex = 9;
-            this.playBtn.Text = "Play";
+            this.playBtn.Text = "Start";
             this.playBtn.UseVisualStyleBackColor = true;
             this.playBtn.Click += new System.EventHandler(this.playBtn_Click);
             // 
@@ -158,13 +157,14 @@
             // roomIDLabel
             // 
             this.roomIDLabel.AutoSize = true;
+            this.roomIDLabel.BackColor = System.Drawing.Color.Transparent;
             this.roomIDLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.roomIDLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomIDLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.roomIDLabel.Location = new System.Drawing.Point(0, 436);
             this.roomIDLabel.Name = "roomIDLabel";
-            this.roomIDLabel.Size = new System.Drawing.Size(46, 17);
+            this.roomIDLabel.Size = new System.Drawing.Size(0, 17);
             this.roomIDLabel.TabIndex = 16;
-            this.roomIDLabel.Text = "label1";
             // 
             // ShipDeployment
             // 

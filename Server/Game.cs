@@ -32,5 +32,77 @@ namespace Battleships
 
             return id.ToString();
         }
+
+        public static bool PerformAttack(int cellX, int cellY, string roomID, string attackedName)
+        {
+            Player attackedPlayer = null;
+
+            foreach (string playerName in Game.rooms[roomID].Users.Keys)
+            {
+                if (playerName != attackedName)
+                {
+                    attackedPlayer = Game.rooms[roomID].Users[playerName];
+                }
+            }
+
+            if (attackedPlayer == null)
+            {
+                return false;
+            }
+
+            // Mark the cell as revealed.
+            attackedPlayer.RevealedCells[cellX, cellY] = true;
+
+            // Is the attack a hit?
+            if (attackedPlayer.ShipSet[cellX, cellY] != -1)
+            {
+                // Decrease the amount of cells left for the ship that has been hit.
+                attackedPlayer.ShipLeftCells[attackedPlayer.ShipSet[cellX, cellY]]--;
+
+                foreach (int i in attackedPlayer.ShipLeftCells)
+                {
+                    Console.WriteLine(i);
+                }
+
+                if (attackedPlayer.ShipLeftCells[attackedPlayer.ShipSet[cellX, cellY]] == 0)
+                {
+                    // The ship was completely shot down.
+                    attackedPlayer.ShipsLeft--;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool IsEndGame(string roomID, string attackedName)
+        {
+            Player attackedPlayer = null;
+
+            foreach (string playerName in Game.rooms[roomID].Users.Keys)
+            {
+                if (playerName != attackedName)
+                {
+                    attackedPlayer = Game.rooms[roomID].Users[playerName];
+                }
+            }
+
+            if (attackedPlayer == null)
+            {
+                return true;
+            }
+
+            // Is the game over?
+            if (attackedPlayer.ShipsLeft == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

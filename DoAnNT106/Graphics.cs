@@ -9,17 +9,18 @@ namespace Battleships
 {
     public static class GraphicContext
     {
-        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources.button);
-        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.setting);
+        // Correct Shot Image
+        static private readonly Bitmap hitImage = new Bitmap(Properties.Resources.setting);
+
+        // Missed Shot Image
+        static private readonly Bitmap splashImage = new Bitmap(Properties.Resources.button);
+
+        // Targeting Image 
+        static private readonly Bitmap targetImage = new Bitmap(Properties.Resources.Scope);
 
         public static readonly Image[] shipImg = new Image[5]
         {
-            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
-            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
-            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
-            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
-            //Image.FromFile(@"D:\WorkSpace\NT106\Res\Ship_3.png"),
-            new Bitmap(Properties.Resources.Ship_2), // 
+            new Bitmap(Properties.Resources.Ship_2),
             new Bitmap(Properties.Resources.Ship_3_1_),
             new Bitmap(Properties.Resources.Ship_3_2_),
             new Bitmap(Properties.Resources.Ship_4),
@@ -76,45 +77,23 @@ namespace Battleships
             e.Graphics.DrawImage(hitImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
-        // Note
-        static public void DrawScope(int cellX, int cellY, PaintEventArgs e)
-        {
-            // Graphics g = deckPictureBox.CreateGraphics();
-            e.Graphics.DrawImage(splashImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
-        }
-
         // PictureBox paint event handler for drawing a splash cell.
         static public void DrawSplashCell(int cellX, int cellY, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(hitImage, (cellX + 1) * 31 + 1, (cellY + 1) * 31 + 1);
+            e.Graphics.DrawImage(splashImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
-        static public void DrawInnerFrameCell(int cellX, int cellY, int color, Form form, PictureBox deckPictureBox)
+        static public void DrawScope(int cellX, int cellY, PictureBox deckPictureBox)
+        {
+            Graphics g = deckPictureBox.CreateGraphics();
+            g.DrawImage(targetImage, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
+        }
+
+        static public void DrawInnerFrameCell(int cellX, int cellY, int color, PictureBox deckPictureBox)
         {
             Graphics g = deckPictureBox.CreateGraphics();
             Pen framePen = new Pen(colors[color], 3);
             g.DrawRectangle(framePen, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
-        }
-
-        static public void DrawInnerFrameCell(int cellX, int cellY, PictureBox deckPictureBox)
-        {
-            Graphics g = deckPictureBox.CreateGraphics();
-            //Pen framePen = new Pen(Color.Red, 5);
-            g.DrawImage(Properties.Resources.Scope, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
-        }
-
-        static public void DrawOuterFrameCell(int cellX, int cellY, int color, Form form, PictureBox deckPictureBox)
-        {
-            Graphics g = deckPictureBox.CreateGraphics();
-            Pen framePen = new Pen(colors[color], 3);
-            g.DrawRectangle(framePen, (cellX + 1) * 31 + -3, (cellY + 1) * 31 + -3, 37, 37);
-        }
-
-        // PictureBox paint event handler for drawing an outer frame around a cell.
-        static public void DrawOuterFrameCell(int cellX, int cellY, int color, PaintEventArgs e)
-        {
-            Pen framePen = new Pen(colors[color], 3);
-            e.Graphics.DrawRectangle(framePen, (cellX + 1) * 31 + -3, (cellY + 1) * 31 + -3, 37, 37);
         }
 
         // PictureBox paint event handler for drawing a ship set on a deck.
@@ -140,28 +119,16 @@ namespace Battleships
                     {
                         if (shipSet[x, y] != -1)
                         {
-                            DrawScope(x, y, e);
+                            DrawHitCell(x, y, e);
                         }
                         else
                         {
-                            DrawHitCell(x, y, e);
+                            DrawSplashCell(x, y, e);
                         }
                     }
                 }
             }
         }
-
-        static public void ReDrawDeck(int[,] shipSet, PaintEventArgs e)
-        {
-            for (int x = 0; x < Game.mapSize; x++)
-            {
-                for (int y = 0; y < Game.mapSize; y++)
-                {
-                    
-                }
-            }
-        }
-
 
         // PictureBox paint event handler for drawing sunken ships.
         static public void DrawSunkenShips(int[,] shipSet, int[] ShipLeftCells, PaintEventArgs e)
