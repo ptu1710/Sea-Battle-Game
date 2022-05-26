@@ -45,6 +45,7 @@
             this.mePBox1 = new System.Windows.Forms.PictureBox();
             this.playerPBox1 = new System.Windows.Forms.PictureBox();
             this.avtTimer = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).BeginInit();
@@ -59,6 +60,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.playerProgress);
             this.panel1.Controls.Add(this.meProgress);
             this.panel1.Controls.Add(this.playerPBox);
@@ -93,21 +95,25 @@
             // 
             // playerPBox
             // 
-            this.playerPBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.playerPBox.BackColor = System.Drawing.Color.Transparent;
+            this.playerPBox.BackgroundImage = global::Battleships.Properties.Resources.American;
+            this.playerPBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.playerPBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.playerPBox.Location = new System.Drawing.Point(736, 17);
+            this.playerPBox.Location = new System.Drawing.Point(707, 3);
             this.playerPBox.Name = "playerPBox";
-            this.playerPBox.Size = new System.Drawing.Size(48, 48);
+            this.playerPBox.Size = new System.Drawing.Size(86, 86);
             this.playerPBox.TabIndex = 4;
             this.playerPBox.TabStop = false;
             // 
             // mePBox
             // 
-            this.mePBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.mePBox.BackColor = System.Drawing.Color.Transparent;
+            this.mePBox.BackgroundImage = global::Battleships.Properties.Resources.Russia;
+            this.mePBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.mePBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mePBox.Location = new System.Drawing.Point(12, 14);
+            this.mePBox.Location = new System.Drawing.Point(3, 3);
             this.mePBox.Name = "mePBox";
-            this.mePBox.Size = new System.Drawing.Size(48, 48);
+            this.mePBox.Size = new System.Drawing.Size(86, 86);
             this.mePBox.TabIndex = 3;
             this.mePBox.TabStop = false;
             // 
@@ -116,7 +122,7 @@
             this.playerLabel.AutoSize = true;
             this.playerLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.playerLabel.Location = new System.Drawing.Point(631, 21);
+            this.playerLabel.Location = new System.Drawing.Point(602, 28);
             this.playerLabel.Name = "playerLabel";
             this.playerLabel.Size = new System.Drawing.Size(99, 32);
             this.playerLabel.TabIndex = 2;
@@ -128,7 +134,7 @@
             this.meLabel.AutoSize = true;
             this.meLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.meLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.meLabel.Location = new System.Drawing.Point(66, 21);
+            this.meLabel.Location = new System.Drawing.Point(91, 28);
             this.meLabel.Name = "meLabel";
             this.meLabel.Size = new System.Drawing.Size(99, 32);
             this.meLabel.TabIndex = 1;
@@ -140,7 +146,7 @@
             this.bsLabel.AutoSize = true;
             this.bsLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 28.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bsLabel.Location = new System.Drawing.Point(356, 22);
+            this.bsLabel.Location = new System.Drawing.Point(355, 0);
             this.bsLabel.Name = "bsLabel";
             this.bsLabel.Size = new System.Drawing.Size(86, 54);
             this.bsLabel.TabIndex = 0;
@@ -218,7 +224,21 @@
             // 
             // avtTimer
             // 
-            this.avtTimer.Tick += new System.EventHandler(this.avtTimer_Tick);
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::Battleships.Properties.Resources.SpeakerPlay;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(377, 56);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(52, 29);
+            this.button1.TabIndex = 7;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // PlayForm
             // 
@@ -232,6 +252,7 @@
             this.MaximumSize = new System.Drawing.Size(814, 545);
             this.MinimumSize = new System.Drawing.Size(814, 545);
             this.Name = "PlayForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlayForm_FormClosing);
             this.Load += new System.EventHandler(this.PlayForm_Load);
             this.panel1.ResumeLayout(false);
@@ -266,5 +287,7 @@
         private System.Windows.Forms.PictureBox mePBox1;
         private System.Windows.Forms.PictureBox playerPBox1;
         private System.Windows.Forms.Timer avtTimer;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button button1;
     }
 }

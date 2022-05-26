@@ -4,14 +4,19 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Battleships
 {
+    
+
     public partial class ShipDeployment : Form
     {
+        bool isPlaySound = false;
+        SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track3_loop);
         private int mouseCellX = -1;
         private int mouseCellY = -1;
         private int currentShip = -1;
@@ -210,6 +215,29 @@ namespace Battleships
 
 
             this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (isPlaySound)
+            {
+                bgSound.Stop();
+                button1.BackgroundImage = Properties.Resources.SpeakerMute;
+            }
+            else
+            {
+                bgSound.PlayLooping();
+                button1.BackgroundImage = Properties.Resources.SpeakerPlay;
+            }
+
+            isPlaySound = !isPlaySound;
+        }
+
+        private void ShipDeployment_Load(object sender, EventArgs e)
+        {
+            isPlaySound = true;
+            bgSound.PlayLooping();
+            
         }
     }
 }

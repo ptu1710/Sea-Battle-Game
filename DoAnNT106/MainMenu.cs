@@ -73,8 +73,8 @@ namespace Battleships
                     Network.DeployShip.Show();
                 }
 
-                isPlaySound = true;
-                bgSound.Stop();
+                //isPlaySound = true;
+                //bgSound.Stop();
                 Hide();
             }
         }

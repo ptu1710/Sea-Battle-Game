@@ -39,6 +39,7 @@
             this.playBtn = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.roomIDLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.deckPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -66,7 +67,7 @@
             // 
             this.rotateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.rotateBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rotateBtn.Location = new System.Drawing.Point(40, 353);
+            this.rotateBtn.Location = new System.Drawing.Point(44, 353);
             this.rotateBtn.Name = "rotateBtn";
             this.rotateBtn.Size = new System.Drawing.Size(146, 65);
             this.rotateBtn.TabIndex = 3;
@@ -166,6 +167,22 @@
             this.roomIDLabel.Size = new System.Drawing.Size(0, 20);
             this.roomIDLabel.TabIndex = 16;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::Battleships.Properties.Resources.SpeakerPlay;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(307, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(50, 41);
+            this.button1.TabIndex = 17;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ShipDeployment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -173,6 +190,7 @@
             this.BackgroundImage = global::Battleships.Properties.Resources.ShipDeployBack;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(826, 453);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.rotateBtn);
             this.Controls.Add(this.roomIDLabel);
             this.Controls.Add(this.playBtn);
@@ -187,6 +205,7 @@
             this.MaximizeBox = false;
             this.Name = "ShipDeployment";
             this.Text = "Place your ships!";
+            this.Load += new System.EventHandler(this.ShipDeployment_Load);
             ((System.ComponentModel.ISupportInitialize)(this.deckPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -209,5 +228,6 @@
         private System.Windows.Forms.Button playBtn;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label roomIDLabel;
+        private System.Windows.Forms.Button button1;
     }
 }

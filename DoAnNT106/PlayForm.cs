@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Battleships
     {
         int avtColorCounter = 0;
         
+        bool isPlaySound = false;
+        SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track4_loop);
         int mouseCellX = -1;
         int mouseCellY = -1;
 
@@ -159,6 +162,8 @@ namespace Battleships
         {
             meLabel.Location = new Point(mePBox.Location.X + mePBox.Width + 6, mePBox.Location.Y + 12);
             playerLabel.Location = new Point(playerPBox.Location.X - playerLabel.Width - 6, mePBox.Location.Y + 12);
+            isPlaySound = true;
+            bgSound.PlayLooping();
 
             afkTimer.Start();
         }

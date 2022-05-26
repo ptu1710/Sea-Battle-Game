@@ -220,5 +220,11 @@
   <ItemGroup>
     <None Include="Resources\SpeakerMute.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Russia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\American.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

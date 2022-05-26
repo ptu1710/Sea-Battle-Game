@@ -63,6 +63,16 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap American {
+            get {
+                object obj = ResourceManager.GetObject("American", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BackBtn {
             get {
                 object obj = ResourceManager.GetObject("BackBtn", resourceCulture);
@@ -183,6 +193,16 @@ namespace Battleships.Properties {
         internal static System.Drawing.Bitmap Missing {
             get {
                 object obj = ResourceManager.GetObject("Missing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Russia {
+            get {
+                object obj = ResourceManager.GetObject("Russia", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
