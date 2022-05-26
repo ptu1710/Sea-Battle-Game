@@ -74,13 +74,13 @@ namespace Battleships
         // PictureBox paint event handler for drawing a hit cell.
         static public void DrawHitCell(int cellX, int cellY, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(hitImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
+            e.Graphics.DrawImage(Properties.Resources.Explosion, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
         // PictureBox paint event handler for drawing a splash cell.
         static public void DrawSplashCell(int cellX, int cellY, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(splashImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
+            e.Graphics.DrawImage(Properties.Resources.Missing, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
         static public void DrawScope(int cellX, int cellY, PictureBox deckPictureBox)

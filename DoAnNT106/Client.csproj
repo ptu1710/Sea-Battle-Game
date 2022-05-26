@@ -208,5 +208,17 @@
   <ItemGroup>
     <None Include="Resources\screenshot_1653467821.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\png-transparent-explosions-explosion-gunpowder-war-thumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\screenshot_1653541900.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpeakerMute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpeakerPlay.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

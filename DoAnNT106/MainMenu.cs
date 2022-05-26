@@ -95,6 +95,7 @@ namespace Battleships
             if (isPlaySound)
             {
                 bgSound.Stop();
+                button1.BackgroundImage = Properties.Resources.SpeakerMute;
             }
             else
             {
@@ -102,6 +103,7 @@ namespace Battleships
             }
 
             isPlaySound = !isPlaySound;
+            
         }
     }
 }

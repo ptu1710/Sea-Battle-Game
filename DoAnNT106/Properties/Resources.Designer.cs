@@ -140,16 +140,6 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap depositphotos_155823284_stock_photo_blue_rotation_arrows_icon {
-            get {
-                object obj = ResourceManager.GetObject("depositphotos_155823284_stock_photo_blue_rotation_arrows_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap email {
             get {
                 object obj = ResourceManager.GetObject("email", resourceCulture);
@@ -160,9 +150,9 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fantastic_seascape_with_ripples_1140x684 {
+        internal static System.Drawing.Bitmap Explosion {
             get {
-                object obj = ResourceManager.GetObject("fantastic_seascape_with_ripples_1140x684", resourceCulture);
+                object obj = ResourceManager.GetObject("Explosion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -190,9 +180,9 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Scope {
+        internal static System.Drawing.Bitmap Missing {
             get {
-                object obj = ResourceManager.GetObject("Scope", resourceCulture);
+                object obj = ResourceManager.GetObject("Missing", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -200,9 +190,9 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap screenshot_1653467821 {
+        internal static System.Drawing.Bitmap Scope {
             get {
-                object obj = ResourceManager.GetObject("screenshot_1653467821", resourceCulture);
+                object obj = ResourceManager.GetObject("Scope", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -283,6 +273,26 @@ namespace Battleships.Properties {
         internal static System.Drawing.Bitmap ShipDeployBack {
             get {
                 object obj = ResourceManager.GetObject("ShipDeployBack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SpeakerMute {
+            get {
+                object obj = ResourceManager.GetObject("SpeakerMute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SpeakerPlay {
+            get {
+                object obj = ResourceManager.GetObject("SpeakerPlay", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

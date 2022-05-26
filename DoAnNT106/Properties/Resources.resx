@@ -169,22 +169,25 @@
   <data name="bgm_track4_loop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bgm_track4_loop.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="depositphotos_155823284_stock_photo_blue_rotation_arrows_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\depositphotos_155823284-stock-photo-blue-rotation-arrows-icon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fantastic_seascape_with_ripples_1140x684" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fantastic-seascape-with-ripples-1140x684.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Scope" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Scope.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="screenshot_1653467821" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\screenshot_1653467821.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ShipDeployBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\download.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\png-transparent-explosions-explosion-gunpowder-war-thumbnail.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Missing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\screenshot_1653541900.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SpeakerMute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SpeakerMute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SpeakerPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SpeakerPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
