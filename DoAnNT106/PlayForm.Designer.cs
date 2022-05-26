@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.winlostPBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.playerProgress = new System.Windows.Forms.ProgressBar();
             this.meProgress = new System.Windows.Forms.ProgressBar();
@@ -47,6 +48,7 @@
             this.afkTimer = new System.Windows.Forms.Timer(this.components);
             this.avtTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).BeginInit();
@@ -60,21 +62,32 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.bsLabel);
             this.panel1.Controls.Add(this.playerProgress);
             this.panel1.Controls.Add(this.meProgress);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.playerPBox);
             this.panel1.Controls.Add(this.mePBox);
             this.panel1.Controls.Add(this.playerLabel);
             this.panel1.Controls.Add(this.meLabel);
-            this.panel1.Controls.Add(this.bsLabel);
             this.panel1.Controls.Add(this.mePBox1);
             this.panel1.Controls.Add(this.playerPBox1);
+            this.panel1.Controls.Add(this.winlostPBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(796, 100);
             this.panel1.TabIndex = 0;
+            // 
+            // winlostPBox
+            // 
+            this.winlostPBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.winlostPBox.Location = new System.Drawing.Point(0, 0);
+            this.winlostPBox.Name = "winlostPBox";
+            this.winlostPBox.Size = new System.Drawing.Size(796, 100);
+            this.winlostPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.winlostPBox.TabIndex = 9;
+            this.winlostPBox.TabStop = false;
             // 
             // button1
             // 
@@ -85,9 +98,9 @@
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(377, 56);
+            this.button1.Location = new System.Drawing.Point(374, 47);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(52, 29);
+            this.button1.Size = new System.Drawing.Size(64, 48);
             this.button1.TabIndex = 7;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -115,9 +128,9 @@
             this.playerPBox.BackgroundImage = global::Battleships.Properties.Resources.American;
             this.playerPBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.playerPBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.playerPBox.Location = new System.Drawing.Point(707, 3);
+            this.playerPBox.Location = new System.Drawing.Point(712, 8);
             this.playerPBox.Name = "playerPBox";
-            this.playerPBox.Size = new System.Drawing.Size(86, 86);
+            this.playerPBox.Size = new System.Drawing.Size(76, 76);
             this.playerPBox.TabIndex = 4;
             this.playerPBox.TabStop = false;
             // 
@@ -127,9 +140,9 @@
             this.mePBox.BackgroundImage = global::Battleships.Properties.Resources.Russia;
             this.mePBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.mePBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mePBox.Location = new System.Drawing.Point(3, 3);
+            this.mePBox.Location = new System.Drawing.Point(8, 8);
             this.mePBox.Name = "mePBox";
-            this.mePBox.Size = new System.Drawing.Size(86, 86);
+            this.mePBox.Size = new System.Drawing.Size(76, 76);
             this.mePBox.TabIndex = 3;
             this.mePBox.TabStop = false;
             // 
@@ -238,6 +251,11 @@
             this.afkTimer.Interval = 500;
             this.afkTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // avtTimer
+            // 
+            this.avtTimer.Interval = 500;
+            this.avtTimer.Tick += new System.EventHandler(this.avtTimer_Tick);
+            // 
             // PlayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -256,6 +274,7 @@
             this.Load += new System.EventHandler(this.PlayForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).EndInit();
@@ -288,5 +307,6 @@
         private System.Windows.Forms.Timer avtTimer;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox winlostPBox;
     }
 }

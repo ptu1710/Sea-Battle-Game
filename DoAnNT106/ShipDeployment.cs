@@ -237,7 +237,14 @@ namespace Battleships
         {
             isPlaySound = true;
             bgSound.PlayLooping();
-            
+            this.CenterToParent();
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            Network.mainMenu.Show();
+            Network.mainMenu.BackFromDeployFrom();
+            this.Hide();
         }
     }
 }

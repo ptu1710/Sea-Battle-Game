@@ -142,7 +142,6 @@
             this.MinimumSize = new System.Drawing.Size(818, 497);
             this.Name = "MainMenu";
             this.Load += new System.EventHandler(this.MainMenu_Load);
-            this.Shown += new System.EventHandler(this.MainMenu_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

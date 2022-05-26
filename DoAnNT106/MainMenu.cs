@@ -38,11 +38,6 @@ namespace Battleships
             Game._ME.SendMsg(1, Game.me.cName, roomidTBox.Text);
         }
 
-        private void MainMenu_Shown(object sender, EventArgs e)
-        {
-            // playBtn_Click(sender, e);
-        }
-
         private delegate void SafeUpdateForm(string roomID, string otherUser);
 
         public void UpdateForm(string roomID, string otherUser)
@@ -58,7 +53,7 @@ namespace Battleships
                 {
                     usernameLabel.Text = $"{roomID} - {otherUser}";
                 }
-                else if (usernameLabel.Text.Contains(" - "))
+                else if (usernameLabel.Text.Contains(" - ") && otherUser != "")
                 {
                     usernameLabel.Text += $"{otherUser}";
                 }
@@ -66,6 +61,7 @@ namespace Battleships
                 if (Network.DeployShip != null)
                 {
                     Network.DeployShip.UpdateRoomLabel(usernameLabel.Text);
+                    Network.DeployShip.Show();
                 }
                 else
                 {
@@ -73,8 +69,6 @@ namespace Battleships
                     Network.DeployShip.Show();
                 }
 
-                //isPlaySound = true;
-                //bgSound.Stop();
                 Hide();
             }
         }
@@ -83,6 +77,7 @@ namespace Battleships
         {
             isPlaySound = true;
             bgSound.PlayLooping();
+            this.CenterToParent();
         }
 
         private void quitBtn_Click(object sender, EventArgs e)
@@ -104,7 +99,11 @@ namespace Battleships
             }
 
             isPlaySound = !isPlaySound;
-            
+        }
+
+        public void BackFromDeployFrom()
+        {
+            usernameLabel.Text = Game.me.cName;
         }
     }
 }

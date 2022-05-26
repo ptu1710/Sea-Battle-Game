@@ -147,7 +147,7 @@ namespace Battleships
             {
                 string userWin = msgPayload[2];
 
-                MessageBox.Show($"{userWin} won!", "Nice!!!");
+                playForm.PerformWin(userWin, playForm);
             }
             else if (code == 5)
             {

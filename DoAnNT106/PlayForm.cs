@@ -15,7 +15,7 @@ namespace Battleships
     public partial class PlayForm : Form
     {
         int avtColorCounter = 0;
-        
+
         bool isPlaySound = false;
         SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track4_loop);
         int mouseCellX = -1;
@@ -168,6 +168,8 @@ namespace Battleships
             bgSound.PlayLooping();
 
             afkTimer.Start();
+
+            this.CenterToParent();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -221,7 +223,7 @@ namespace Battleships
             else
             {
                 playerPBox1.BackColor = GraphicContext.colors[avtColorCounter];
-            }    
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -238,6 +240,40 @@ namespace Battleships
             }
 
             isPlaySound = !isPlaySound;
+        }
+
+        private delegate void SafeUpdateWinLost(string winUser, Form form);
+        public void PerformWin(string winUser, Form form)
+        {
+            if (this.InvokeRequired)
+            {
+                var d = new SafeUpdateWinLost(PerformWin);
+                this.Invoke(d, new object[] { winUser, form });
+            }
+            else
+            {
+                this.afkTimer.Stop();
+                this.avtTimer.Stop();
+
+                this.pictureBox1.Enabled = false;
+                this.pictureBox2.Enabled = false;
+
+                this.meProgress.Value = 0;
+                this.playerProgress.Value = 0;
+
+                this.winlostPBox.BringToFront();
+
+                if (Game.me.cName == winUser)
+                {
+                    // im winner
+                    this.winlostPBox.Image = Properties.Resources.Victory;
+                }
+                else
+                {
+                    // Im loser
+                    this.winlostPBox.Image = null;
+                }
+            }
         }
     }
 }
