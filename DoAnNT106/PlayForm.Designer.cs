@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.winlostPBox = new System.Windows.Forms.PictureBox();
             this.bsLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.playerPBox = new System.Windows.Forms.PictureBox();
@@ -39,7 +40,6 @@
             this.meLabel = new System.Windows.Forms.Label();
             this.mePBox1 = new System.Windows.Forms.PictureBox();
             this.playerPBox1 = new System.Windows.Forms.PictureBox();
-            this.winlostPBox = new System.Windows.Forms.PictureBox();
             this.playerProgress = new System.Windows.Forms.ProgressBar();
             this.meProgress = new System.Windows.Forms.ProgressBar();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -50,11 +50,11 @@
             this.avtTimer = new System.Windows.Forms.Timer(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
@@ -64,6 +64,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.winlostPBox);
             this.panel1.Controls.Add(this.bsLabel);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.playerPBox);
@@ -72,11 +73,20 @@
             this.panel1.Controls.Add(this.meLabel);
             this.panel1.Controls.Add(this.mePBox1);
             this.panel1.Controls.Add(this.playerPBox1);
-            this.panel1.Controls.Add(this.winlostPBox);
             this.panel1.Location = new System.Drawing.Point(0, 50);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(796, 100);
             this.panel1.TabIndex = 1;
+            // 
+            // winlostPBox
+            // 
+            this.winlostPBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.winlostPBox.Location = new System.Drawing.Point(0, 0);
+            this.winlostPBox.Name = "winlostPBox";
+            this.winlostPBox.Size = new System.Drawing.Size(796, 100);
+            this.winlostPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.winlostPBox.TabIndex = 9;
+            this.winlostPBox.TabStop = false;
             // 
             // bsLabel
             // 
@@ -172,16 +182,6 @@
             this.playerPBox1.Size = new System.Drawing.Size(86, 86);
             this.playerPBox1.TabIndex = 8;
             this.playerPBox1.TabStop = false;
-            // 
-            // winlostPBox
-            // 
-            this.winlostPBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.winlostPBox.Location = new System.Drawing.Point(0, 0);
-            this.winlostPBox.Name = "winlostPBox";
-            this.winlostPBox.Size = new System.Drawing.Size(796, 100);
-            this.winlostPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.winlostPBox.TabIndex = 9;
-            this.winlostPBox.TabStop = false;
             // 
             // playerProgress
             // 
@@ -288,11 +288,11 @@
             this.Load += new System.EventHandler(this.PlayForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel3.ResumeLayout(false);

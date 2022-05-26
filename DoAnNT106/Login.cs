@@ -146,6 +146,12 @@ namespace Battleships
 
         private void signinBtn_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(userTBox.Text) || string.IsNullOrEmpty(passTBox.Text))
+            {
+                loginLabel.Text = "* Username or password cannot be null!";
+                return;
+            }
+
             // Do Sign In
             if (Game._ME == null)
             {

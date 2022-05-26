@@ -222,6 +222,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon-war-ship.ico" />
+    <None Include="Resources\Defeat.png" />
+    <None Include="Resources\Defeat11.png" />
+    <None Include="Resources\Victory1.png" />
+    <None Include="Resources\Defeat1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
