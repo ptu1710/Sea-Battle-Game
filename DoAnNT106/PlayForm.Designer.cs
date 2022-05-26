@@ -49,6 +49,7 @@
             this.afkTimer = new System.Windows.Forms.Timer(this.components);
             this.avtTimer = new System.Windows.Forms.Timer(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
+            this.backBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.winlostPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).BeginInit();
@@ -59,20 +60,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel1.Controls.Add(this.winlostPBox);
             this.panel1.Controls.Add(this.bsLabel);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.playerPBox);
             this.panel1.Controls.Add(this.mePBox);
             this.panel1.Controls.Add(this.playerLabel);
             this.panel1.Controls.Add(this.meLabel);
             this.panel1.Controls.Add(this.mePBox1);
             this.panel1.Controls.Add(this.playerPBox1);
+            this.panel1.Controls.Add(this.winlostPBox);
             this.panel1.Location = new System.Drawing.Point(0, 50);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(796, 100);
@@ -91,11 +92,11 @@
             // bsLabel
             // 
             this.bsLabel.AutoSize = true;
-            this.bsLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 25.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bsLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 28.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bsLabel.Location = new System.Drawing.Point(362, 2);
+            this.bsLabel.Location = new System.Drawing.Point(355, 10);
             this.bsLabel.Name = "bsLabel";
-            this.bsLabel.Size = new System.Drawing.Size(81, 50);
+            this.bsLabel.Size = new System.Drawing.Size(86, 54);
             this.bsLabel.TabIndex = 1;
             this.bsLabel.Text = "VS";
             // 
@@ -108,7 +109,7 @@
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(374, 47);
+            this.button1.Location = new System.Drawing.Point(728, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 48);
             this.button1.TabIndex = 0;
@@ -261,11 +262,26 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.backBtn);
+            this.panel4.Controls.Add(this.button1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(796, 550);
             this.panel4.TabIndex = 0;
+            // 
+            // backBtn
+            // 
+            this.backBtn.BackgroundImage = global::Battleships.Properties.Resources.exit;
+            this.backBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.backBtn.FlatAppearance.BorderSize = 0;
+            this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backBtn.Location = new System.Drawing.Point(3, 5);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(40, 40);
+            this.backBtn.TabIndex = 0;
+            this.backBtn.UseVisualStyleBackColor = true;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
             // PlayForm
             // 
@@ -297,6 +313,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -323,5 +340,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox winlostPBox;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button backBtn;
     }
 }

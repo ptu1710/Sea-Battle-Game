@@ -272,9 +272,20 @@ namespace Battleships
                 else
                 {
                     // Im loser
-                    this.winlostPBox.Image = null;
+                    this.winlostPBox.Image = Properties.Resources.Defeat;
                 }
             }
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.Dispose();
+
+            Network.DeployShip.Dispose();
+
+            Network.mainMenu.BackFromDeployFrom();
+            Network.mainMenu.Show();
         }
     }
 }

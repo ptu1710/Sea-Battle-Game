@@ -58,7 +58,7 @@ namespace Battleships
                     usernameLabel.Text += $"{otherUser}";
                 }
 
-                if (Network.DeployShip != null)
+                if (Network.DeployShip != null && !Network.DeployShip.IsDisposed)
                 {
                     Network.DeployShip.UpdateRoomLabel(usernameLabel.Text);
                 }
@@ -67,7 +67,6 @@ namespace Battleships
                     Network.DeployShip = new ShipDeployment(usernameLabel.Text);
                 }
 
-                Network.DeployShip.Location = this.Location;
                 Network.DeployShip.Show();
 
                 Hide();

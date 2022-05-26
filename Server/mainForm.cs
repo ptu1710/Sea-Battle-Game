@@ -92,5 +92,10 @@ namespace Battleships
                 _Server.IP = IPAddress.Parse(ip);
             }
         }
+
+        private void mainForm_Shown(object sender, EventArgs e)
+        {
+            startBtn_Click(sender, e);
+        }
     }
 }

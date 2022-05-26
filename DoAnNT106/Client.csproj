@@ -105,6 +105,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PlayForm.resx">
       <DependentUpon>PlayForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -222,9 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon-war-ship.ico" />
+    <None Include="Resources\Victory2.png" />
+    <None Include="Resources\exit.png" />
     <None Include="Resources\Defeat.png" />
     <None Include="Resources\Defeat11.png" />
-    <None Include="Resources\Victory1.png" />
     <None Include="Resources\Defeat1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

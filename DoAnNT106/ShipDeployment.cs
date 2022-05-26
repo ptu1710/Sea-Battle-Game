@@ -251,7 +251,6 @@ namespace Battleships
             else
             {
                 PlayForm myDeck = new PlayForm();
-                myDeck.Location = this.Location;
                 myDeck.Text = Game.me.cName;
                 myDeck.Show();
 
