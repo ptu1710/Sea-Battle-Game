@@ -41,7 +41,7 @@
             this.startBtn.Location = new System.Drawing.Point(20, 20);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(100, 50);
-            this.startBtn.TabIndex = 2;
+            this.startBtn.TabIndex = 0;
             this.startBtn.Text = "Start";
             this.startBtn.UseVisualStyleBackColor = false;
             this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
@@ -54,7 +54,7 @@
             this.exitBtn.Location = new System.Drawing.Point(130, 20);
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(100, 50);
-            this.exitBtn.TabIndex = 3;
+            this.exitBtn.TabIndex = 1;
             this.exitBtn.Text = "Exit";
             this.exitBtn.UseVisualStyleBackColor = false;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
@@ -69,7 +69,7 @@
             this.logRTBox.Name = "logRTBox";
             this.logRTBox.ReadOnly = true;
             this.logRTBox.Size = new System.Drawing.Size(250, 318);
-            this.logRTBox.TabIndex = 4;
+            this.logRTBox.TabIndex = 2;
             this.logRTBox.Text = "";
             // 
             // mainForm
@@ -81,10 +81,10 @@
             this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.startBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.mainForm_Load);
-            this.Shown += new System.EventHandler(this.mainForm_Shown);
             this.ResumeLayout(false);
 
         }

@@ -61,13 +61,14 @@ namespace Battleships
                 if (Network.DeployShip != null)
                 {
                     Network.DeployShip.UpdateRoomLabel(usernameLabel.Text);
-                    Network.DeployShip.Show();
                 }
                 else
                 {
-                    Network.DeployShip = new ShipDeployment(usernameLabel.Text);  
-                    Network.DeployShip.Show();
+                    Network.DeployShip = new ShipDeployment(usernameLabel.Text);
                 }
+
+                Network.DeployShip.Location = this.Location;
+                Network.DeployShip.Show();
 
                 Hide();
             }

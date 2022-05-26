@@ -26,7 +26,6 @@ namespace Battleships
             InitializeComponent();
             CenterToScreen();
             Network.playForm = this;
-
             meLabel.Text = Game.me.cName;
             playerLabel.Text = Game.player.cName;
         }

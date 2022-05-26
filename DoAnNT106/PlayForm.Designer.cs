@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.bsLabel = new System.Windows.Forms.Label();
-            this.playerProgress = new System.Windows.Forms.ProgressBar();
-            this.meProgress = new System.Windows.Forms.ProgressBar();
             this.button1 = new System.Windows.Forms.Button();
             this.playerPBox = new System.Windows.Forms.PictureBox();
             this.mePBox = new System.Windows.Forms.PictureBox();
@@ -41,6 +40,8 @@
             this.mePBox1 = new System.Windows.Forms.PictureBox();
             this.playerPBox1 = new System.Windows.Forms.PictureBox();
             this.winlostPBox = new System.Windows.Forms.PictureBox();
+            this.playerProgress = new System.Windows.Forms.ProgressBar();
+            this.meProgress = new System.Windows.Forms.ProgressBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -75,7 +76,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 50);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(796, 100);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 1;
             // 
             // bsLabel
             // 
@@ -84,28 +85,9 @@
             this.bsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.bsLabel.Location = new System.Drawing.Point(362, 2);
             this.bsLabel.Name = "bsLabel";
-            this.bsLabel.Size = new System.Drawing.Size(81, 51);
-            this.bsLabel.TabIndex = 0;
+            this.bsLabel.Size = new System.Drawing.Size(81, 50);
+            this.bsLabel.TabIndex = 1;
             this.bsLabel.Text = "VS";
-            // 
-            // playerProgress
-            // 
-            this.playerProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.playerProgress.Location = new System.Drawing.Point(398, 143);
-            this.playerProgress.Maximum = 60;
-            this.playerProgress.Name = "playerProgress";
-            this.playerProgress.Size = new System.Drawing.Size(398, 10);
-            this.playerProgress.TabIndex = 6;
-            // 
-            // meProgress
-            // 
-            this.meProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.meProgress.Location = new System.Drawing.Point(0, 143);
-            this.meProgress.Maximum = 60;
-            this.meProgress.Name = "meProgress";
-            this.meProgress.Size = new System.Drawing.Size(398, 10);
-            this.meProgress.Step = 1;
-            this.meProgress.TabIndex = 5;
             // 
             // button1
             // 
@@ -119,7 +101,7 @@
             this.button1.Location = new System.Drawing.Point(374, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 48);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -155,7 +137,7 @@
             this.playerLabel.Location = new System.Drawing.Point(602, 28);
             this.playerLabel.Name = "playerLabel";
             this.playerLabel.Size = new System.Drawing.Size(94, 32);
-            this.playerLabel.TabIndex = 2;
+            this.playerLabel.TabIndex = 3;
             this.playerLabel.Text = "Name";
             this.playerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -167,7 +149,7 @@
             this.meLabel.Location = new System.Drawing.Point(91, 28);
             this.meLabel.Name = "meLabel";
             this.meLabel.Size = new System.Drawing.Size(94, 32);
-            this.meLabel.TabIndex = 1;
+            this.meLabel.TabIndex = 2;
             this.meLabel.Text = "Name";
             this.meLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -201,6 +183,25 @@
             this.winlostPBox.TabIndex = 9;
             this.winlostPBox.TabStop = false;
             // 
+            // playerProgress
+            // 
+            this.playerProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.playerProgress.Location = new System.Drawing.Point(398, 143);
+            this.playerProgress.Maximum = 60;
+            this.playerProgress.Name = "playerProgress";
+            this.playerProgress.Size = new System.Drawing.Size(398, 10);
+            this.playerProgress.TabIndex = 5;
+            // 
+            // meProgress
+            // 
+            this.meProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.meProgress.Location = new System.Drawing.Point(0, 143);
+            this.meProgress.Maximum = 60;
+            this.meProgress.Name = "meProgress";
+            this.meProgress.Size = new System.Drawing.Size(398, 10);
+            this.meProgress.Step = 1;
+            this.meProgress.TabIndex = 3;
+            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -209,7 +210,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 152);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(398, 398);
-            this.panel2.TabIndex = 1;
+            this.panel2.TabIndex = 2;
             // 
             // pictureBox2
             // 
@@ -230,7 +231,7 @@
             this.panel3.Location = new System.Drawing.Point(398, 152);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(398, 398);
-            this.panel3.TabIndex = 2;
+            this.panel3.TabIndex = 4;
             // 
             // pictureBox1
             // 
@@ -264,7 +265,7 @@
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(796, 550);
-            this.panel4.TabIndex = 7;
+            this.panel4.TabIndex = 0;
             // 
             // PlayForm
             // 
@@ -277,10 +278,12 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "PlayForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Beat your opponent!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlayForm_FormClosing);
             this.Load += new System.EventHandler(this.PlayForm_Load);
             this.panel1.ResumeLayout(false);
@@ -316,7 +319,7 @@
         private System.Windows.Forms.PictureBox mePBox1;
         private System.Windows.Forms.PictureBox playerPBox1;
         private System.Windows.Forms.Timer avtTimer;
-        private System.Windows.Forms.Timer timer1;
+        // private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox winlostPBox;
         private System.Windows.Forms.Panel panel4;

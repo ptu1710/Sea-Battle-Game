@@ -199,7 +199,7 @@ namespace Battleships
             }
             else
             {
-                if (this.Height < 520)
+                if (this.Height < 565)
                 {
                     moveDown();
                     quitBtn.BringToFront();
@@ -342,6 +342,7 @@ namespace Battleships
                     this.Hide();
 
                     MainMenu mainMenu = new MainMenu(cName);
+                    mainMenu.Location = this.Location;
                     mainMenu.Show();
                 }
                 else if (msg == "failed")

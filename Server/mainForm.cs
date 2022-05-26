@@ -55,11 +55,6 @@ namespace Battleships
             }
         }
 
-        private void mainForm_Shown(object sender, EventArgs e)
-        {
-            startBtn_Click(sender, e);
-        }
-
         // 
         private delegate void SafeUpdateLog(string log);
 

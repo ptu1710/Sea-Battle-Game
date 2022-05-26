@@ -77,7 +77,7 @@
             this.rotateBtn.Location = new System.Drawing.Point(96, 353);
             this.rotateBtn.Name = "rotateBtn";
             this.rotateBtn.Size = new System.Drawing.Size(69, 65);
-            this.rotateBtn.TabIndex = 3;
+            this.rotateBtn.TabIndex = 1;
             this.rotateBtn.UseVisualStyleBackColor = false;
             this.rotateBtn.Click += new System.EventHandler(this.rotateBtn_Click);
             // 
@@ -147,8 +147,8 @@
             this.playBtn.Location = new System.Drawing.Point(187, 353);
             this.playBtn.Name = "playBtn";
             this.playBtn.Size = new System.Drawing.Size(140, 65);
-            this.playBtn.TabIndex = 9;
-            this.playBtn.Text = "Start";
+            this.playBtn.TabIndex = 0;
+            this.playBtn.Text = "Ready";
             this.playBtn.UseVisualStyleBackColor = true;
             this.playBtn.Click += new System.EventHandler(this.playBtn_Click);
             // 
@@ -159,7 +159,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(363, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(463, 453);
-            this.flowLayoutPanel1.TabIndex = 10;
+            this.flowLayoutPanel1.TabIndex = 4;
             // 
             // roomIDLabel
             // 
@@ -171,7 +171,7 @@
             this.roomIDLabel.Location = new System.Drawing.Point(0, 433);
             this.roomIDLabel.Name = "roomIDLabel";
             this.roomIDLabel.Size = new System.Drawing.Size(0, 20);
-            this.roomIDLabel.TabIndex = 16;
+            this.roomIDLabel.TabIndex = 5;
             // 
             // button1
             // 
@@ -185,18 +185,20 @@
             this.button1.Location = new System.Drawing.Point(307, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(50, 41);
-            this.button1.TabIndex = 17;
+            this.button1.TabIndex = 3;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // backBtn
             // 
-            this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backBtn.Location = new System.Drawing.Point(0, 0);
+            this.backBtn.BackColor = System.Drawing.Color.Transparent;
+            this.backBtn.BackgroundImage = global::Battleships.Properties.Resources.Backbtn1;
+            this.backBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.backBtn.Location = new System.Drawing.Point(-2, -2);
             this.backBtn.Name = "backBtn";
             this.backBtn.Size = new System.Drawing.Size(35, 35);
-            this.backBtn.TabIndex = 18;
-            this.backBtn.UseVisualStyleBackColor = true;
+            this.backBtn.TabIndex = 2;
+            this.backBtn.UseVisualStyleBackColor = false;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
             // ShipDeployment

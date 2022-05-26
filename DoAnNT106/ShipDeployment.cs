@@ -202,19 +202,13 @@ namespace Battleships
         {
             if (roomIDLabel.Text.Substring(roomIDLabel.Text.LastIndexOf('-') + 1).Trim() == "")
             {
-                MessageBox.Show("Your opponent is not ready.");
+                MessageBox.Show("Wait for your opponent to join the room.");
                 return;
             }
 
-
-            PlayForm myDeck = new PlayForm();
-            myDeck.Text = Game.me.cName;
-            myDeck.Show();
-
-            Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
-
-
-            this.Hide();
+            playBtn.Text = "Waiting";
+            playBtn.Enabled = false;
+            Game._ME.SendMsg(6, Game.me.roomID, Game.me.cName);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -237,7 +231,6 @@ namespace Battleships
         {
             isPlaySound = true;
             bgSound.PlayLooping();
-            this.CenterToParent();
         }
 
         private void backBtn_Click(object sender, EventArgs e)
@@ -245,6 +238,27 @@ namespace Battleships
             Network.mainMenu.Show();
             Network.mainMenu.BackFromDeployFrom();
             this.Hide();
+        }
+
+        private delegate void SafeUpdateStartGame(Form form);
+        public void startGame(Form form)
+        {
+            if (form.InvokeRequired)
+            {
+                var d = new SafeUpdateStartGame(startGame);
+                form.Invoke(d, new object[] { form });
+            }
+            else
+            {
+                PlayForm myDeck = new PlayForm();
+                myDeck.Location = this.Location;
+                myDeck.Text = Game.me.cName;
+                myDeck.Show();
+
+                Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
+
+                form.Hide();
+            }
         }
     }
 }
