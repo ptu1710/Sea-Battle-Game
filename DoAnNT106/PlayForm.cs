@@ -218,10 +218,12 @@ namespace Battleships
 
             if (Game.me.isMyTurn)
             {
+                playerPBox1.BackColor = Color.Black;
                 mePBox1.BackColor = GraphicContext.colors[avtColorCounter];
             }
             else
             {
+                mePBox1.BackColor = Color.Black;
                 playerPBox1.BackColor = GraphicContext.colors[avtColorCounter];
             }
         }

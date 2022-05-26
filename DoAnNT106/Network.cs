@@ -151,14 +151,11 @@ namespace Battleships
             }
             else if (code == 5)
             {
-                var coor = msgPayload[2].Split(':');
 
-                int x = int.Parse(coor[0]);
-                int y = int.Parse(coor[1]);
-
-                int shipLength = int.Parse(coor[2]);
-
-                // GraphicContext.DrawSunkenShips();
+            }
+            else if (code == 6)
+            {
+                DeployShip.startGame(DeployShip);
             }
             /*            }
                         catch (Exception ex)

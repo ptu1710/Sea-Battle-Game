@@ -15,7 +15,7 @@ namespace Battleships
 
         public string playerTurn { get; set; }
 
-        public bool isPlaying { get; set; }
+        public List<bool> isPlaying { get; set; }
 
         public Room(string id, string user)
         {
@@ -24,7 +24,7 @@ namespace Battleships
             this.Users = new Dictionary<string, Player>();
             Users.Add(user, new Player(user));
 
-            isPlaying = false;
+            isPlaying = new List<bool> { false, false };
             playerTurn = user;
         }
 

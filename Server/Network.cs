@@ -171,6 +171,21 @@ namespace Battleships
                         sendToRoom(4, roomID, from);
                     }
                 }
+                else if (code == 6)
+                {
+                    string roomID = msgPayload[1];
+                    string user = msgPayload[2];
+
+                    Room room = Game.rooms[roomID];
+                    int index = room.Users.Keys.ToList().IndexOf(user);
+                    room.isPlaying[index] = true;
+
+                    if (!room.isPlaying.Contains(false))
+                    {
+                        //
+                        sendToRoom(6, roomID);
+                    }
+                }
             }
             //}
             //catch
@@ -214,7 +229,7 @@ namespace Battleships
             sendToRoom(code, $"{roomID}:{from}", formattedMsg);
         }
 
-        private void sendToRoom(int code, string roomID_And_User, string msg)
+        private void sendToRoom(int code, string roomID_And_User, string msg = "")
         {
             string formattedMsg = $"{code}|{roomID_And_User}|{msg}";
 
