@@ -132,8 +132,6 @@ namespace Battleships
             }
             else if (code == 3)
             {
-                Console.WriteLine(rawMsg);
-
                 string from = msgPayload[1].Split(':')[1];
 
                 var coor = msgPayload[2].Split(':');

@@ -33,17 +33,9 @@ namespace Battleships
             return id.ToString();
         }
 
-        public static bool PerformAttack(int cellX, int cellY, string roomID, string attackedName)
+        public static bool PerformAttack(int cellX, int cellY, string roomID, string attackName)
         {
-            Player attackedPlayer = null;
-
-            foreach (string playerName in Game.rooms[roomID].Users.Keys)
-            {
-                if (playerName != attackedName)
-                {
-                    attackedPlayer = Game.rooms[roomID].Users[playerName];
-                }
-            }
+            Player attackedPlayer = GetPlayer(roomID, attackName);
 
             if (attackedPlayer == null)
             {
@@ -59,11 +51,6 @@ namespace Battleships
                 // Decrease the amount of cells left for the ship that has been hit.
                 attackedPlayer.ShipLeftCells[attackedPlayer.ShipSet[cellX, cellY]]--;
 
-                foreach (int i in attackedPlayer.ShipLeftCells)
-                {
-                    Console.WriteLine(i);
-                }
-
                 if (attackedPlayer.ShipLeftCells[attackedPlayer.ShipSet[cellX, cellY]] == 0)
                 {
                     // The ship was completely shot down.
@@ -77,21 +64,13 @@ namespace Battleships
             }
         }
 
-        public static bool IsEndGame(string roomID, string attackedName)
+        public static bool IsEndGame(string roomID, string attackName)
         {
-            Player attackedPlayer = null;
-
-            foreach (string playerName in Game.rooms[roomID].Users.Keys)
-            {
-                if (playerName != attackedName)
-                {
-                    attackedPlayer = Game.rooms[roomID].Users[playerName];
-                }
-            }
+            Player attackedPlayer = GetPlayer(roomID, attackName);
 
             if (attackedPlayer == null)
             {
-                return true;
+                return false;
             }
 
             // Is the game over?
@@ -103,6 +82,50 @@ namespace Battleships
             {
                 return false;
             }
+        }
+
+        static public bool IsSunkenShips(int cellX, int cellY, string roomID, string attackName)
+        {
+            Player attackedPlayer = GetPlayer(roomID, attackName);
+
+            if (attackedPlayer == null)
+            {
+                return false;
+            }
+
+            for (int currentShip = 0; currentShip < 5; currentShip++)
+            {
+                if (attackedPlayer.ShipLeftCells[currentShip] == 0)
+                {
+                    for (int x = 0; x < 10; x++)
+                    {
+                        for (int y = 0; y < 10; y++)
+                        {
+                            if (attackedPlayer.ShipSet[x, y] == currentShip)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static Player GetPlayer(string roomID, string not_User)
+        {
+            Player is_User = null;
+
+            foreach (string playerName in rooms[roomID].Users.Keys)
+            {
+                if (playerName != not_User)
+                {
+                    is_User = rooms[roomID].Users[playerName];
+                }
+            }
+
+            return is_User;
         }
     }
 }

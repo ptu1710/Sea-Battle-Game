@@ -22,12 +22,12 @@ namespace Battleships
         {
             InitializeComponent();
             CenterToParent();
-            roomIDLabel.Text = ID;
+            roomIDLabel.Text = $"ID: {ID}";
         }
 
         public void UpdateRoomLabel(string text)
         {
-            roomIDLabel.Text = text;
+            roomIDLabel.Text = $"ID: {text}";
         }
 
         private void deckPictureBox_Paint(object sender, PaintEventArgs e)

@@ -138,5 +138,10 @@ namespace Battleships
             Random random = new Random();
             return random.Next(0, 9);
         }
+
+        public static void PerformWin(string wonUser)
+        {
+            
+        }
     }
 }

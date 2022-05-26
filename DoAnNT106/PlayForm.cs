@@ -13,6 +13,8 @@ namespace Battleships
 {
     public partial class PlayForm : Form
     {
+        int avtColorCounter = 0;
+        
         int mouseCellX = -1;
         int mouseCellY = -1;
 
@@ -110,6 +112,8 @@ namespace Battleships
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
+            GraphicContext.DrawSunkenShips(Game.me.ShipSet, Game.me.ShipLeftCells, e);
+
             if (Game.player != null)
             {
                 GraphicContext.DrawDeckStatus(Game.player.RevealedCells, Game.player.ShipSet, e);
@@ -119,7 +123,6 @@ namespace Battleships
         private void pictureBox2_Paint(object sender, PaintEventArgs e)
         {
             GraphicContext.DrawShipSet(Game.me, e);
-
             GraphicContext.DrawDeckStatus(Game.me.RevealedCells, Game.me.ShipSet, e);
         }
 
@@ -157,16 +160,18 @@ namespace Battleships
             meLabel.Location = new Point(mePBox.Location.X + mePBox.Width + 6, mePBox.Location.Y + 12);
             playerLabel.Location = new Point(playerPBox.Location.X - playerLabel.Width - 6, mePBox.Location.Y + 12);
 
-            timer1.Start();
+            afkTimer.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            avtTimer.Start();
+
             if (Game.me.isMyTurn)
             {
                 meProgress.Value++;
 
-                if (meProgress.Value >= 30)
+                if (meProgress.Value >= 60)
                 {
                     int x = Game.RandomAttack();
                     int y = Game.RandomAttack();
@@ -184,8 +189,32 @@ namespace Battleships
             }
             else
             {
-                playerProgress.Value++;
+                if (playerProgress.Value < 60)
+                {
+                    playerProgress.Value++;
+                }
             }
+        }
+
+        private void avtTimer_Tick(object sender, EventArgs e)
+        {
+            if (avtColorCounter < 7)
+            {
+                avtColorCounter++;
+            }
+            else
+            {
+                avtColorCounter = 0;
+            }
+
+            if (Game.me.isMyTurn)
+            {
+                mePBox1.BackColor = GraphicContext.colors[avtColorCounter];
+            }
+            else
+            {
+                playerPBox1.BackColor = GraphicContext.colors[avtColorCounter];
+            }    
         }
     }
 }

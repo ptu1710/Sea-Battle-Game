@@ -157,13 +157,13 @@
             // roomIDLabel
             // 
             this.roomIDLabel.AutoSize = true;
-            this.roomIDLabel.BackColor = System.Drawing.Color.Transparent;
+            this.roomIDLabel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.roomIDLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.roomIDLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.roomIDLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.roomIDLabel.Location = new System.Drawing.Point(0, 436);
+            this.roomIDLabel.Location = new System.Drawing.Point(0, 433);
             this.roomIDLabel.Name = "roomIDLabel";
-            this.roomIDLabel.Size = new System.Drawing.Size(0, 17);
+            this.roomIDLabel.Size = new System.Drawing.Size(0, 20);
             this.roomIDLabel.TabIndex = 16;
             // 
             // ShipDeployment

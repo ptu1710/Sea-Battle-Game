@@ -41,7 +41,10 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.afkTimer = new System.Windows.Forms.Timer(this.components);
+            this.mePBox1 = new System.Windows.Forms.PictureBox();
+            this.playerPBox1 = new System.Windows.Forms.PictureBox();
+            this.avtTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).BeginInit();
@@ -49,6 +52,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -61,6 +66,8 @@
             this.panel1.Controls.Add(this.playerLabel);
             this.panel1.Controls.Add(this.meLabel);
             this.panel1.Controls.Add(this.bsLabel);
+            this.panel1.Controls.Add(this.mePBox1);
+            this.panel1.Controls.Add(this.playerPBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -70,7 +77,7 @@
             // playerProgress
             // 
             this.playerProgress.Location = new System.Drawing.Point(398, 91);
-            this.playerProgress.Maximum = 30;
+            this.playerProgress.Maximum = 60;
             this.playerProgress.Name = "playerProgress";
             this.playerProgress.Size = new System.Drawing.Size(398, 10);
             this.playerProgress.TabIndex = 6;
@@ -78,7 +85,7 @@
             // meProgress
             // 
             this.meProgress.Location = new System.Drawing.Point(0, 91);
-            this.meProgress.Maximum = 30;
+            this.meProgress.Maximum = 60;
             this.meProgress.Name = "meProgress";
             this.meProgress.Size = new System.Drawing.Size(398, 10);
             this.meProgress.Step = 1;
@@ -88,7 +95,7 @@
             // 
             this.playerPBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.playerPBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.playerPBox.Location = new System.Drawing.Point(736, 12);
+            this.playerPBox.Location = new System.Drawing.Point(736, 17);
             this.playerPBox.Name = "playerPBox";
             this.playerPBox.Size = new System.Drawing.Size(48, 48);
             this.playerPBox.TabIndex = 4;
@@ -98,7 +105,7 @@
             // 
             this.mePBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.mePBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mePBox.Location = new System.Drawing.Point(12, 9);
+            this.mePBox.Location = new System.Drawing.Point(12, 14);
             this.mePBox.Name = "mePBox";
             this.mePBox.Size = new System.Drawing.Size(48, 48);
             this.mePBox.TabIndex = 3;
@@ -184,10 +191,34 @@
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // timer1
+            // afkTimer
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.afkTimer.Interval = 500;
+            this.afkTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // mePBox1
+            // 
+            this.mePBox1.BackColor = System.Drawing.Color.Black;
+            this.mePBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mePBox1.Location = new System.Drawing.Point(6, 8);
+            this.mePBox1.Name = "mePBox1";
+            this.mePBox1.Size = new System.Drawing.Size(60, 60);
+            this.mePBox1.TabIndex = 7;
+            this.mePBox1.TabStop = false;
+            // 
+            // playerPBox1
+            // 
+            this.playerPBox1.BackColor = System.Drawing.Color.Black;
+            this.playerPBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.playerPBox1.Location = new System.Drawing.Point(730, 11);
+            this.playerPBox1.Name = "playerPBox1";
+            this.playerPBox1.Size = new System.Drawing.Size(60, 60);
+            this.playerPBox1.TabIndex = 8;
+            this.playerPBox1.TabStop = false;
+            // 
+            // avtTimer
+            // 
+            this.avtTimer.Tick += new System.EventHandler(this.avtTimer_Tick);
             // 
             // PlayForm
             // 
@@ -211,6 +242,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -229,6 +262,9 @@
         private System.Windows.Forms.PictureBox mePBox;
         private System.Windows.Forms.ProgressBar playerProgress;
         private System.Windows.Forms.ProgressBar meProgress;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer afkTimer;
+        private System.Windows.Forms.PictureBox mePBox1;
+        private System.Windows.Forms.PictureBox playerPBox1;
+        private System.Windows.Forms.Timer avtTimer;
     }
 }

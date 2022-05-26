@@ -85,11 +85,13 @@
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.BackColor = System.Drawing.Color.Transparent;
+            this.usernameLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.usernameLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.usernameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.usernameLabel.Location = new System.Drawing.Point(12, 422);
+            this.usernameLabel.Location = new System.Drawing.Point(0, 430);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(0, 19);
+            this.usernameLabel.Size = new System.Drawing.Size(0, 20);
             this.usernameLabel.TabIndex = 4;
             // 
             // roomidTBox

@@ -129,7 +129,6 @@ namespace Battleships
 
                     foreach (string sendto in Game.rooms[roomID].Users.Keys)
                     {
-                        Console.WriteLine(sendto);
                         sendToRoom(1, roomID, sendto);
                     }
                 }
@@ -156,6 +155,7 @@ namespace Battleships
                     bool isCorrectShoot = Game.PerformAttack(x, y, roomID, from);
 
                     sendMove(3, from, roomID, x, y, isCorrectShoot);
+
                     Game.rooms[roomID].ChangePlayerTurn(from);
                     sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
 
