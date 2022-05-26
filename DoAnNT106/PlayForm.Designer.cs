@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.playerProgress = new System.Windows.Forms.ProgressBar();
             this.meProgress = new System.Windows.Forms.ProgressBar();
             this.playerPBox = new System.Windows.Forms.PictureBox();
@@ -37,24 +38,23 @@
             this.playerLabel = new System.Windows.Forms.Label();
             this.meLabel = new System.Windows.Forms.Label();
             this.bsLabel = new System.Windows.Forms.Label();
+            this.mePBox1 = new System.Windows.Forms.PictureBox();
+            this.playerPBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.afkTimer = new System.Windows.Forms.Timer(this.components);
-            this.mePBox1 = new System.Windows.Forms.PictureBox();
-            this.playerPBox1 = new System.Windows.Forms.PictureBox();
             this.avtTimer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +75,22 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(796, 100);
             this.panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::Battleships.Properties.Resources.SpeakerPlay;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(377, 56);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(52, 29);
+            this.button1.TabIndex = 7;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // playerProgress
             // 
@@ -152,6 +168,26 @@
             this.bsLabel.TabIndex = 0;
             this.bsLabel.Text = "VS";
             // 
+            // mePBox1
+            // 
+            this.mePBox1.BackColor = System.Drawing.Color.Black;
+            this.mePBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mePBox1.Location = new System.Drawing.Point(6, 8);
+            this.mePBox1.Name = "mePBox1";
+            this.mePBox1.Size = new System.Drawing.Size(60, 60);
+            this.mePBox1.TabIndex = 7;
+            this.mePBox1.TabStop = false;
+            // 
+            // playerPBox1
+            // 
+            this.playerPBox1.BackColor = System.Drawing.Color.Black;
+            this.playerPBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.playerPBox1.Location = new System.Drawing.Point(730, 11);
+            this.playerPBox1.Name = "playerPBox1";
+            this.playerPBox1.Size = new System.Drawing.Size(60, 60);
+            this.playerPBox1.TabIndex = 8;
+            this.playerPBox1.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -202,44 +238,6 @@
             this.afkTimer.Interval = 500;
             this.afkTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // mePBox1
-            // 
-            this.mePBox1.BackColor = System.Drawing.Color.Black;
-            this.mePBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mePBox1.Location = new System.Drawing.Point(6, 8);
-            this.mePBox1.Name = "mePBox1";
-            this.mePBox1.Size = new System.Drawing.Size(60, 60);
-            this.mePBox1.TabIndex = 7;
-            this.mePBox1.TabStop = false;
-            // 
-            // playerPBox1
-            // 
-            this.playerPBox1.BackColor = System.Drawing.Color.Black;
-            this.playerPBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.playerPBox1.Location = new System.Drawing.Point(730, 11);
-            this.playerPBox1.Name = "playerPBox1";
-            this.playerPBox1.Size = new System.Drawing.Size(60, 60);
-            this.playerPBox1.TabIndex = 8;
-            this.playerPBox1.TabStop = false;
-            // 
-            // avtTimer
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = global::Battleships.Properties.Resources.SpeakerPlay;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(377, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(52, 29);
-            this.button1.TabIndex = 7;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // PlayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -259,12 +257,12 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mePBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mePBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playerPBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

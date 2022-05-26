@@ -65,14 +65,19 @@
             // 
             // rotateBtn
             // 
-            this.rotateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.rotateBtn.BackColor = System.Drawing.Color.Transparent;
+            this.rotateBtn.BackgroundImage = global::Battleships.Properties.Resources.Rotate;
+            this.rotateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.rotateBtn.FlatAppearance.BorderSize = 0;
+            this.rotateBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.rotateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.rotateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rotateBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rotateBtn.Location = new System.Drawing.Point(44, 353);
+            this.rotateBtn.Location = new System.Drawing.Point(59, 353);
             this.rotateBtn.Name = "rotateBtn";
-            this.rotateBtn.Size = new System.Drawing.Size(146, 65);
+            this.rotateBtn.Size = new System.Drawing.Size(81, 65);
             this.rotateBtn.TabIndex = 3;
-            this.rotateBtn.Text = "Rotate";
-            this.rotateBtn.UseVisualStyleBackColor = true;
+            this.rotateBtn.UseVisualStyleBackColor = false;
             this.rotateBtn.Click += new System.EventHandler(this.rotateBtn_Click);
             // 
             // pictureBox1

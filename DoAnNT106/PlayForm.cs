@@ -221,5 +221,21 @@ namespace Battleships
                 playerPBox1.BackColor = GraphicContext.colors[avtColorCounter];
             }    
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (isPlaySound)
+            {
+                bgSound.Stop();
+                button1.BackgroundImage = Properties.Resources.SpeakerMute;
+            }
+            else
+            {
+                bgSound.PlayLooping();
+                button1.BackgroundImage = Properties.Resources.SpeakerPlay;
+            }
+
+            isPlaySound = !isPlaySound;
+        }
     }
 }

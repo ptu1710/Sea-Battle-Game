@@ -131,9 +131,6 @@
     <None Include="Resources\bg.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Ship_3.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\login.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +170,6 @@
     <None Include="Resources\backgroundTuto.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fantastic-seascape-with-ripples-1140x684.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Scope.png" />
   </ItemGroup>
   <ItemGroup>
@@ -191,19 +185,7 @@
     <None Include="Resources\bgm_track4_loop.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\-1x-1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\7f769a48-1539-11eb-aec5-8cdcd4b147d4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\download.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\png-transparent-computer-icons-rotate-miscellaneous-angle-text.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\depositphotos_155823284-stock-photo-blue-rotation-arrows-icon.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\screenshot_1653467821.png" />
@@ -225,6 +207,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\American.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rotate.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
