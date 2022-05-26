@@ -89,7 +89,7 @@ namespace Battleships
 
                 if (shipSet != -1)
                 {
-                    Game.player.ShipSet[x, y] = 0;
+                    Game.player.ShipSet[x, y] = shipSet;
                     Game.player.ShipLeftCells[shipSet]--;
                 }
             }
@@ -222,11 +222,6 @@ namespace Battleships
             {
                 playerPBox1.BackColor = GraphicContext.colors[avtColorCounter];
             }    
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
