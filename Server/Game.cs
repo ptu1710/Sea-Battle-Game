@@ -33,13 +33,13 @@ namespace Battleships
             return id.ToString();
         }
 
-        public static bool PerformAttack(int cellX, int cellY, string roomID, string attackName)
+        public static int PerformAttack(int cellX, int cellY, string roomID, string attackName)
         {
             Player attackedPlayer = GetPlayer(roomID, attackName);
 
             if (attackedPlayer == null)
             {
-                return false;
+                return -1;
             }
 
             // Mark the cell as revealed.
@@ -56,11 +56,12 @@ namespace Battleships
                     // The ship was completely shot down.
                     attackedPlayer.ShipsLeft--;
                 }
-                return true;
+
+                return attackedPlayer.ShipSet[cellX, cellY];
             }
             else
             {
-                return false;
+                return -1;
             }
         }
 
@@ -82,35 +83,6 @@ namespace Battleships
             {
                 return false;
             }
-        }
-
-        static public bool IsSunkenShips(int cellX, int cellY, string roomID, string attackName)
-        {
-            Player attackedPlayer = GetPlayer(roomID, attackName);
-
-            if (attackedPlayer == null)
-            {
-                return false;
-            }
-
-            for (int currentShip = 0; currentShip < 5; currentShip++)
-            {
-                if (attackedPlayer.ShipLeftCells[currentShip] == 0)
-                {
-                    for (int x = 0; x < 10; x++)
-                    {
-                        for (int y = 0; y < 10; y++)
-                        {
-                            if (attackedPlayer.ShipSet[x, y] == currentShip)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return false;
         }
 
         private static Player GetPlayer(string roomID, string not_User)

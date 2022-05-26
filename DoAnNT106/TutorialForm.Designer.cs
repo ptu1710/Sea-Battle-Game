@@ -89,6 +89,7 @@
             this.Controls.Add(this.MainMenuBack_btn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "TutorialForm";
             this.Text = "Form1";
             this.ResumeLayout(false);

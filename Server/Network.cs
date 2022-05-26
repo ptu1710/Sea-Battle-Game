@@ -152,14 +152,19 @@ namespace Battleships
                     int x = int.Parse(coor[0]);
                     int y = int.Parse(coor[1]);
 
-                    bool isCorrectShoot = Game.PerformAttack(x, y, roomID, from);
+                    int shipLength = Game.PerformAttack(x, y, roomID, from);
 
-                    sendMove(3, from, roomID, x, y, isCorrectShoot);
+                    sendMove(3, from, roomID, x, y, shipLength);
 
                     Game.rooms[roomID].ChangePlayerTurn(from);
                     sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
 
-                    mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{isCorrectShoot}");
+                    mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{shipLength}");
+
+                    //if (Game.IsSunkenShip(x, y, roomID, from) != -1)
+                    //{
+                    //    sendToRoom(5, roomID, $"{x}:{y}:{Game.IsSunkenShip(x, y, roomID, from)}");
+                    //}    
 
                     if (Game.IsEndGame(roomID, from))
                     {
@@ -202,9 +207,9 @@ namespace Battleships
             }
         }
 
-        private void sendMove(int code , string from, string roomID, int x, int y, bool hit)
+        private void sendMove(int code , string from, string roomID, int x, int y, int length)
         {
-            string formattedMsg = $"{x}:{y}:{hit}";
+            string formattedMsg = $"{x}:{y}:{length}";
 
             sendToRoom(code, $"{roomID}:{from}", formattedMsg);
         }

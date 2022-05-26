@@ -200,11 +200,11 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
-            //if (roomIDLabel.Text.Substring(roomIDLabel.Text.LastIndexOf('-') + 1).Trim() == "")
-            //{
-            //    MessageBox.Show("Your opponent is not ready.");
-            //    return;
-            //}
+            if (roomIDLabel.Text.Substring(roomIDLabel.Text.LastIndexOf('-') + 1).Trim() == "")
+            {
+                MessageBox.Show("Your opponent is not ready.");
+                return;
+            }
 
 
             PlayForm myDeck = new PlayForm();

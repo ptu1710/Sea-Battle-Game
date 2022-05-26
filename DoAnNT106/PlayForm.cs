@@ -81,24 +81,26 @@ namespace Battleships
             }
         }
 
-        public void PerformAttacked(string attackedFrom, int x, int y, bool hit)
+        public void PerformAttacked(string attackedFrom, int x, int y, int shipSet)
         {
             if (attackedFrom == Game.me.cName)
             {
                 Game.player.RevealedCells[x, y] = true;
 
-                if (hit)
+                if (shipSet != -1)
                 {
-                    Game.player.ShipSet[x, y] = 1;
+                    Game.player.ShipSet[x, y] = 0;
+                    Game.player.ShipLeftCells[shipSet]--;
                 }
             }
             else
             {
                 Game.me.RevealedCells[x, y] = true;
 
-                if (hit)
+                if (shipSet != -1)
                 {
-                    Game.me.ShipSet[x, y] = 1;
+                    Game.me.ShipSet[x, y] = shipSet;
+                    Game.me.ShipLeftCells[shipSet]--;
                 }
             }
 
@@ -115,7 +117,7 @@ namespace Battleships
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            GraphicContext.DrawSunkenShips(Game.me.ShipSet, Game.me.ShipLeftCells, e);
+            GraphicContext.DrawSunkenShips(Game.player.ShipSet, Game.player.ShipLeftCells, e);
 
             if (Game.player != null)
             {
@@ -220,6 +222,11 @@ namespace Battleships
             {
                 playerPBox1.BackColor = GraphicContext.colors[avtColorCounter];
             }    
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

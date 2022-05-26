@@ -147,18 +147,17 @@ namespace Battleships
         {
             for (int currentShip = 0; currentShip < 5; currentShip++)
             {
+                // Console.WriteLine($"{currentShip}:{ShipLeftCells[currentShip]}");
                 if (ShipLeftCells[currentShip] == 0)
                 {
-                    for (int x = 0; x < Game.mapSize; x++)
+                    for (int x = 0; x < 10; x++)
                     {
-                        for (int y = 0; y < Game.mapSize; y++)
+                        for (int y = 0; y < 10; y++)
                         {
-                            Console.WriteLine(shipSet[x, y]);
-
-                            //if (shipSet[x, y] == currentShip)
-                            //{
-                            //    DrawColoredCell(x, y, currentShip, e);
-                            //}
+                            if (shipSet[x, y] == currentShip)
+                            {
+                                DrawColoredCell(x, y, currentShip, e);
+                            }
                         }
                     }
                 }

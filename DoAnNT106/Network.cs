@@ -139,9 +139,9 @@ namespace Battleships
                 int x = int.Parse(coor[0]);
                 int y = int.Parse(coor[1]);
 
-                bool result = bool.Parse(coor[2]);
+                int length = int.Parse(coor[2]);
 
-                playForm.PerformAttacked(from, x, y, result);
+                playForm.PerformAttacked(from, x, y, length);
             }
             else if (code == 4)
             {
@@ -149,11 +149,22 @@ namespace Battleships
 
                 MessageBox.Show($"{userWin} won!", "Nice!!!");
             }
-/*            }
-            catch (Exception ex)
+            else if (code == 5)
             {
-                MessageBox.Show("getMsg " + ex.Message);
-            }*/
+                var coor = msgPayload[2].Split(':');
+
+                int x = int.Parse(coor[0]);
+                int y = int.Parse(coor[1]);
+
+                int shipLength = int.Parse(coor[2]);
+
+                // GraphicContext.DrawSunkenShips();
+            }
+            /*            }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("getMsg " + ex.Message);
+                        }*/
         }
 
         public void SendMsg(int code, string msg = "", string msg1 = "", string msg2 = "")

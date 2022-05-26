@@ -42,17 +42,10 @@ namespace Battleships
             {
                 if (cellX + shipLengths[currentShip] - 1 < mapSize)
                 {
-                    // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize - 1, cellX + shipLengths[currentShip]); i++)
+                    if (shipSet[cellX, cellY] != -1)
                     {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize - 1, cellY + 1); j++)
-                        {
-                            if (shipSet[i, j] != -1)
-                            {
-                                // Invalid layout found.
-                                return false;
-                            }
-                        }
+                        // Invalid layout found.
+                        return false;
                     }
 
                     // Invalid layout not found.
@@ -69,17 +62,10 @@ namespace Battleships
                 // Vertical validation.
                 if (cellY + shipLengths[currentShip] - 1 < mapSize)
                 {
-                    // Searching for an invalid layout on the grid.
-                    for (int i = Math.Max(0, cellX - 1); i <= Math.Min(mapSize - 1, cellX + 1); i++)
+                    if (shipSet[cellX, cellY] != -1)
                     {
-                        for (int j = Math.Max(0, cellY - 1); j <= Math.Min(mapSize - 1, cellY + shipLengths[currentShip]); j++)
-                        {
-                            if (shipSet[i, j] != -1)
-                            {
-                                // Invalid layout found.
-                                return false;
-                            }
-                        }
+                        // Invalid layout found.
+                        return false;
                     }
 
                     // Invalid layout not found.
