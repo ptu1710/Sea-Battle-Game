@@ -171,6 +171,12 @@ namespace Battleships
             }
             else
             {
+                if (string.IsNullOrEmpty(userTBox.Text) || string.IsNullOrEmpty(passTBox.Text) || string.IsNullOrEmpty(mailTBox.Text))
+                {
+                    loginLabel.Text = "* Username, password, mail cannot be null!";
+                    return;
+                }
+
                 // Do register
             }
         }

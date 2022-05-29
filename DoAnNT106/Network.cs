@@ -149,10 +149,6 @@ namespace Battleships
 
                 playForm.PerformWin(userWin, playForm);
             }
-            else if (code == 5)
-            {
-
-            }
             else if (code == 6)
             {
                 DeployShip.startGame(DeployShip);

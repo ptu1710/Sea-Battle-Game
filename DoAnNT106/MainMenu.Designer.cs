@@ -63,7 +63,7 @@
             this.howtoBtn.Name = "howtoBtn";
             this.howtoBtn.Size = new System.Drawing.Size(200, 60);
             this.howtoBtn.TabIndex = 2;
-            this.howtoBtn.Text = "HOW TO";
+            this.howtoBtn.Text = "TUTORIALS";
             this.howtoBtn.UseVisualStyleBackColor = true;
             this.howtoBtn.Click += new System.EventHandler(this.howtoBtn_Click);
             // 

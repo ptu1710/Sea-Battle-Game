@@ -161,11 +161,6 @@ namespace Battleships
 
                     mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{shipLength}");
 
-                    //if (Game.IsSunkenShip(x, y, roomID, from) != -1)
-                    //{
-                    //    sendToRoom(5, roomID, $"{x}:{y}:{Game.IsSunkenShip(x, y, roomID, from)}");
-                    //}    
-
                     if (Game.IsEndGame(roomID, from))
                     {
                         sendToRoom(4, roomID, from);
