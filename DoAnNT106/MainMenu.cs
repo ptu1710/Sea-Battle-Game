@@ -105,5 +105,10 @@ namespace Battleships
         {
             usernameLabel.Text = Game.me.cName;
         }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

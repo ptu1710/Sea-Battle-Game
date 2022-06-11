@@ -43,18 +43,18 @@ namespace Battleships
             }
         }
 
-        public bool Register(string user, string pass, string email)
+        public bool Register(string user, string pass)
         {
-            string isExistEmailQuery = "SELECT * FROM Accounts WHERE Email='" + email + "'";
+            string isExistUserQuery = "SELECT * FROM Accounts WHERE TenTK='" + user + "'";
 
-            if (modify.Accounts(isExistEmailQuery).Count > 0)
+            if (modify.Accounts(isExistUserQuery).Count > 0)
             {
                 return false;
             }
 
             try
             {
-                string insertAccountQuery = "INSERT INTO Accounts VALUES ('" + user + "', '" + pass + "', '" + email + "')";
+                string insertAccountQuery = "INSERT INTO Accounts VALUES ('" + user + "', '" + pass + "')";
                 modify.RegisterAccount(insertAccountQuery);
 
                 return true;
@@ -65,9 +65,9 @@ namespace Battleships
             }
         }
 
-        public string ForgotPassword(string user, string email)
+        public string ForgotPassword(string user)
         {
-            string query = "SELECT * FROM Accounts WHERE TenTK='" + user + "' AND Email='" + email + "'";
+            string query = "SELECT * FROM Accounts WHERE TenTK='" + user + "'";
 
             if (modify.Accounts(query).Count > 0)
             {

@@ -49,9 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CircularBtn.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="TutorialForm.cs">
       <SubType>Form</SubType>
     </Compile>

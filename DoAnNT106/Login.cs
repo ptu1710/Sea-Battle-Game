@@ -23,18 +23,19 @@ namespace Battleships
 
         string ip = "127.0.0.1";
 
-        int port = 2006;
+        readonly int port = 2006;
 
         public loginForm()
         {
             InitializeComponent();
+            this.Text = "LOGIN?";
         }
 
         private bool isDefault(object o)
         {
             TextBox tb = (TextBox)o;
 
-            if (tb.Text == "Username" || tb.Text == "Password" || tb.Text == "Email")
+            if (tb.Text == "Username" || tb.Text == "Password")
             {
                 return true;
             }
@@ -53,6 +54,8 @@ namespace Battleships
             y = signinPanel.Location.Y + 3;
             location = new Point(signinPanel.Location.X, y);
             signinPanel.Location = location;
+
+            signinBtn.Enabled = false;
         }
 
         private void moveDown()
@@ -66,6 +69,8 @@ namespace Battleships
             y = signinPanel.Location.Y - 3;
             location = new Point(signinPanel.Location.X, y);
             signinPanel.Location = location;
+
+            signinBtn.Enabled = true;
         }
 
         private Timer createTimer()
@@ -101,6 +106,11 @@ namespace Battleships
 
         private void userTBox_Leave(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(userTBox.Text))
+            {
+                userTBox.Text = "Username";
+            }
+
             userTBox.ForeColor = Color.Black;
             userPBox.Enabled = false;
             userPanel.BackColor = Color.Black;
@@ -120,28 +130,14 @@ namespace Battleships
 
         private void passTBox_Leave(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(passTBox.Text))
+            {
+                passTBox.Text = "Password";
+            }
+
             passTBox.ForeColor = Color.Black;
             passPBox.Enabled = false;
             passPanel.BackColor = Color.Black;
-        }
-
-        private void mailTBox_Enter(object sender, EventArgs e)
-        {
-            if (isDefault(mailTBox))
-            {
-                mailTBox.Clear();
-            }
-            
-            mailTBox.ForeColor = Color.Turquoise;
-            mailPBox.Enabled = true;
-            mailPanel.BackColor = Color.Turquoise;
-        }
-
-        private void mailTBox_Leave(object sender, EventArgs e)
-        {
-            mailTBox.ForeColor = Color.Black;
-            mailPBox.Enabled = false;
-            mailPanel.BackColor = Color.Black;
         }
 
         private void signinBtn_Click(object sender, EventArgs e)
@@ -166,25 +162,44 @@ namespace Battleships
         {
             if (!isRegister)
             {
-                mailTBox.Enabled = backBtn.Enabled = true;
+                this.Text = "REGISTER?";
+                userTBox.Clear();
+                passTBox.Clear();
+                backBtn.Enabled = true;
                 createTimer().Start();
             }
             else
             {
-                if (string.IsNullOrEmpty(userTBox.Text) || string.IsNullOrEmpty(passTBox.Text) || string.IsNullOrEmpty(mailTBox.Text))
+                if (string.IsNullOrEmpty(userTBox.Text) || string.IsNullOrEmpty(passTBox.Text))
                 {
-                    loginLabel.Text = "* Username, password, mail cannot be null!";
+                    loginLabel.Text = "* Username or password cannot be null!";
                     return;
                 }
 
                 // Do register
+                if (Game._ME == null)
+                {
+                    Game._ME = new Network(this, ip, port);
+                    Game._ME.Connect();
+                }
+
+                Game._ME.SendMsg(0, userTBox.Text, passTBox.Text, "1");
             }
         }
 
         private void backBtn_Click(object sender, EventArgs e)
         {
-            mailTBox.Text = "Email";
-            mailTBox.Enabled = backBtn.Enabled = false;
+            if (string.IsNullOrEmpty(userTBox.Text))
+            {
+                userTBox.Text = "Username";
+            }
+
+            if (string.IsNullOrEmpty(passTBox.Text))
+            {
+                passTBox.Text = "Password";
+            }
+
+            backBtn.Enabled = false;
             createTimer().Start();
         }
 
@@ -243,7 +258,7 @@ namespace Battleships
                     AutoSize = true,
                     Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                     Location = new Point(50, 100),
-                    Name = "label1",
+                    Name = "ipTBox",
                     Size = new Size(158, 23),
                     TabIndex = 0,
                     Text = "Server Address: "
@@ -251,12 +266,13 @@ namespace Battleships
 
                 ipComboBox = new ComboBox
                 {
-                    Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                    Font = new Font("Arial", 11F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                     FormattingEnabled = true,
                     Location = new Point(50, 126),
-                    Name = "comboBox1",
+                    Name = "ipComboBox",
+                    Text = "127.0.0.1",
                     Size = new Size(300, 27),
-                    TabIndex = 1
+                    TabIndex = 1,
                 };
 
                 Label label1 = new Label
@@ -274,7 +290,7 @@ namespace Battleships
                 {
                     Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                     Location = new Point(50, 189),
-                    Name = "textBox1",
+                    Name = "portTBox",
                     Text = "2006",
                     Size = new Size(100, 27),
                     ReadOnly = true,
@@ -288,7 +304,7 @@ namespace Battleships
                     FlatStyle = FlatStyle.Flat,
                     Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                     Location = new Point(150, 286),
-                    Name = "button3",
+                    Name = "saveBtn",
                     Size = new Size(100, 50),
                     TabIndex = 5,
                     Text = "SAVE",
@@ -334,18 +350,17 @@ namespace Battleships
             panel.SendToBack();
             panel.Visible = false;
 
-            ip = ipComboBox.Text;
-            port = int.Parse(portTextbox.Text);
+            ip = string.IsNullOrEmpty(ipComboBox.Text) ? "127.0.0.1" : ipComboBox.Text;
         }
 
-        private delegate void SafeUpdateForm(string msg, string cName);
+        private delegate void SafeUpdateForm(string msg, string cName, string option = "");
 
-        public void UpdateForm(string msg, string cName)
+        public void UpdateForm(string msg, string cName, string option = "")
         {
             if (this.InvokeRequired)
             {
                 var d = new SafeUpdateForm(UpdateForm);
-                this.Invoke(d, new object[] { msg, cName });
+                this.Invoke(d, new object[] { msg, cName, option });
             }
             else
             {
@@ -361,16 +376,26 @@ namespace Battleships
                 {
                     loginLabel.Text = "* Username or Password is incorrect.";
                 }
+                else if (msg == "pass")
+                {
+                    loginLabel.Text = $"* Account already exists, your password is {option}.";
+                }
+                else if (msg == "created")
+                {
+                    loginLabel.Text = $"* Account created successfully!";
+                    DialogResult result = MessageBox.Show("Account Created!", $"Your username is {cName}, password is {option}");
+
+                    if (result == DialogResult.OK)
+                    {
+                        backBtn.Enabled = false;
+                        createTimer().Start();
+                    }
+                }
                 else
                 {
-                    loginLabel.Text = "* You Are Already Logged in Elsewhere.";
+                    loginLabel.Text = "* You are already logged in elsewhere.";
                 }
             }
-        }
-
-        private void loginForm_Shown(object sender, EventArgs e)
-        {
-            //signinBtn_Click(sender, e);
         }
     }
 }

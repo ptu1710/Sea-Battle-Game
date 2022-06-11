@@ -20,8 +20,6 @@ namespace Battleships
 
         private bool isRunning = false;
         
-        private bool isManualSetting = true;
-
         public mainForm()
         {
             InitializeComponent();
@@ -35,6 +33,8 @@ namespace Battleships
 
         private void startBtn_Click(object sender, EventArgs e)
         {
+            getCurrentIP();
+
             if (_Server.IP == null)
             {
                 MessageBox.Show("You are not connected to the Internet!");
@@ -49,7 +49,7 @@ namespace Battleships
 
                 new Thread(new ThreadStart(_Server.Run)).Start();
 
-                UpdateLog("Listening...");
+                UpdateLog($"Listening at {_Server.IP}...");
 
                 startBtn.Enabled = false;
             }
@@ -71,9 +71,9 @@ namespace Battleships
             }
         }
 
-        private void mainForm_Load(object sender, EventArgs e)
+        private void getCurrentIP()
         {
-            if (isManualSetting)
+            if (lbRadioBtn.Checked)
             {
                 _Server.IP = IPAddress.Parse("127.0.0.1");
                 return;
@@ -91,11 +91,6 @@ namespace Battleships
                 // is Ethernet
                 _Server.IP = IPAddress.Parse(ip);
             }
-        }
-
-        private void mainForm_Shown(object sender, EventArgs e)
-        {
-            startBtn_Click(sender, e);
         }
     }
 }

@@ -54,6 +54,7 @@ namespace Battleships
             }
             catch
             {
+                Console.WriteLine("Here");
                 return false;
             }
         }
@@ -61,108 +62,108 @@ namespace Battleships
         private void Run()
         {
             StreamReader sr = new StreamReader(tcpClient.GetStream());
-            //try
-            //{
+            try
+            {
                 while (tcpClient.Connected)
                 {
                     string rawMsg = sr.ReadLine();
 
                     ReceiveMsg(rawMsg);
                 }
-            //}
-            //catch
-            //{
-            //    tcpClient.Close();
-            //    sr.Close();
-            //}
+            }
+            catch
+            {
+                tcpClient.Close();
+                sr.Close();
+            }
         }
 
         private void ReceiveMsg(string rawMsg)
         {
-/*            try
-            {*/
-            if (string.IsNullOrEmpty(rawMsg))
+            try
             {
-                return;
-            }
-
-            string[] msgPayload = rawMsg.Split('|');
-
-            int code = int.Parse(msgPayload[0]);
-
-            string cName = msgPayload[1];
-
-            if (code == 0)
-            {
-                string msg = msgPayload[2];
-
-                loginForm.UpdateForm(msg, cName);
-            }
-            else if (code == 1)
-            {
-                string roomID = msgPayload[1];
-                string otherUser = msgPayload[2];
-
-                Game.me.roomID = roomID;
-
-                if (otherUser != Game.me.cName)
+                if (string.IsNullOrEmpty(rawMsg))
                 {
-                    Game.player = new Player(otherUser);
-                    Game.player.roomID = roomID;
-
-                    mainMenu.UpdateForm(roomID, otherUser);
+                    return;
                 }
-                else
+
+                string[] msgPayload = rawMsg.Split('|');
+
+                int code = int.Parse(msgPayload[0]);
+
+                string cName = msgPayload[1];
+
+                if (code == 0)
                 {
-                    mainMenu.UpdateForm(roomID, "");
-                }
-            }
-            else if (code == 2)
-            {
-                string playerTurn = msgPayload[2];
+                    string msg = msgPayload[2];
 
-                if (playerTurn == Game.me.cName)
+                    loginForm.UpdateForm(msg, cName, msgPayload[3]);
+                }
+                else if (code == 1)
                 {
-                    Game.me.isMyTurn = true;
+                    string roomID = msgPayload[1];
+                    string otherUser = msgPayload[2];
+
+                    Game.me.roomID = roomID;
+
+                    if (otherUser != Game.me.cName)
+                    {
+                        Game.player = new Player(otherUser);
+                        Game.player.roomID = roomID;
+
+                        mainMenu.UpdateForm(roomID, otherUser);
+                    }
+                    else
+                    {
+                        mainMenu.UpdateForm(roomID, "");
+                    }
                 }
-                else
+                else if (code == 2)
                 {
-                    Game.me.isMyTurn = false;
+                    string playerTurn = msgPayload[2];
+
+                    if (playerTurn == Game.me.cName)
+                    {
+                        Game.me.isMyTurn = true;
+                    }
+                    else
+                    {
+                        Game.me.isMyTurn = false;
+                    }
+                }
+                else if (code == 3)
+                {
+                    string from = msgPayload[1].Split(':')[1];
+
+                    var coor = msgPayload[2].Split(':');
+
+                    int x = int.Parse(coor[0]);
+                    int y = int.Parse(coor[1]);
+
+                    int length = int.Parse(coor[2]);
+
+                    playForm.PerformAttacked(from, x, y, length);
+                }
+                else if (code == 4)
+                {
+                    string userWin = msgPayload[2];
+
+                    playForm.PerformWin(userWin, playForm);
+                }
+                else if (code == 6)
+                {
+                    DeployShip.startGame(DeployShip);
                 }
             }
-            else if (code == 3)
+            catch (Exception ex)
             {
-                string from = msgPayload[1].Split(':')[1];
-
-                var coor = msgPayload[2].Split(':');
-
-                int x = int.Parse(coor[0]);
-                int y = int.Parse(coor[1]);
-
-                int length = int.Parse(coor[2]);
-
-                playForm.PerformAttacked(from, x, y, length);
+                MessageBox.Show("getMsg " + ex.Message);
             }
-            else if (code == 4)
-            {
-                string userWin = msgPayload[2];
-
-                playForm.PerformWin(userWin, playForm);
-            }
-            else if (code == 6)
-            {
-                DeployShip.startGame(DeployShip);
-            }
-            /*            }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("getMsg " + ex.Message);
-                        }*/
         }
 
         public void SendMsg(int code, string msg = "", string msg1 = "", string msg2 = "")
         {
-            string formatedMsg = $"{code}|{msg}|{msg1}";
+            string formatedMsg = $"{code}|{msg}|{msg1}|{msg2}";
             
             if (sw != null)
             {
@@ -186,28 +187,6 @@ namespace Battleships
 
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(tcpClient.GetStream(), player.ShipSet);
-        }
-
-        // Get Local IPv4 with specify _type
-        public IPAddress GetIPAddress(NetworkInterfaceType _type)
-        {
-            IPAddress returnIP = IPAddress.None;
-
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            returnIP = ip.Address;
-                        }
-                    }
-                }
-            }
-
-            return returnIP;
         }
     }
 }

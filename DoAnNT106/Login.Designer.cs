@@ -33,8 +33,6 @@
             this.userPanel = new System.Windows.Forms.Panel();
             this.passPanel = new System.Windows.Forms.Panel();
             this.passTBox = new System.Windows.Forms.TextBox();
-            this.mailPanel = new System.Windows.Forms.Panel();
-            this.mailTBox = new System.Windows.Forms.TextBox();
             this.orLabel = new System.Windows.Forms.Label();
             this.registerBtn = new System.Windows.Forms.Button();
             this.signinBtn = new System.Windows.Forms.Button();
@@ -44,14 +42,12 @@
             this.signinPanel = new System.Windows.Forms.Panel();
             this.settingBtn = new System.Windows.Forms.Button();
             this.loginPBox = new System.Windows.Forms.PictureBox();
-            this.mailPBox = new System.Windows.Forms.PictureBox();
             this.passPBox = new System.Windows.Forms.PictureBox();
             this.userPBox = new System.Windows.Forms.PictureBox();
             this.loginLabel = new System.Windows.Forms.Label();
             this.registerPanel.SuspendLayout();
             this.signinPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.loginPBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mailPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPBox)).BeginInit();
             this.SuspendLayout();
@@ -99,29 +95,6 @@
             this.passTBox.Text = "Password";
             this.passTBox.Enter += new System.EventHandler(this.passTBox_Enter);
             this.passTBox.Leave += new System.EventHandler(this.passTBox_Leave);
-            // 
-            // mailPanel
-            // 
-            this.mailPanel.BackColor = System.Drawing.Color.White;
-            this.mailPanel.Location = new System.Drawing.Point(40, 346);
-            this.mailPanel.Name = "mailPanel";
-            this.mailPanel.Size = new System.Drawing.Size(320, 1);
-            this.mailPanel.TabIndex = 8;
-            // 
-            // mailTBox
-            // 
-            this.mailTBox.BackColor = System.Drawing.Color.Teal;
-            this.mailTBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.mailTBox.Enabled = false;
-            this.mailTBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mailTBox.ForeColor = System.Drawing.Color.Black;
-            this.mailTBox.Location = new System.Drawing.Point(78, 317);
-            this.mailTBox.Name = "mailTBox";
-            this.mailTBox.Size = new System.Drawing.Size(282, 23);
-            this.mailTBox.TabIndex = 3;
-            this.mailTBox.Text = "Email";
-            this.mailTBox.Enter += new System.EventHandler(this.mailTBox_Enter);
-            this.mailTBox.Leave += new System.EventHandler(this.mailTBox_Leave);
             // 
             // orLabel
             // 
@@ -228,23 +201,12 @@
             this.loginPBox.BackColor = System.Drawing.Color.Transparent;
             this.loginPBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.loginPBox.Image = global::Battleships.Properties.Resources.login;
-            this.loginPBox.Location = new System.Drawing.Point(130, 33);
+            this.loginPBox.Location = new System.Drawing.Point(130, 23);
             this.loginPBox.Name = "loginPBox";
             this.loginPBox.Size = new System.Drawing.Size(140, 140);
             this.loginPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.loginPBox.TabIndex = 0;
             this.loginPBox.TabStop = false;
-            // 
-            // mailPBox
-            // 
-            this.mailPBox.Enabled = false;
-            this.mailPBox.Image = global::Battleships.Properties.Resources.email;
-            this.mailPBox.Location = new System.Drawing.Point(40, 312);
-            this.mailPBox.Name = "mailPBox";
-            this.mailPBox.Size = new System.Drawing.Size(32, 32);
-            this.mailPBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.mailPBox.TabIndex = 9;
-            this.mailPBox.TabStop = false;
             // 
             // passPBox
             // 
@@ -270,12 +232,11 @@
             // 
             // loginLabel
             // 
-            this.loginLabel.AutoSize = true;
             this.loginLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.loginLabel.Location = new System.Drawing.Point(37, 174);
+            this.loginLabel.Location = new System.Drawing.Point(37, 152);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(0, 20);
+            this.loginLabel.Size = new System.Drawing.Size(323, 42);
             this.loginLabel.TabIndex = 10;
             // 
             // loginForm
@@ -289,9 +250,6 @@
             this.Controls.Add(this.loginPBox);
             this.Controls.Add(this.registerPanel);
             this.Controls.Add(this.signinPanel);
-            this.Controls.Add(this.mailPBox);
-            this.Controls.Add(this.mailPanel);
-            this.Controls.Add(this.mailTBox);
             this.Controls.Add(this.passPBox);
             this.Controls.Add(this.passPanel);
             this.Controls.Add(this.passTBox);
@@ -304,12 +262,10 @@
             this.Name = "loginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Or Register?";
-            this.Shown += new System.EventHandler(this.loginForm_Shown);
             this.registerPanel.ResumeLayout(false);
             this.signinPanel.ResumeLayout(false);
             this.signinPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.loginPBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mailPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.passPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPBox)).EndInit();
             this.ResumeLayout(false);
@@ -326,9 +282,6 @@
         private System.Windows.Forms.PictureBox passPBox;
         private System.Windows.Forms.Panel passPanel;
         private System.Windows.Forms.TextBox passTBox;
-        private System.Windows.Forms.PictureBox mailPBox;
-        private System.Windows.Forms.Panel mailPanel;
-        private System.Windows.Forms.TextBox mailTBox;
         private System.Windows.Forms.Label orLabel;
         private System.Windows.Forms.Button registerBtn;
         private System.Windows.Forms.Button signinBtn;

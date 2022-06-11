@@ -14,7 +14,9 @@ namespace Battleships
 {
     public class Network
     {
-        ModifyDB modify = new ModifyDB();
+        // ModifyDB modify = new ModifyDB();
+
+        Account modifyAccount = new Account();
 
         private readonly int port = 2006;
 
@@ -61,9 +63,9 @@ namespace Battleships
         {
             StreamReader sr = new StreamReader(client.GetStream());
 
-            //try
-            //{
-            while (IsListening && client.Connected)
+            try
+            {
+                while (IsListening && client.Connected)
             {
                 string recvMsg = sr.ReadLine();
 
@@ -81,29 +83,51 @@ namespace Battleships
                     string user = msgPayload[1];
                     string pass = msgPayload[2];
 
-                    string query = "SELECT * FROM Accounts WHERE TenTK='" + user + "' AND MK='" + pass + "'";
+                    bool isSignIn = string.IsNullOrEmpty(msgPayload[3]);
 
-                    if (modify.Accounts(query).Count > 0)
+                    if (isSignIn)
                     {
-                        if (Game.currentTCPs.ContainsKey(user))
+                        // do Sign In
+
+                        if (modifyAccount.Login(user, pass))
                         {
-                            sendFailedLogin(0, user, client, "existed");
-                            mainForm.UpdateLog($"Login failed: {user} is currently logged in");
-                            continue;
+                            if (Game.currentTCPs.ContainsKey(user))
+                            {
+                                sendFailedLogin(0, client, "existed");
+                                mainForm.UpdateLog($"Login failed: {user} is currently logged in");
+                                continue;
+                            }
+                            else
+                            {
+                                Game.currentTCPs.Add(user, client);
+                                Game.currentUsers.Add(user, new Player(user));
+
+                                sendMsg(0, user, "success");
+                                mainForm.UpdateLog($"Signed in successfully: {user}/{pass}");
+                            }
                         }
                         else
                         {
-                            Game.currentTCPs.Add(user, client);
-                            Game.currentUsers.Add(user, new Player(user));
-
-                            sendMsg(0, user, "success");
-                            mainForm.UpdateLog($"Signed in successfully: {user}/{pass}");
+                            sendFailedLogin(0, client, "failed");
+                            mainForm.UpdateLog($"Login failed: {user}/{pass} does not exist");
                         }
                     }
                     else
                     {
-                        sendFailedLogin(0, user, client, "failed");
-                        mainForm.UpdateLog($"Login failed: {user}/{pass} does not exist");
+                        // do Register
+                        
+                        // Create an Account
+                        if (modifyAccount.Register(user, pass))
+                        {
+                            sendFailedLogin(0, client, "created", $"{pass}");
+                            mainForm.UpdateLog($"Create an Account: {user}/{pass}");
+                        }
+                        // Already exist
+                        else
+                        {
+                            sendFailedLogin(0, client, "pass", $"{modifyAccount.ForgotPassword(user)}");
+                            mainForm.UpdateLog($"Account already exist: {user}/{modifyAccount.ForgotPassword(user)}");
+                        }
                     }
                 }
                 else if (code == 1)
@@ -182,20 +206,19 @@ namespace Battleships
                     }
                 }
             }
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Error at: FromClient()");
-            //    client.Close();
-            //    sr.Close();
-            //}
-            // sr.Close();
+            }
+            catch
+            {
+                Console.WriteLine("Error at: FromClient()");
+                client.Close();
+                sr.Close();
+            }
         }
 
         // Check 
-        private void sendMsg(int code, string user, string msg)
+        private void sendMsg(int code, string user, string msg, string msg1 = "")
         {
-            string formattedMsg = $"{code}|{user}|{msg}";
+            string formattedMsg = $"{code}|{user}|{msg}|{msg1}";
 
             StreamWriter sw = new StreamWriter(Game.currentTCPs[user].GetStream()) { AutoFlush = true };
 
@@ -205,9 +228,9 @@ namespace Battleships
             }
         }
 
-        private void sendFailedLogin(int code, string user, TcpClient client, string msg)
+        private void sendFailedLogin(int code, TcpClient client, string msg, string msg1 = "")
         {
-            string formattedMsg = $"{code}|{user}|{msg}";
+            string formattedMsg = $"{code}|{""}|{msg}|{msg1}";
 
             StreamWriter sw = new StreamWriter(client.GetStream()) { AutoFlush = true };
 
@@ -244,6 +267,17 @@ namespace Battleships
         {
             BinaryFormatter bf = new BinaryFormatter();
             int[,] playerShipSet = (int[,])bf.Deserialize(Game.currentTCPs[username].GetStream());
+
+/*            Console.WriteLine(username);
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Console.Write(playerShipSet[i, j] + " ");
+                }
+                Console.Write("\n");
+            }*/
 
             Player player = Game.currentUsers[username];
             player.setShipSet(playerShipSet);

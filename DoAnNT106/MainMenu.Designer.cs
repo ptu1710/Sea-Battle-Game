@@ -142,6 +142,7 @@
             this.MinimumSize = new System.Drawing.Size(818, 497);
             this.Name = "MainMenu";
             this.Text = "Welcome Captain!";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
