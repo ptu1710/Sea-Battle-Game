@@ -281,19 +281,22 @@ namespace Battleships
 
         private void backBtn_Click(object sender, EventArgs e)
         {
-            if (!isEndGame)
+            if (MessageBox.Show("You will lose the game and return to the main menu. Are you sure?", "Surrender and Exit?", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                // send code 7
-                Game._ME.SendMsg(7, Game.me.roomID, Game.me.cName);
-            }
+                if (!isEndGame)
+                {
+                    // send code 7
+                    Game._ME.SendMsg(7, Game.me.roomID, Game.me.cName);
+                }
 
-            this.Hide();
-            this.Dispose();
+                this.Hide();
+                this.Dispose();
 
-            Network.DeployShip.Dispose();
+                Network.DeployShip.Dispose();
 
-            Network.mainMenu.BackFromDeployFrom(Game.me.cName);
-            Network.mainMenu.Show();
+                Network.mainMenu.BackFromDeployFrom(Game.me.cName);
+                Network.mainMenu.Show();
+            } 
         }
     }
 }

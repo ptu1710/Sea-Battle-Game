@@ -41,7 +41,7 @@
             this.MainMenuBack_btn.Font = new System.Drawing.Font("Algerian", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuBack_btn.Image = global::Battleships.Properties.Resources.BackBtn;
             this.MainMenuBack_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MainMenuBack_btn.Location = new System.Drawing.Point(272, 487);
+            this.MainMenuBack_btn.Location = new System.Drawing.Point(272, 489);
             this.MainMenuBack_btn.Name = "MainMenuBack_btn";
             this.MainMenuBack_btn.Size = new System.Drawing.Size(270, 54);
             this.MainMenuBack_btn.TabIndex = 8;
@@ -57,24 +57,23 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Font = new System.Drawing.Font("Algerian", 16.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.SandyBrown;
-            this.label1.Location = new System.Drawing.Point(0, 67);
+            this.label1.Location = new System.Drawing.Point(0, 59);
             this.label1.MaximumSize = new System.Drawing.Size(800, 472);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(800, 429);
             this.label1.TabIndex = 6;
             this.label1.Text = resources.GetString("label1.Text");
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Algerian", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.OrangeRed;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.MaximumSize = new System.Drawing.Size(800, 87);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(800, 87);
+            this.label2.Size = new System.Drawing.Size(800, 67);
             this.label2.TabIndex = 7;
             this.label2.Text = "INTRODUCTION";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

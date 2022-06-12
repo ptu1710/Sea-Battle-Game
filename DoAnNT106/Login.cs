@@ -219,7 +219,10 @@ namespace Battleships
 
         private void quitBtn_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            if (MessageBox.Show("Do you want to QUIT the game?", "QUIT?", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)

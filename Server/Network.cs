@@ -61,8 +61,8 @@ namespace Battleships
         {
             StreamReader sr = new StreamReader(client.GetStream());
 
-            //try
-            //{
+            try
+            {
                 while (IsListening && client.Connected)
                 {
                     string recvMsg = sr.ReadLine();
@@ -150,15 +150,15 @@ namespace Battleships
                         {
                             Game.rooms[roomID].RemovePlayer(user);
 
-                        if (Game.rooms[roomID].Users.Count == 0)
-                        {
-                            Game.rooms.Remove(roomID);
+                            if (Game.rooms[roomID].Users.Count == 0)
+                            {
+                                Game.rooms.Remove(roomID);
+                            }
+                            else
+                            {
+                                sendToRoom(5, roomID, user);
+    ;                       }
                         }
-                        else
-                        {
-                            sendToRoom(5, roomID, user);
-;                        }
-                    }
                         // Player create room
                         else if (string.IsNullOrEmpty(roomID) || !Game.rooms.ContainsKey(roomID))
                         {
@@ -193,13 +193,13 @@ namespace Battleships
                         // Broadcast to all player in room
                         if (Game.rooms.ContainsKey(roomID))
                         {
-                        foreach (string playername in Game.rooms[roomID].Users.Keys)
-                        {
-                            sendToRoom(1, roomID, playername);
+                            foreach (string playername in Game.rooms[roomID].Users.Keys)
+                            {
+                                sendToRoom(1, roomID, playername);
+                            }
                         }
                     }
-                        
-                    }
+                    // get player's map information 
                     else if (code == 2)
                     {
                         string user = msgPayload[1];
@@ -210,6 +210,7 @@ namespace Battleships
 
                         sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
                     }
+                    // player attack
                     else if (code == 3)
                     {
                         string roomID = msgPayload[1].Split(':')[0];
@@ -224,16 +225,18 @@ namespace Battleships
 
                         sendMove(3, from, roomID, x, y, shipLength);
 
-                        Game.rooms[roomID].ChangePlayerTurn(from);
+                        Game.rooms[roomID].ChangePlayerTurn(from, shipLength);
                         sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
 
                         mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{shipLength}");
 
+                        // one of the two players won 
                         if (Game.IsEndGame(roomID, from))
                         {
                             sendToRoom(4, roomID, from);
                         }
                     }
+                    // player status (ready to play or not)
                     else if (code == 6)
                     {
                         string roomID = msgPayload[1];
@@ -249,27 +252,28 @@ namespace Battleships
                             sendToRoom(6, roomID);
                         }
                     }
-                else if (code == 7)
-                {
-                    string roomID = msgPayload[1];
-                    string user = msgPayload[2];
-
-                    foreach (var player in Game.rooms[roomID].Users.Keys)
+                    // player left room
+                    else if (code == 7)
                     {
-                        if (player != user)
+                        string roomID = msgPayload[1];
+                        string user = msgPayload[2];
+
+                        foreach (var player in Game.rooms[roomID].Users.Keys)
                         {
-                            sendMsg(7, player, roomID);
+                            if (player != user)
+                            {
+                                sendMsg(7, player, roomID);
+                            }
                         }
                     }
                 }
             }
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Error at: FromClient()");
-            //    client.Close();
-            //    sr.Close();
-            //}
+            catch
+            {
+                Console.WriteLine("Error at: FromClient()");
+                client.Close();
+                sr.Close();
+            }
         }
 
         private void sendMsg(int code, string user, string msg, string msg1 = "")

@@ -241,15 +241,7 @@ namespace Battleships
 
         private void backBtn_Click(object sender, EventArgs e)
         {
-            Game._ME.SendMsg(1, Game.me.cName, Game.me.roomID);
-
-            bgSound.Stop();
-
-            Network.mainMenu.Show();
-            Network.mainMenu.BackFromDeployFrom(Game.me.cName);
-
             this.Close();
-            this.Dispose();
         }
 
         private delegate void SafeUpdateStartGame(Form form);
@@ -269,6 +261,25 @@ namespace Battleships
                 Game._ME.SendPlayerInfo(Game.me, Game.me.roomID);
 
                 form.Hide();
+            }
+        }
+
+        private void ShipDeployment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Do you want to left?", "Left this room?", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                Game._ME.SendMsg(1, Game.me.cName, Game.me.roomID);
+
+                bgSound.Stop();
+
+                Network.mainMenu.Show();
+                Network.mainMenu.BackFromDeployFrom(Game.me.cName);
+
+                this.Dispose();
+            }
+            else
+            {
+                e.Cancel = true;
             }
         }
     }

@@ -112,23 +112,28 @@ namespace Battleships
             bgSound.PlayLooping();
         }
 
-        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // e.Cancel = true;
-            Environment.Exit(0);
-        }
-
         private void backBtn_Click(object sender, EventArgs e)
         {
-            bgSound.Stop();
-            bgSound.Dispose();
-            bgSound = null;
-
-            Game._ME.SendMsg(0, Game.me.cName, "");
-            Network.loginForm.Show();
-
             this.Close();
-            this.Dispose();
+        }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Do you want to log out?", "LOGOUT?", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                bgSound.Stop();
+                bgSound.Dispose();
+                bgSound = null;
+
+                Game._ME.SendMsg(0, Game.me.cName, "");
+                Network.loginForm.Show();
+
+                this.Dispose();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

@@ -225,6 +225,7 @@
             this.MaximizeBox = false;
             this.Name = "ShipDeployment";
             this.Text = "Place your ships!";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShipDeployment_FormClosing);
             this.Load += new System.EventHandler(this.ShipDeployment_Load);
             ((System.ComponentModel.ISupportInitialize)(this.deckPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

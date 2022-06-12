@@ -57,14 +57,21 @@ namespace Battleships
             isFull = false;
         }
 
-        public void ChangePlayerTurn(string lastTurn)
+        public void ChangePlayerTurn(string lastTurn, int hit)
         {
-            foreach (string name in Users.Keys)
+            if (hit == -1)
             {
-                if (name != lastTurn)
+                foreach (string name in Users.Keys)
                 {
-                    playerTurn = name;
+                    if (name != lastTurn)
+                    {
+                        playerTurn = name;
+                    }
                 }
+            }
+            else
+            {
+                playerTurn = lastTurn;
             }
         }
     }

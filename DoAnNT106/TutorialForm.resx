@@ -119,13 +119,12 @@
   </resheader>
   <data name="label1.Text" xml:space="preserve">
     <value>Wake up!! CAPTAIN !!! You are the commander of the ocean campaign.
-You will have been challenged by enemies in 9x9 battlefield.
-Please get to place your battleships on your play area. 
-When placement finished, Trying to fire enemy by taking the shoot into their play area.
-Automatic system will notify you of the hit target or missed target.
-If you have a hit target on enemy ship, you will get one more fire.
-Let destroy enemy ship and win the battle!!!
-</value>
+&gt; You will have been challenged by enemies in 9x9 battlefield.
+&gt; Please get to place your battleships on your play area. 
+&gt; When placement finished, Trying to fire enemy by taking the shoot into their play area.
+&gt; Automatic system will notify you of the hit target or missed target.
+&gt; If you have a hit target on enemy ship, you will get one more fire.
+&gt; Let destroy enemy ship and win the battle!!!</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
