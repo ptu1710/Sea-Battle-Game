@@ -271,7 +271,7 @@ namespace Battleships
                 }
                 else
                 {
-                    // Im loser
+                    // im loser
                     this.winlostPBox.Image = Properties.Resources.Defeat;
                 }
             }

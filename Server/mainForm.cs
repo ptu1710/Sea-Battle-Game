@@ -81,15 +81,20 @@ namespace Battleships
 
             string ip = Network.GetIPAddress(NetworkInterfaceType.Wireless80211);
 
+            // is using Wifi 
             if (!string.IsNullOrEmpty(ip))
             {
-                // is Wifi
                 _Server.IP = IPAddress.Parse(ip);
             }
+            // is using Ethernet
             else if (!string.IsNullOrEmpty(ip = Network.GetIPAddress(NetworkInterfaceType.Ethernet)))
             {
-                // is Ethernet
                 _Server.IP = IPAddress.Parse(ip);
+            }
+            // Cannot get IP Address information
+            else
+            {
+                _Server.IP = IPAddress.Parse("127.0.0.1");
             }
         }
     }

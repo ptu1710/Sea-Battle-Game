@@ -24,7 +24,7 @@ namespace Battleships
 
         StreamWriter sw = null;
 
-        loginForm loginForm = null;
+        public static loginForm loginForm = null;
 
         public static MainMenu mainMenu = null;
 
@@ -32,9 +32,8 @@ namespace Battleships
 
         public static PlayForm playForm = null;
 
-        public Network(loginForm login, string ip, int _port)
+        public Network(string ip, int _port)
         {
-            this.loginForm = login;
             this.host = IPAddress.Parse(ip);
             this.port = _port;
         }

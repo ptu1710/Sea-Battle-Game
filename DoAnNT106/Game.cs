@@ -10,26 +10,20 @@ namespace Battleships
         // Ship lengths.
         public static int[] shipLengths = new int[5] { 2, 3, 3, 4, 5 };
 
-        // [true] player1's move / [false] player2's move.
+        // [true]  my turn 
+        // [false] player's turn
         public static bool isMyTurn;
 
-        // Player information.
+        // Players
         public static Player me;
-
         public static Player player;
 
         public static int mapSize = 10;
 
         public static Network _ME;
 
-        // Inicalize the game.
-        static public void Initialize()
-        {
-            
-        }
-
-        // Method returns whether a cell can contain a ship.
-        // First implementation is dedicated for the ship deployment.
+        // True if the ship can place at cellX and cellY, else False
+        // Check by first cell's location of ship
         static public bool CanThereBeShip(int currentShip, int cellX, int cellY, bool isHorizontal, int[,] shipSet)
         {
             // Is the index of the most upper-left cell within the bounds.
@@ -38,48 +32,47 @@ namespace Battleships
                 return false;
             }
 
+            // Horizontal Ship
             if (isHorizontal)
             {
                 if (cellX + shipLengths[currentShip] - 1 < mapSize)
                 {
                     if (shipSet[cellX, cellY] != -1)
                     {
-                        // Invalid layout found.
+                        // Invalid layout
                         return false;
                     }
 
-                    // Invalid layout not found.
                     return true;
                 }
                 else
                 {
-                    // Out of the bounds of the grid.
+                    // Out of the bounds
                     return false;
                 }
             }
+            // Vertical Ship
             else
             {
-                // Vertical validation.
                 if (cellY + shipLengths[currentShip] - 1 < mapSize)
                 {
                     if (shipSet[cellX, cellY] != -1)
                     {
-                        // Invalid layout found.
+                        // Invalid layout
                         return false;
                     }
 
-                    // Invalid layout not found.
                     return true;
                 }
                 else
                 {
-                    // Out of the bounds of the grid.
+                    // Out of the bounds
                     return false;
                 }
             }
         }
 
-        // Deploy a ship into a ship set.
+        // Deploy a ship
         static public void DeployShip(int currentShip, int cellX, int cellY, bool isHorizontal, int[,] shipSet)
         {
             if (isHorizontal)
@@ -98,22 +91,6 @@ namespace Battleships
             }
         }
 
-        // Adds probability to all the spots the ship can be deployed.
-        static private void probabilitySetAddShip(int currentShip, int cellX, int cellY, bool isHorizontal, int[,] probabilitySet)
-        {
-            for (int i = 0; i < shipLengths[currentShip]; i++)
-            {
-                if (isHorizontal)
-                {
-                    probabilitySet[cellX + i, cellY]++;
-                }
-                else
-                {
-                    probabilitySet[cellX, cellY + i]++;
-                }
-            }
-        }
-
         public static bool CanAttackAt(int x, int y)
         {
             return !(player.RevealedCells[x, y]);
@@ -123,11 +100,6 @@ namespace Battleships
         {
             Random random = new Random();
             return random.Next(0, 9);
-        }
-
-        public static void PerformWin(string wonUser)
-        {
-            
         }
     }
 }

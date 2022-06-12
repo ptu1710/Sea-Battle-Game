@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,7 +22,9 @@ namespace Battleships
         {
             InitializeComponent();
             CenterToScreen();
+
             usernameLabel.Text = cName;
+            Game.me = new Player(usernameLabel.Text);
             Network.mainMenu = this;
         }
 
@@ -33,8 +36,6 @@ namespace Battleships
 
         private void playBtn_Click(object sender, EventArgs e)
         {
-            Game.me = new Player(usernameLabel.Text);
-
             Game._ME.SendMsg(1, Game.me.cName, roomidTBox.Text);
         }
 
@@ -82,7 +83,10 @@ namespace Battleships
 
         private void quitBtn_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Game._ME.SendMsg(0, Game.me.cName, "");
+            this.Hide();
+
+            Network.loginForm.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -109,6 +113,19 @@ namespace Battleships
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            bgSound.Stop();
+            bgSound.Dispose();
+            bgSound = null;
+
+            Game._ME.SendMsg(0, Game.me.cName, "");
+            Network.loginForm.Show();
+
+            this.Close();
+            this.Dispose();
         }
     }
 }

@@ -151,11 +151,18 @@ namespace Battleships
             // Do Sign In
             if (Game._ME == null)
             {
-                Game._ME = new Network(this, ip, port);
-                Game._ME.Connect();
+                Game._ME = new Network(ip, port);
+                Network.loginForm = this;
             }
-            
-            Game._ME.SendMsg(0, userTBox.Text, passTBox.Text);
+
+            if (Game._ME.Connect())
+            {
+                Game._ME.SendMsg(0, userTBox.Text, passTBox.Text);
+            }
+            else
+            {
+                UpdateForm("timeout", "");
+            }
         }
 
         private void registerBtn_Click(object sender, EventArgs e)
@@ -179,11 +186,18 @@ namespace Battleships
                 // Do register
                 if (Game._ME == null)
                 {
-                    Game._ME = new Network(this, ip, port);
-                    Game._ME.Connect();
+                    Game._ME = new Network(ip, port);
+                    Network.loginForm = this;
                 }
 
-                Game._ME.SendMsg(0, userTBox.Text, passTBox.Text, "1");
+                if (Game._ME.Connect())
+                {
+                    Game._ME.SendMsg(0, userTBox.Text, passTBox.Text, "1");
+                }
+                else
+                {
+                    UpdateForm("timeout", "");
+                }
             }
         }
 
@@ -205,7 +219,7 @@ namespace Battleships
 
         private void quitBtn_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -364,10 +378,13 @@ namespace Battleships
             }
             else
             {
-                if (msg == "success")
+                if (msg == "timeout")
+                {
+                    loginLabel.Text = "* The network connection timed out.";
+                }
+                else if (msg == "success")
                 {
                     this.Hide();
-
                     MainMenu mainMenu = new MainMenu(cName);
                     mainMenu.Location = this.Location;
                     mainMenu.Show();

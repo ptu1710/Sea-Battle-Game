@@ -78,5 +78,19 @@ namespace Battleships
                 return "";
             }
         }
+
+        public string DeleteAccount(string user)
+        {
+            string query = "DELETE FROM Accounts WHERE TenTK='" + user + "'";
+
+            if (modify.Accounts(query).Count > 0)
+            {
+                return modify.Accounts(query)[0].Password;
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

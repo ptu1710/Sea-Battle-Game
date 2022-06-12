@@ -52,32 +52,5 @@ namespace Battleships
                 sqlConnection.Close();
             }
         }
-
-        public string getPassword(string username)
-        {
-            string pass = "";
-
-            string query = "SELECT * FROM Accounts WHERE TenTK='" + username + "'";
-
-            using (SqlConnection sqlConnection = ConnectDB.GetSqlConnection())
-            {
-                sqlConnection.Open();
-
-                sqlCommand = new SqlCommand(query, sqlConnection);
-                reader = sqlCommand.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    if (reader.GetValue(0).ToString() == username)
-                    {
-                        pass = reader.GetValue(1).ToString();
-                    }
-                }
-
-                sqlConnection.Close();
-            }
-
-            return pass;
-        }
     }
 }

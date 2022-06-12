@@ -14,8 +14,6 @@ namespace Battleships
 {
     public class Network
     {
-        // ModifyDB modify = new ModifyDB();
-
         Account modifyAccount = new Account();
 
         private readonly int port = 2006;
@@ -66,146 +64,162 @@ namespace Battleships
             try
             {
                 while (IsListening && client.Connected)
-            {
-                string recvMsg = sr.ReadLine();
-
-                if (string.IsNullOrEmpty(recvMsg))
                 {
-                    continue;
-                }
+                    string recvMsg = sr.ReadLine();
 
-                string[] msgPayload = recvMsg.Split('|');
-
-                int code = int.Parse(msgPayload[0]);
-
-                if (code == 0)
-                {
-                    string user = msgPayload[1];
-                    string pass = msgPayload[2];
-
-                    bool isSignIn = string.IsNullOrEmpty(msgPayload[3]);
-
-                    if (isSignIn)
+                    if (string.IsNullOrEmpty(recvMsg))
                     {
-                        // do Sign In
+                        continue;
+                    }
 
-                        if (modifyAccount.Login(user, pass))
+                    string[] msgPayload = recvMsg.Split('|');
+
+                    int code = int.Parse(msgPayload[0]);
+
+                    // Log In, Log Out, Register
+                    if (code == 0)
+                    {
+                        string user = msgPayload[1];
+                        string pass = msgPayload[2];
+
+                        bool isSignIn = string.IsNullOrEmpty(msgPayload[3]);
+
+                        // client Logged Out and Exit
+                        if (pass == "")
                         {
-                            if (Game.currentTCPs.ContainsKey(user))
+                            Game.currentTCPs.Remove(user);
+                            Game.currentUsers.Remove(user);
+
+                            mainForm.UpdateLog($"Logged out: {user}/{pass}");
+                        }
+                        // do Sign In
+                        else if (isSignIn)
+                        {
+                            // Account exists
+                            if (modifyAccount.Login(user, pass))
                             {
-                                sendFailedLogin(0, client, "existed");
-                                mainForm.UpdateLog($"Login failed: {user} is currently logged in");
-                                continue;
+                                // Currently logged in
+                                if (Game.currentTCPs.ContainsKey(user))
+                                {
+                                    sendFailedLogin(0, client, "existed");
+                                    mainForm.UpdateLog($"Login failed: {user} is currently logged in");
+                                    continue;
+                                }
+                                // Logged in successfully
+                                else
+                                {
+                                    Game.currentTCPs.Add(user, client);
+                                    Game.currentUsers.Add(user, new Player(user));
+
+                                    sendMsg(0, user, "success");
+                                    mainForm.UpdateLog($"Logged in successfully: {user}/{pass}");
+                                }
                             }
+                            // Account does not exist
                             else
                             {
-                                Game.currentTCPs.Add(user, client);
-                                Game.currentUsers.Add(user, new Player(user));
-
-                                sendMsg(0, user, "success");
-                                mainForm.UpdateLog($"Signed in successfully: {user}/{pass}");
+                                sendFailedLogin(0, client, "failed");
+                                mainForm.UpdateLog($"Login failed: {user}/{pass} does not exist");
                             }
                         }
-                        else
-                        {
-                            sendFailedLogin(0, client, "failed");
-                            mainForm.UpdateLog($"Login failed: {user}/{pass} does not exist");
-                        }
-                    }
-                    else
-                    {
                         // do Register
-                        
-                        // Create an Account
-                        if (modifyAccount.Register(user, pass))
-                        {
-                            sendFailedLogin(0, client, "created", $"{pass}");
-                            mainForm.UpdateLog($"Create an Account: {user}/{pass}");
-                        }
-                        // Already exist
                         else
                         {
-                            sendFailedLogin(0, client, "pass", $"{modifyAccount.ForgotPassword(user)}");
-                            mainForm.UpdateLog($"Account already exist: {user}/{modifyAccount.ForgotPassword(user)}");
+                            // Create new account
+                            if (modifyAccount.Register(user, pass))
+                            {
+                                sendFailedLogin(0, client, "created", $"{pass}");
+                                mainForm.UpdateLog($"Create an Account: {user}/{pass}");
+                            }
+                            // Already exist account
+                            else
+                            {
+                                sendFailedLogin(0, client, "pass", $"{modifyAccount.ForgotPassword(user)}");
+                                mainForm.UpdateLog($"Account already exist: {user}/{modifyAccount.ForgotPassword(user)}");
+                            }
+                        }
+                    }
+                    // Join roon, Create Room
+                    else if (code == 1)
+                    {
+                        string user = msgPayload[1];
+                        string roomID = msgPayload[2];
+
+                        if (string.IsNullOrEmpty(roomID) || !Game.rooms.ContainsKey(roomID))
+                        {
+                            if (string.IsNullOrEmpty(roomID))
+                            {
+                                roomID = Game.RandomRoomID();
+                            }
+                            
+                            Room room = new Room(roomID, user);
+
+                            Game.rooms.Add(roomID, room);
+
+                            mainForm.UpdateLog($"Create room {roomID} for player {user}");
+                        }
+                        else
+                        {
+                            Game.rooms[roomID].AddPlayer(user, Game.currentUsers[user]);
+
+                            mainForm.UpdateLog($"Player {user} joined {roomID}");
+                        }
+
+                        foreach (string sendto in Game.rooms[roomID].Users.Keys)
+                        {
+                            sendToRoom(1, roomID, sendto);
+                        }
+                    }
+                    else if (code == 2)
+                    {
+                        string user = msgPayload[1];
+                        string roomID = msgPayload[2];
+
+                        getPlayer(user, roomID);
+                        mainForm.UpdateLog($"Player {user} is ready");
+
+                        sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
+                    }
+                    else if (code == 3)
+                    {
+                        string roomID = msgPayload[1].Split(':')[0];
+                        string from = msgPayload[1].Split(':')[1];
+
+                        var coor = msgPayload[2].Split(':');
+
+                        int x = int.Parse(coor[0]);
+                        int y = int.Parse(coor[1]);
+
+                        int shipLength = Game.PerformAttack(x, y, roomID, from);
+
+                        sendMove(3, from, roomID, x, y, shipLength);
+
+                        Game.rooms[roomID].ChangePlayerTurn(from);
+                        sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
+
+                        mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{shipLength}");
+
+                        if (Game.IsEndGame(roomID, from))
+                        {
+                            sendToRoom(4, roomID, from);
+                        }
+                    }
+                    else if (code == 6)
+                    {
+                        string roomID = msgPayload[1];
+                        string user = msgPayload[2];
+
+                        Room room = Game.rooms[roomID];
+                        int index = room.Users.Keys.ToList().IndexOf(user);
+                        room.isPlaying[index] = true;
+
+                        if (!room.isPlaying.Contains(false))
+                        {
+                            //
+                            sendToRoom(6, roomID);
                         }
                     }
                 }
-                else if (code == 1)
-                {
-                    string user = msgPayload[1];
-                    string roomID = msgPayload[2];
-
-                    if (string.IsNullOrEmpty(roomID))
-                    {
-                        roomID = Game.RandomRoomID();
-                        Room room = new Room(roomID, user);
-
-                        Game.rooms.Add(roomID, room);
-
-                        mainForm.UpdateLog($"Create room {roomID} for player {user}");
-                    }
-                    else
-                    {
-                        Game.rooms[roomID].AddPlayer(user, Game.currentUsers[user]);
-
-                        mainForm.UpdateLog($"Player {user} joined {roomID}");
-                    }
-
-                    foreach (string sendto in Game.rooms[roomID].Users.Keys)
-                    {
-                        sendToRoom(1, roomID, sendto);
-                    }
-                }
-                else if (code == 2)
-                {
-                    string user = msgPayload[1];
-                    string roomID = msgPayload[2];
-
-                    getPlayer(user, roomID);
-                    mainForm.UpdateLog($"Player {user} is ready");
-
-                    sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
-                }
-                else if (code == 3)
-                {
-                    string roomID = msgPayload[1].Split(':')[0];
-                    string from = msgPayload[1].Split(':')[1];
-
-                    var coor = msgPayload[2].Split(':');
-
-                    int x = int.Parse(coor[0]);
-                    int y = int.Parse(coor[1]);
-
-                    int shipLength = Game.PerformAttack(x, y, roomID, from);
-
-                    sendMove(3, from, roomID, x, y, shipLength);
-
-                    Game.rooms[roomID].ChangePlayerTurn(from);
-                    sendToRoom(2, roomID, Game.rooms[roomID].playerTurn);
-
-                    mainForm.UpdateLog($"Player {from} was attacked at {x}:{y}:{shipLength}");
-
-                    if (Game.IsEndGame(roomID, from))
-                    {
-                        sendToRoom(4, roomID, from);
-                    }
-                }
-                else if (code == 6)
-                {
-                    string roomID = msgPayload[1];
-                    string user = msgPayload[2];
-
-                    Room room = Game.rooms[roomID];
-                    int index = room.Users.Keys.ToList().IndexOf(user);
-                    room.isPlaying[index] = true;
-
-                    if (!room.isPlaying.Contains(false))
-                    {
-                        //
-                        sendToRoom(6, roomID);
-                    }
-                }
-            }
             }
             catch
             {
@@ -215,7 +229,6 @@ namespace Battleships
             }
         }
 
-        // Check 
         private void sendMsg(int code, string user, string msg, string msg1 = "")
         {
             string formattedMsg = $"{code}|{user}|{msg}|{msg1}";
@@ -268,17 +281,6 @@ namespace Battleships
             BinaryFormatter bf = new BinaryFormatter();
             int[,] playerShipSet = (int[,])bf.Deserialize(Game.currentTCPs[username].GetStream());
 
-/*            Console.WriteLine(username);
-
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Console.Write(playerShipSet[i, j] + " ");
-                }
-                Console.Write("\n");
-            }*/
-
             Player player = Game.currentUsers[username];
             player.setShipSet(playerShipSet);
 
@@ -304,7 +306,6 @@ namespace Battleships
                     {
                         if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                         {
-                            Console.WriteLine(ip.Address);
                             returnIP = ip.Address.ToString();
                         }
                     }
