@@ -103,19 +103,24 @@ namespace Battleships
                     string roomID = msgPayload[1];
                     string otherUser = msgPayload[2];
 
-                    Game.me.roomID = roomID;
-
-                    if (otherUser != Game.me.cName)
+                    if (otherUser == "")
+                    {
+                        MessageBox.Show("This room is currently full!", $"Cannot join to room", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        return;
+                    }
+                    else if (otherUser != Game.me.cName)
                     {
                         Game.player = new Player(otherUser);
                         Game.player.roomID = roomID;
 
-                        mainMenu.UpdateForm(roomID, otherUser);
+                        mainMenu.UpdateForm(1, roomID, otherUser);
                     }
                     else
                     {
-                        mainMenu.UpdateForm(roomID, "");
+                        mainMenu.UpdateForm(1, roomID, "");
                     }
+
+                    Game.me.roomID = roomID;
                 }
                 else if (code == 2)
                 {
@@ -149,9 +154,17 @@ namespace Battleships
 
                     playForm.PerformWin(userWin, playForm);
                 }
+                else if (code == 5)
+                {
+                    mainMenu.UpdateForm(5, "", msgPayload[2]);
+                }
                 else if (code == 6)
                 {
                     DeployShip.startGame(DeployShip);
+                }
+                else if (code == 7)
+                {
+                    playForm.PerformWin(cName, playForm);
                 }
             }
             catch (Exception ex)

@@ -15,7 +15,7 @@ namespace Battleships
     public partial class PlayForm : Form
     {
         int avtColorCounter = 0;
-
+        bool isEndGame = false;
         bool isPlaySound = false;
         SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track4_loop);
         int mouseCellX = -1;
@@ -274,17 +274,25 @@ namespace Battleships
                     // im loser
                     this.winlostPBox.Image = Properties.Resources.Defeat;
                 }
+
+                isEndGame = true; 
             }
         }
 
         private void backBtn_Click(object sender, EventArgs e)
         {
+            if (!isEndGame)
+            {
+                // send code 7
+                Game._ME.SendMsg(7, Game.me.roomID, Game.me.cName);
+            }
+
             this.Hide();
             this.Dispose();
 
             Network.DeployShip.Dispose();
 
-            Network.mainMenu.BackFromDeployFrom();
+            Network.mainMenu.BackFromDeployFrom(Game.me.cName);
             Network.mainMenu.Show();
         }
     }

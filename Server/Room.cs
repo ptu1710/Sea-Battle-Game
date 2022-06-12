@@ -15,6 +15,8 @@ namespace Battleships
 
         public string playerTurn { get; set; }
 
+        public bool isFull { get; set; }
+
         public List<bool> isPlaying { get; set; }
 
         public Room(string id, string user)
@@ -38,6 +40,21 @@ namespace Battleships
             {
                 Users.Add(playerName, new Player(playerName));
             }
+
+            if (Users.Count == 2)
+            {
+                isFull = true;
+            }
+        }
+
+        public void RemovePlayer(string playerName)
+        {
+            if (Users.ContainsKey(playerName))
+            {
+                Users.Remove(playerName);
+            }
+
+            isFull = false;
         }
 
         public void ChangePlayerTurn(string lastTurn)

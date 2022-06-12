@@ -241,12 +241,12 @@ namespace Battleships
 
         private void backBtn_Click(object sender, EventArgs e)
         {
-            Game.me = new Player(Game.me.cName);
+            Game._ME.SendMsg(1, Game.me.cName, Game.me.roomID);
 
             bgSound.Stop();
 
             Network.mainMenu.Show();
-            Network.mainMenu.BackFromDeployFrom();
+            Network.mainMenu.BackFromDeployFrom(Game.me.cName);
 
             this.Close();
             this.Dispose();

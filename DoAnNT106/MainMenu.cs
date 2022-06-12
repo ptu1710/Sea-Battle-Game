@@ -39,22 +39,28 @@ namespace Battleships
             Game._ME.SendMsg(1, Game.me.cName, roomidTBox.Text);
         }
 
-        private delegate void SafeUpdateForm(string roomID, string otherUser);
+        private delegate void SafeUpdateForm(int code, string roomID, string otherUser);
 
-        public void UpdateForm(string roomID, string otherUser)
+        public void UpdateForm(int code, string roomID, string otherUser)
         {
             if (this.InvokeRequired)
             {
                 var d = new SafeUpdateForm(UpdateForm);
-                this.Invoke(d, new object[] { roomID, otherUser });
+                this.Invoke(d, new object[] { code, roomID, otherUser });
             }
             else
             {
+                if (code == 5)
+                {
+                    usernameLabel.Text = usernameLabel.Text.Replace(otherUser, "");
+                    return;
+                }
+
                 if (usernameLabel.Text.Contains(Game.me.cName))
                 {
                     usernameLabel.Text = $"{roomID} - {otherUser}";
                 }
-                else if (usernameLabel.Text.Contains(" - ") && otherUser != "")
+                else if (usernameLabel.Text.Contains(" - ") && otherUser != Game.me.cName)
                 {
                     usernameLabel.Text += $"{otherUser}";
                 }
@@ -97,15 +103,19 @@ namespace Battleships
             isPlayingSound = !isPlayingSound;
         }
 
-        public void BackFromDeployFrom()
+        public void BackFromDeployFrom(string cName)
         {
-            usernameLabel.Text = Game.me.cName;
+            Game.me = null;
+            Game.me = new Player(cName);
+
+            usernameLabel.Text = cName;
             bgSound.PlayLooping();
         }
 
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
+            // e.Cancel = true;
+            Environment.Exit(0);
         }
 
         private void backBtn_Click(object sender, EventArgs e)

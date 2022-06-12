@@ -61,8 +61,8 @@ namespace Battleships
         {
             StreamReader sr = new StreamReader(client.GetStream());
 
-            try
-            {
+            //try
+            //{
                 while (IsListening && client.Connected)
                 {
                     string recvMsg = sr.ReadLine();
@@ -145,7 +145,22 @@ namespace Battleships
                         string user = msgPayload[1];
                         string roomID = msgPayload[2];
 
-                        if (string.IsNullOrEmpty(roomID) || !Game.rooms.ContainsKey(roomID))
+                        // Player left room
+                        if (Game.rooms.ContainsKey(roomID) && Game.rooms[roomID].Users.ContainsKey(user))
+                        {
+                            Game.rooms[roomID].RemovePlayer(user);
+
+                        if (Game.rooms[roomID].Users.Count == 0)
+                        {
+                            Game.rooms.Remove(roomID);
+                        }
+                        else
+                        {
+                            sendToRoom(5, roomID, user);
+;                        }
+                    }
+                        // Player create room
+                        else if (string.IsNullOrEmpty(roomID) || !Game.rooms.ContainsKey(roomID))
                         {
                             if (string.IsNullOrEmpty(roomID))
                             {
@@ -158,17 +173,32 @@ namespace Battleships
 
                             mainForm.UpdateLog($"Create room {roomID} for player {user}");
                         }
+                        // Player join room
                         else
                         {
-                            Game.rooms[roomID].AddPlayer(user, Game.currentUsers[user]);
-
-                            mainForm.UpdateLog($"Player {user} joined {roomID}");
+                            // Join room OK
+                            if (!Game.rooms[roomID].isFull)
+                            {
+                                Game.rooms[roomID].AddPlayer(user, Game.currentUsers[user]);
+                                mainForm.UpdateLog($"Player {user} joined {roomID}");
+                            }
+                            // Room is full
+                            else
+                            {
+                                sendMsg(1, user, "");
+                                continue;
+                            }
                         }
 
-                        foreach (string sendto in Game.rooms[roomID].Users.Keys)
+                        // Broadcast to all player in room
+                        if (Game.rooms.ContainsKey(roomID))
                         {
-                            sendToRoom(1, roomID, sendto);
+                        foreach (string playername in Game.rooms[roomID].Users.Keys)
+                        {
+                            sendToRoom(1, roomID, playername);
                         }
+                    }
+                        
                     }
                     else if (code == 2)
                     {
@@ -219,14 +249,27 @@ namespace Battleships
                             sendToRoom(6, roomID);
                         }
                     }
+                else if (code == 7)
+                {
+                    string roomID = msgPayload[1];
+                    string user = msgPayload[2];
+
+                    foreach (var player in Game.rooms[roomID].Users.Keys)
+                    {
+                        if (player != user)
+                        {
+                            sendMsg(7, player, roomID);
+                        }
+                    }
                 }
             }
-            catch
-            {
-                Console.WriteLine("Error at: FromClient()");
-                client.Close();
-                sr.Close();
-            }
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Error at: FromClient()");
+            //    client.Close();
+            //    sr.Close();
+            //}
         }
 
         private void sendMsg(int code, string user, string msg, string msg1 = "")
