@@ -14,7 +14,7 @@ namespace Battleships
 {
     public partial class MainMenu : Form
     {
-        bool isPlaySound = false;
+        bool isPlayingSound = false;
 
         SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track1_loop);
 
@@ -24,7 +24,7 @@ namespace Battleships
             CenterToScreen();
 
             usernameLabel.Text = cName;
-            Game.me = new Player(usernameLabel.Text);
+            Game.me = new Player(cName);
             Network.mainMenu = this;
         }
 
@@ -76,22 +76,14 @@ namespace Battleships
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            isPlaySound = true;
-            bgSound.PlayLooping();
+            button1_Click(sender, e);
+
             this.CenterToParent();
-        }
-
-        private void quitBtn_Click(object sender, EventArgs e)
-        {
-            Game._ME.SendMsg(0, Game.me.cName, "");
-            this.Hide();
-
-            Network.loginForm.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (isPlaySound)
+            if (isPlayingSound)
             {
                 bgSound.Stop();
                 button1.BackgroundImage = Properties.Resources.SpeakerMute;
@@ -102,12 +94,13 @@ namespace Battleships
                 button1.BackgroundImage= Properties.Resources.SpeakerPlay;
             }
 
-            isPlaySound = !isPlaySound;
+            isPlayingSound = !isPlayingSound;
         }
 
         public void BackFromDeployFrom()
         {
             usernameLabel.Text = Game.me.cName;
+            bgSound.PlayLooping();
         }
 
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)

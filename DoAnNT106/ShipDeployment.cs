@@ -15,7 +15,7 @@ namespace Battleships
 
     public partial class ShipDeployment : Form
     {
-        bool isPlaySound = false;
+        bool isPlayingSound = false;
         SoundPlayer bgSound = new SoundPlayer(Properties.Resources.bgm_track3_loop);
         private int mouseCellX = -1;
         private int mouseCellY = -1;
@@ -58,11 +58,14 @@ namespace Battleships
 
                         if (isHorizontal)
                         {
-                            for (int i = 0; i < Game.shipLengths[currentShip]; i++)
+                            for (int i = mouseCellX; i < mouseCellX + Game.shipLengths[currentShip]; i++)
                             {
-                                if (mouseCellX + i <= 9 && mouseCellY <= 9)
+                                if (i <= 9 && mouseCellY <= 9)
                                 {
-                                    GraphicContext.DrawInnerFrameCell(mouseCellX + i, mouseCellY, currentShip, deckPictureBox);
+                                    if (Game.CanThereBeShip(currentShip, mouseCellX, mouseCellY, isHorizontal, Game.me.ShipSet))
+                                    {
+                                        GraphicContext.DrawColoredCell(i, mouseCellY, currentShip, deckPictureBox);
+                                    }
                                 }
                                 else
                                 {
@@ -72,11 +75,14 @@ namespace Battleships
                         }
                         else
                         {
-                            for (int i = 0; i < Game.shipLengths[currentShip]; i++)
+                            for (int i = mouseCellY; i < mouseCellY + Game.shipLengths[currentShip]; i++)
                             {
-                                if (mouseCellY + i <= 9 && mouseCellX <= 9)
+                                if (i <= 9 && mouseCellX <= 9)
                                 {
-                                    GraphicContext.DrawInnerFrameCell(mouseCellX, mouseCellY + i, currentShip, deckPictureBox);
+                                    if (Game.CanThereBeShip(currentShip, mouseCellX, mouseCellY, isHorizontal, Game.me.ShipSet))
+                                    {
+                                        GraphicContext.DrawColoredCell(mouseCellX, i, currentShip, deckPictureBox);
+                                    }
                                 }
                                 else
                                 {
@@ -150,8 +156,9 @@ namespace Battleships
                     deckPictureBox.Refresh();
                     currentShip = -1;
 
-
+                    // All ships are deployed
                     bool areAllShipsDeployed = true;
+
                     foreach (bool isDeployed in shipDeployed)
                     {
                         if (!isDeployed)
@@ -213,7 +220,7 @@ namespace Battleships
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (isPlaySound)
+            if (isPlayingSound)
             {
                 bgSound.Stop();
                 button1.BackgroundImage = Properties.Resources.SpeakerMute;
@@ -224,20 +231,25 @@ namespace Battleships
                 button1.BackgroundImage = Properties.Resources.SpeakerPlay;
             }
 
-            isPlaySound = !isPlaySound;
+            isPlayingSound = !isPlayingSound;
         }
 
         private void ShipDeployment_Load(object sender, EventArgs e)
         {
-            isPlaySound = true;
-            bgSound.PlayLooping();
+            button1_Click(sender, e);
         }
 
         private void backBtn_Click(object sender, EventArgs e)
         {
+            Game.me = new Player(Game.me.cName);
+
+            bgSound.Stop();
+
             Network.mainMenu.Show();
             Network.mainMenu.BackFromDeployFrom();
-            this.Hide();
+
+            this.Close();
+            this.Dispose();
         }
 
         private delegate void SafeUpdateStartGame(Form form);

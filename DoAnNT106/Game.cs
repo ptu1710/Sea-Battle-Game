@@ -37,10 +37,13 @@ namespace Battleships
             {
                 if (cellX + shipLengths[currentShip] - 1 < mapSize)
                 {
-                    if (shipSet[cellX, cellY] != -1)
+                    for (int i = cellX; i < cellX + shipLengths[currentShip]; i++)
                     {
-                        // Invalid layout
-                        return false;
+                        if (shipSet[i, cellY] != -1)
+                        {
+                            // Invalid layout
+                            return false;
+                        }
                     }
 
                     return true;
@@ -56,6 +59,14 @@ namespace Battleships
             {
                 if (cellY + shipLengths[currentShip] - 1 < mapSize)
                 {
+                    for (int i = cellY; i < cellY + shipLengths[currentShip]; i++)
+                    {
+                        if (shipSet[cellX, i] != -1)
+                        {
+                            // Invalid layout
+                            return false;
+                        }
+                    }
                     if (shipSet[cellX, cellY] != -1)
                     {
                         // Invalid layout
@@ -89,11 +100,28 @@ namespace Battleships
                     shipSet[cellX, cellY + i] = currentShip;
                 }
             }
+
+            //Console.WriteLine();
+            //for (int y = 0; y < 10; y++)
+            //{
+            //    for (int x = 0; x < 10; x++)
+            //    {
+            //        if (shipSet[x, y] != -1)
+            //        {
+            //            Console.Write("+" + shipSet[x, y] + " ");
+            //        }
+            //        else
+            //        {
+            //            Console.Write(shipSet[x, y] + " ");
+            //        }
+            //    }
+            //    Console.WriteLine();
+            //}
         }
 
         public static bool CanAttackAt(int x, int y)
         {
-            return !(player.RevealedCells[x, y]);
+            return !player.RevealedCells[x, y];
         }
 
         public static int RandomAttack()

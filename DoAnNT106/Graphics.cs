@@ -72,13 +72,14 @@ namespace Battleships
             return (coor < 34 || coor > 366) ? -1 : coor;
         }
 
+        // return a index of current cell 
         static public int GetCell(int coor)
         {
             return (coor - 33) / 33;
         }
 
-        // PictureBox paint event handler for drawing a colored cell.
-        static public void DrawColoredCell(int cellX, int cellY, int color, PaintEventArgs e)
+        // PictureBox paint event handler for drawing a sunken cell.
+        static public void DrawSunkenCell(int cellX, int cellY, int color, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(brushs[color], (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
@@ -95,17 +96,18 @@ namespace Battleships
             e.Graphics.DrawImage(splashImage, (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
+        // PictureBox paint event handler for drawing target position.
         static public void DrawScope(int cellX, int cellY, PictureBox deckPictureBox)
         {
             Graphics g = deckPictureBox.CreateGraphics();
             g.DrawImage(targetImage, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
         }
 
-        static public void DrawInnerFrameCell(int cellX, int cellY, int color, PictureBox deckPictureBox)
+        // PictureBox paint event handler for drawing colored cells on a deck.
+        static public void DrawColoredCell(int cellX, int cellY, int color, PictureBox deckPictureBox)
         {
             Graphics g = deckPictureBox.CreateGraphics();
-            Pen framePen = new Pen(brushs[color], 3);
-            g.DrawRectangle(framePen, (cellX + 1) * 33, (cellY + 1) * 33, 33, 33);
+            g.FillRectangle(brushs[color], (cellX + 1) * 33 + 1, (cellY + 1) * 33 + 1, 33, 33);
         }
 
         // PictureBox paint event handler for drawing a ship set on a deck.
@@ -156,7 +158,7 @@ namespace Battleships
                         {
                             if (shipSet[x, y] == currentShip)
                             {
-                                DrawColoredCell(x, y, currentShip, e);
+                                DrawSunkenCell(x, y, currentShip, e);
                             }
                         }
                     }

@@ -75,7 +75,7 @@
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.BackColor = System.Drawing.Color.Transparent;
             this.usernameLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.usernameLabel.ForeColor = System.Drawing.Color.OldLace;
             this.usernameLabel.Location = new System.Drawing.Point(39, 424);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(102, 21);
@@ -88,7 +88,7 @@
             this.roomidTBox.BackColor = System.Drawing.Color.MidnightBlue;
             this.roomidTBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.roomidTBox.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roomidTBox.ForeColor = System.Drawing.Color.Chocolate;
+            this.roomidTBox.ForeColor = System.Drawing.Color.OldLace;
             this.roomidTBox.Location = new System.Drawing.Point(72, 120);
             this.roomidTBox.Name = "roomidTBox";
             this.roomidTBox.Size = new System.Drawing.Size(200, 34);

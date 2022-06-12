@@ -74,7 +74,7 @@
             this.rotateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.rotateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rotateBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rotateBtn.Location = new System.Drawing.Point(96, 353);
+            this.rotateBtn.Location = new System.Drawing.Point(88, 353);
             this.rotateBtn.Name = "rotateBtn";
             this.rotateBtn.Size = new System.Drawing.Size(69, 65);
             this.rotateBtn.TabIndex = 1;
@@ -144,7 +144,7 @@
             // 
             this.playBtn.Enabled = false;
             this.playBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playBtn.Location = new System.Drawing.Point(187, 353);
+            this.playBtn.Location = new System.Drawing.Point(179, 353);
             this.playBtn.Name = "playBtn";
             this.playBtn.Size = new System.Drawing.Size(140, 65);
             this.playBtn.TabIndex = 0;
@@ -164,13 +164,13 @@
             // roomIDLabel
             // 
             this.roomIDLabel.AutoSize = true;
-            this.roomIDLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.roomIDLabel.BackColor = System.Drawing.Color.Transparent;
             this.roomIDLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.roomIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roomIDLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.roomIDLabel.Location = new System.Drawing.Point(0, 433);
+            this.roomIDLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomIDLabel.ForeColor = System.Drawing.Color.OldLace;
+            this.roomIDLabel.Location = new System.Drawing.Point(0, 432);
             this.roomIDLabel.Name = "roomIDLabel";
-            this.roomIDLabel.Size = new System.Drawing.Size(0, 20);
+            this.roomIDLabel.Size = new System.Drawing.Size(0, 21);
             this.roomIDLabel.TabIndex = 5;
             // 
             // button1
@@ -220,7 +220,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.deckPictureBox);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ShipDeployment";
